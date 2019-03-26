@@ -65,6 +65,7 @@
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Country.cs" />
     <Compile Include="Models\DocuentStatus.cs" />
+    <Compile Include="Models\DummyDataContext.cs" />
     <Compile Include="Models\EntityBase.cs" />
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\ResourceBase.cs" />
