@@ -19,6 +19,5 @@ namespace FrozenSoftware.Models
         public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }
-             
     }
 }
