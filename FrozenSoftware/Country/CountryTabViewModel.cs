@@ -1,9 +1,5 @@
 ﻿using FrozenSoftware.Models;
-using System;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FrozenSoftware
 {
@@ -11,6 +7,7 @@ namespace FrozenSoftware
     {
         public CountryTabViewModel()
         {
+            this.Countries = DummyDataContext.Context.Countries;
         }
 
         public ObservableCollection<Country> Countries { get; set; }

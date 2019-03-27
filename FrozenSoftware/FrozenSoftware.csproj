@@ -85,7 +85,7 @@
       <DependentUpon>CountryTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Country\CountryTabViewModel.cs" />
-    <Compile Include="Shell\ShelViewModel.cs" />
+    <Compile Include="Shell\ShellViewModel.cs" />
     <Compile Include="Shell\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
