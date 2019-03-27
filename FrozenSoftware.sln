@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware", "FrozenSof
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.Models", "FrozenSoftware.Models\FrozenSoftware.Models.csproj", "{9815B369-734B-4E12-83CA-51D8ADB5ED66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.Controls", "FrozenSoftware.Controls\FrozenSoftware.Controls.csproj", "{B0ED6203-7E92-4731-BED9-342FD3C786DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{9815B369-734B-4E12-83CA-51D8ADB5ED66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9815B369-734B-4E12-83CA-51D8ADB5ED66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9815B369-734B-4E12-83CA-51D8ADB5ED66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0ED6203-7E92-4731-BED9-342FD3C786DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0ED6203-7E92-4731-BED9-342FD3C786DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0ED6203-7E92-4731-BED9-342FD3C786DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0ED6203-7E92-4731-BED9-342FD3C786DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

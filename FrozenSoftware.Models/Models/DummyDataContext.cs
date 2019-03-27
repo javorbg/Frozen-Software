@@ -6,19 +6,75 @@ using System.Threading.Tasks;
 
 namespace FrozenSoftware.Models
 {
-
     public class DummyDataContext
     {
+        private static DummyDataContext context;
+
+        public static DummyDataContext Context
+        {
+            get
+            {
+                if (context == null)
+                    context = new DummyDataContext();
+
+                return context;
+            }
+        }
+
         public ObservableCollection<DocuentStatus> DocuentStatuses { get; set; }
+
         public ObservableCollection<Country> Countries { get; set; }
 
         public ObservableCollection<PaymentType> PaymentTypes { get; set; }
 
-        public DummyDataContext()
+        public ObservableCollection<Contact> Contacts { get; set; }
+
+        public ObservableCollection<Company> Companies { get; set; }
+
+        private DummyDataContext()
         {
             InitializeCountries();
             InitializeDocumentStatuses();
             InitializePaymentTypes();
+            InitializeContacts();
+            InitializeDatabaseOwnerCompany();
+        }
+
+        private void InitializeContacts()
+        {
+            Contacts = new ObservableCollection<Contact>();
+            Country country = Countries.FirstOrDefault(x => x.Code == "BG");
+            Contacts.Add(new Contact()
+            {
+                Id = 1,
+                Name = "Rovaj",
+                Surname = "Vorodot",
+                Family = "Vehsarba",
+                Address = "Sofia",
+                ZipCode = "1000",
+                CompanyId = 1,
+                Email = "rovaj@gmail.com",
+                Country = country,
+                CountryId = country.Id,
+                Phone = "+35988888888888888"
+            });
+        }
+
+        private void InitializeDatabaseOwnerCompany()
+        {
+            Companies = new ObservableCollection<Company>();
+            Country country = Countries.FirstOrDefault(x => x.Code == "BG");
+            Companies.Add(new Company()
+            {
+                Id = 1,
+                Code = "1",
+                CompanyName = "Rovaj",
+                Address = "Sofia",
+                Country = country,
+                CountryId = country.Id,
+                IsDatabaseOwner = true,
+                ZipCode = "1000"
+            });
         }
 
         private void InitializePaymentTypes()
