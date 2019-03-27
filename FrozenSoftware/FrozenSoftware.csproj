@@ -81,8 +81,12 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ViewModels\ShelViewModel.cs" />
-    <Compile Include="View\Shell.xaml.cs">
+    <Compile Include="Country\CountryTab.xaml.cs">
+      <DependentUpon>CountryTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Country\CountryTabViewModel.cs" />
+    <Compile Include="Shell\ShelViewModel.cs" />
+    <Compile Include="Shell\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -114,7 +118,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\Shell.xaml">
+    <Page Include="Country\CountryTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shell\Shell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,10 +6,23 @@ using System.Threading.Tasks;
 
 namespace FrozenSoftware.Models
 {
-
     public class DummyDataContext
     {
+        private static DummyDataContext context;
+
+        public static DummyDataContext Context
+        {
+            get
+            {
+                if (context == null)
+                    context = new DummyDataContext();
+
+                return context;
+            }
+        }
+
         public ObservableCollection<DocuentStatus> DocuentStatuses { get; set; }
+
         public ObservableCollection<Country> Countries { get; set; }
 
         public ObservableCollection<PaymentType> PaymentTypes { get; set; }
@@ -18,7 +31,7 @@ namespace FrozenSoftware.Models
 
         public ObservableCollection<Company> Companies { get; set; }
 
-        public DummyDataContext()
+        private DummyDataContext()
         {
             InitializeCountries();
             InitializeDocumentStatuses();
