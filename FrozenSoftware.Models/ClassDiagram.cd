@@ -1,48 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="FrozenSoftware.Models.Company">
-    <Position X="6" Y="3.5" Width="3.75" />
+    <Position X="7.5" Y="3.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAAAAAAAgAAAAAAIQAAADAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAQAAAAAAAAAAAAAAgAAAAAAIQAAADAAAAAAAAAgA=</HashCode>
       <FileName>Models\Company.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FrozenSoftware.Models.EntityBase" Collapsed="true">
-    <Position X="0.75" Y="1" Width="1.5" />
+  <Class Name="FrozenSoftware.Models.EntityBase">
+    <Position X="5.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\EntityBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="FrozenSoftware.Models.PaymentType" Collapsed="true">
-    <Position X="6" Y="2" Width="1.5" />
-    <InheritanceLine Type="FrozenSoftware.Models.ResourceBase" FixedToPoint="true">
-      <Path>
-        <Point X="3.75" Y="1.691" />
-        <Point X="3.75" Y="1.941" />
-        <Point X="7.875" Y="1.941" />
-        <Point X="7.875" Y="2" />
-        <Point X="7.5" Y="2" />
-      </Path>
-    </InheritanceLine>
+  <Class Name="FrozenSoftware.Models.PaymentType">
+    <Position X="0.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\PaymentType.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FrozenSoftware.Models.ResourceBase" Collapsed="true">
-    <Position X="3" Y="1" Width="1.5" />
+  <Class Name="FrozenSoftware.Models.ResourceBase">
+    <Position X="3" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\ResourceBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FrozenSoftware.Models.DocuentStatus" Collapsed="true">
-    <Position X="6" Y="1" Width="1.5" />
+  <Class Name="FrozenSoftware.Models.DocuentStatus">
+    <Position X="3" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\DocuentStatus.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FrozenSoftware.Models.DummyDataContext">
+    <Position X="12.5" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>BAAIAkAAAAAAAAAAAAAQEQAAAAAgAAEAAAAAAAAgAAA=</HashCode>
+      <FileName>Models\DummyDataContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FrozenSoftware.Models.Country">
+    <Position X="5.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Country.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FrozenSoftware.Models.Contact">
+    <Position X="10" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACIAAAAAAAAAAAQABAIQAAADAAAAIAAABAA=</HashCode>
+      <FileName>Models\Contact.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

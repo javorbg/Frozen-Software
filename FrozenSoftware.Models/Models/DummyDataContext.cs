@@ -14,11 +14,54 @@ namespace FrozenSoftware.Models
 
         public ObservableCollection<PaymentType> PaymentTypes { get; set; }
 
+        public ObservableCollection<Contact> Contacts { get; set; }
+
+        public ObservableCollection<Company> Companies { get; set; }
+
         public DummyDataContext()
         {
             InitializeCountries();
             InitializeDocumentStatuses();
             InitializePaymentTypes();
+            InitializeContacts();
+            InitializeDatabaseOwnerCompany();
+        }
+
+        private void InitializeContacts()
+        {
+            Contacts = new ObservableCollection<Contact>();
+            Country country = Countries.FirstOrDefault(x => x.Code == "BG");
+            Contacts.Add(new Contact()
+            {
+                Id = 1,
+                Name = "Rovaj",
+                Surname = "Vorodot",
+                Family = "Vehsarba",
+                Address = "Sofia",
+                ZipCode = "1000",
+                CompanyId = 1,
+                Email = "rovaj@gmail.com",
+                Country = country,
+                CountryId = country.Id,
+                Phone = "+35988888888888888"
+            });
+        }
+
+        private void InitializeDatabaseOwnerCompany()
+        {
+            Companies = new ObservableCollection<Company>();
+            Country country = Countries.FirstOrDefault(x => x.Code == "BG");
+            Companies.Add(new Company()
+            {
+                Id = 1,
+                Code = "1",
+                CompanyName = "Rovaj",
+                Address = "Sofia",
+                Country = country,
+                CountryId = country.Id,
+                IsDatabaseOwner = true,
+                ZipCode = "1000"
+            });
         }
 
         private void InitializePaymentTypes()

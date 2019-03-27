@@ -13,5 +13,7 @@
         public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }
+
+        public bool IsDatabaseOwner { get; set; }
     }
 }
