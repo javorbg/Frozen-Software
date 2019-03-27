@@ -21,7 +21,7 @@ namespace FrozenSoftware.Models
             }
         }
 
-        public ObservableCollection<DocuentStatus> DocuentStatuses { get; set; }
+        public ObservableCollection<DocumentStatus> DocumentStatuses { get; set; }
 
         public ObservableCollection<Country> Countries { get; set; }
 
@@ -80,19 +80,19 @@ namespace FrozenSoftware.Models
         private void InitializePaymentTypes()
         {
             PaymentTypes = new ObservableCollection<PaymentType>();
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Cash", ResourceName = "Cash" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Bank", ResourceName = "Bank" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Vaucher", ResourceName = "Vaucher" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Cash and Vaucher", ResourceName = "CashAndVaucher" });
+            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Cash", ResourceName = "Cash" });
+            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Bank", ResourceName = "Bank" });
+            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Vaucher", ResourceName = "Vaucher" });
+            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Cash and Vaucher", ResourceName = "CashAndVaucher" });
         }
 
         private void InitializeDocumentStatuses()
         {
-            DocuentStatuses = new ObservableCollection<DocuentStatus>();
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Draft", ResourceName = "Draft" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Paid", ResourceName = "Paid" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Posted", ResourceName = "Posted" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Cancelled", ResourceName = "Cancelled" });
+            DocumentStatuses = new ObservableCollection<DocumentStatus>();
+            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Draft", ResourceName = "Draft" });
+            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Paid", ResourceName = "Paid" });
+            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Posted", ResourceName = "Posted" });
+            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Cancelled", ResourceName = "Cancelled" });
         }
 
         private void InitializeCountries()

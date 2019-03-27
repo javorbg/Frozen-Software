@@ -1,6 +1,6 @@
 ﻿namespace FrozenSoftware.Models
 {
-    public class DocuentStatus : ResourceBase
+    public class DocumentStatus : ResourceBase
     {
         public string Name { get; set; }
     }
