@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.Models", "Fr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.Controls", "FrozenSoftware.Controls\FrozenSoftware.Controls.csproj", "{B0ED6203-7E92-4731-BED9-342FD3C786DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.WebApi", "FrozenSoftware.WebApi.Domain\FrozenSoftware.WebApi.csproj", "{A69105B0-57ED-4037-A96E-57DC20B9A670}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.WebApi.Tests", "FrozenSoftware.WebApi.Domain.Tests\FrozenSoftware.WebApi.Tests.csproj", "{8B0469BE-DB06-46D1-9675-8D82F38A9BD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{B0ED6203-7E92-4731-BED9-342FD3C786DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0ED6203-7E92-4731-BED9-342FD3C786DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0ED6203-7E92-4731-BED9-342FD3C786DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A69105B0-57ED-4037-A96E-57DC20B9A670}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A69105B0-57ED-4037-A96E-57DC20B9A670}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A69105B0-57ED-4037-A96E-57DC20B9A670}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A69105B0-57ED-4037-A96E-57DC20B9A670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B0469BE-DB06-46D1-9675-8D82F38A9BD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B0469BE-DB06-46D1-9675-8D82F38A9BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B0469BE-DB06-46D1-9675-8D82F38A9BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B0469BE-DB06-46D1-9675-8D82F38A9BD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
