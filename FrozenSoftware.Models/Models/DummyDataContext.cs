@@ -80,10 +80,10 @@ namespace FrozenSoftware.Models
         private void InitializePaymentTypes()
         {
             PaymentTypes = new ObservableCollection<PaymentType>();
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Cash", ResourceName = "Cash" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Bank", ResourceName = "Bank" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Vaucher", ResourceName = "Vaucher" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Cash and Vaucher", ResourceName = "CashAndVaucher" });
+            PaymentTypes.Add(new PaymentType() { Id = 1, Name = "Cash", ResourceName = "Cash" });
+            PaymentTypes.Add(new PaymentType() { Id = 1, Name = "Bank", ResourceName = "Bank" });
+            PaymentTypes.Add(new PaymentType() { Id = 1, Name = "Vaucher", ResourceName = "Vaucher" });
+            PaymentTypes.Add(new PaymentType() { Id = 1, Name = "Cash and Vaucher", ResourceName = "CashAndVaucher" });
         }
 
         private void InitializeDocumentStatuses()

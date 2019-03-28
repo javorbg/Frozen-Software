@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Controls;
 using FrozenSoftware.Models;
 using Prism.Commands;
 using Prism.Regions;
@@ -16,23 +17,41 @@ namespace FrozenSoftware
             this.regionManger = regionManger;
             this.unityContainer = unityContainer;
             ShowCountryCommand = new DelegateCommand(OnShowCountryCommand);
+            ShowPaymentTypeCommand = new DelegateCommand(OnShowPaymentTypeCommand);
         }
 
+   
         public DelegateCommand ShowCountryCommand { get; set; }
+
+        public DelegateCommand ShowPaymentTypeCommand { get; set; }
 
         private void OnShowCountryCommand()
         {
+            InjectViewToRegionBy(typeof(CountryTab));
+        }
+
+        private void OnShowPaymentTypeCommand()
+        {
+            InjectViewToRegionBy(typeof(PaymentTypeTab));
+        }
+
+        private void InjectViewToRegionBy(Type viewType)
+        {
             IRegion region = regionManger.Regions[RegionNames.WorkSpaceRegion];
-            string viewName = nameof(CountryTab);
-            object tab = region.GetView(viewName);
+            string viewName = viewType.Name;
+            TabItem tab = region.GetView(viewName) as TabItem;
 
             if (tab == null)
             {
-                tab = unityContainer.Resolve(typeof(CountryTab));
+                tab = unityContainer.Resolve(viewType) as TabItem;
+                tab.IsSelected = true;
                 region.Add(tab, viewName);
             }
+            else
+                tab.IsSelected = true;
 
             region.Activate(tab);
         }
     }
 }
+

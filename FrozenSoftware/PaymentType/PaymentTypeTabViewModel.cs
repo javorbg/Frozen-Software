@@ -5,13 +5,16 @@ using System.Collections.ObjectModel;
 using Unity;
 
 
-namespace FrozenSoftware.PaymentType
+namespace FrozenSoftware
 {
     public class PaymentTypeTabViewModel : TabBaseViewModel
     {
         public PaymentTypeTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer) : 
             base(regionManger, unityContainer)
         {
+            PaymentTypes = DummyDataContext.Context.PaymentTypes;
         }
+
+        public ObservableCollection<PaymentType> PaymentTypes { get; set; }
     }
 }
