@@ -96,6 +96,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Company\CompanyTab.xaml.cs">
+      <DependentUpon>CompanyTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Company\CompanyTabViewModel.cs" />
     <Compile Include="Contact\ContactTabViewModel.cs" />
     <Compile Include="Country\CountryTab.xaml.cs">
       <DependentUpon>CountryTab.xaml</DependentUpon>
@@ -145,6 +149,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Company\CompanyTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Country\CountryTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

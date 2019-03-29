@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FrozenSoftware.Models
 {
     public class DummyDataContext
     {
         private static DummyDataContext context;
+
+        private DummyDataContext()
+        {
+            InitializeCountries();
+            InitializeDocumentStatuses();
+            InitializePaymentTypes();
+            InitializeDatabaseOwnerCompany();
+            InitializeContacts();
+        }
 
         public static DummyDataContext Context
         {
@@ -31,19 +37,11 @@ namespace FrozenSoftware.Models
 
         public ObservableCollection<Company> Companies { get; set; }
 
-        private DummyDataContext()
-        {
-            InitializeCountries();
-            InitializeDocumentStatuses();
-            InitializePaymentTypes();
-            InitializeContacts();
-            InitializeDatabaseOwnerCompany();
-        }
-
         private void InitializeContacts()
         {
             Contacts = new ObservableCollection<Contact>();
             Country country = Countries.FirstOrDefault(x => x.Code == "BG");
+            Company company = Companies.FirstOrDefault(x => x.Id == 1);
             Contacts.Add(new Contact()
             {
                 Id = 1,
@@ -56,7 +54,8 @@ namespace FrozenSoftware.Models
                 Email = "rovaj@gmail.com",
                 Country = country,
                 CountryId = country.Id,
-                Phone = "+35988888888888888"
+                Phone = "+35988888888888888",
+                Company = company,
             });
         }
 

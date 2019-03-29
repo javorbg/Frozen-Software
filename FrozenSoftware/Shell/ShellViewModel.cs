@@ -16,30 +16,14 @@ namespace FrozenSoftware
         {
             this.regionManger = regionManger;
             this.unityContainer = unityContainer;
-            ShowCountryCommand = new DelegateCommand(OnShowCountryCommand);
-            ShowPaymentTypeCommand = new DelegateCommand(OnShowPaymentTypeCommand);
-            ShowDocumentStatusCommand = new DelegateCommand(OnShowDocumentStatusCommand);
+            ShowTabCommand = new DelegateCommand<Type>(OnShowTabCommand);
         }
 
-        public DelegateCommand ShowCountryCommand { get; set; }
+        public DelegateCommand<Type> ShowTabCommand { get; set; }
 
-        public DelegateCommand ShowPaymentTypeCommand { get; set; }
-
-        public DelegateCommand ShowDocumentStatusCommand { get; set; }
-
-        private void OnShowCountryCommand()
+        private void OnShowTabCommand(Type viewType)
         {
-            InjectViewToRegionBy(typeof(CountryTab));
-        }
-
-        private void OnShowPaymentTypeCommand()
-        {
-            InjectViewToRegionBy(typeof(PaymentTypeTab));
-        }
-
-        private void OnShowDocumentStatusCommand()
-        {
-            InjectViewToRegionBy(typeof(DocumentStatusTab));
+            InjectViewToRegionBy(viewType);
         }
 
         private void InjectViewToRegionBy(Type viewType)

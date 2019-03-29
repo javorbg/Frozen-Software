@@ -14,6 +14,6 @@ namespace FrozenSoftware
             Contacts = DummyDataContext.Context.Contacts;
         }
 
-        public ObservableCollection<Contact> Contacts { get; }
+        public ObservableCollection<Contact> Contacts { get; set; }
     }
 }

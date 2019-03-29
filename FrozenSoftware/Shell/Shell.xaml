@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FrozenSoftware"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
@@ -31,8 +32,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Content="Company" Margin="2"/>
-                    <Button Grid.Row="1" Content="Contact" Margin="2"/>
+                    <Button Grid.Row="0" Content="Company" Margin="2" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:CompanyTab}"/>
+                    <Button Grid.Row="1" Content="Contact" Margin="2" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:ContactTab}"/>
                 </Grid>
             </Expander>
             <Expander Grid.Row="1" Header="General data" IsExpanded="True">
@@ -44,9 +45,9 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Content="County" Margin="2" Command="{Binding ShowCountryCommand }"/>
-                    <Button Grid.Row="1" Content="Document status" Margin="2" Command="{Binding ShowDocumentStatusCommand}" />
-                    <Button Grid.Row="2" Content="Document payment type" Margin="2" Command="{Binding ShowPaymentTypeCommand}"/>
+                    <Button Grid.Row="0" Content="County" Margin="2"  Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:CountryTab}"/>
+                    <Button Grid.Row="1" Content="Document status" Margin="2" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:DocumentStatusTab}"/>
+                    <Button Grid.Row="2" Content="Document payment type" Margin="2"  Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:PaymentTypeTab}"/>
                 </Grid>
             </Expander>
 
@@ -56,7 +57,7 @@
                       ResizeBehavior="PreviousAndNext" Background="#FFDDDDDD"/>
         <Grid Grid.Column="2">
             <TabControl prism:RegionManager.RegionName="WorkSpaceRegion"/>
-            
+
 
         </Grid>
     </Grid>

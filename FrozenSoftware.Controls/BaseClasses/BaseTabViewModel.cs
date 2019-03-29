@@ -1,12 +1,10 @@
-﻿using System;
-using System.Windows.Controls;
-using FrozenSoftware.Models;
-using Prism.Commands;
-using Prism.Regions;
-using Unity;
-
-namespace FrozenSoftware.Controls
+﻿namespace FrozenSoftware.Controls
 {
+    using FrozenSoftware.Models;
+    using Prism.Commands;
+    using Prism.Regions;
+    using Unity;
+
     public abstract class BaseTabViewModel
     {
         public BaseTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
@@ -16,9 +14,11 @@ namespace FrozenSoftware.Controls
             CloseTabCommand = new DelegateCommand(OnCloseTabCommand);
         }
 
-        protected IRegionManager RegionManger { get; set; }
-        protected IUnityContainer UnityContainer { get; set; }
         public DelegateCommand CloseTabCommand { get; set; }
+
+        protected IRegionManager RegionManger { get; set; }
+
+        protected IUnityContainer UnityContainer { get; set; }
 
         protected virtual void OnCloseTabCommand()
         {

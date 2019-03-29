@@ -4,7 +4,6 @@ using Prism.Regions;
 using System.Collections.ObjectModel;
 using Unity;
 
-
 namespace FrozenSoftware
 {
     public class PaymentTypeTabViewModel : BaseTabViewModel

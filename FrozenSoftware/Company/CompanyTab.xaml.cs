@@ -3,11 +3,11 @@
 namespace FrozenSoftware
 {
     /// <summary>
-    /// Interaction logic for ContactTab.xaml
+    /// Interaction logic for CompanyTab.xaml
     /// </summary>
-    public partial class ContactTab : TabItem
+    public partial class CompanyTab : TabItem
     {
-        public ContactTab()
+        public CompanyTab()
         {
             InitializeComponent();
         }
