@@ -71,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapters\RegionAdapterTabControl.cs" />
-    <Compile Include="BaseClasses\TabBaseViewModel.cs" />
+    <Compile Include="BaseClasses\BaseTabViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

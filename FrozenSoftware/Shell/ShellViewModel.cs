@@ -18,12 +18,14 @@ namespace FrozenSoftware
             this.unityContainer = unityContainer;
             ShowCountryCommand = new DelegateCommand(OnShowCountryCommand);
             ShowPaymentTypeCommand = new DelegateCommand(OnShowPaymentTypeCommand);
+            ShowDocumentStatusCommand = new DelegateCommand(OnShowDocumentStatusCommand);
         }
 
-   
         public DelegateCommand ShowCountryCommand { get; set; }
 
         public DelegateCommand ShowPaymentTypeCommand { get; set; }
+
+        public DelegateCommand ShowDocumentStatusCommand { get; set; }
 
         private void OnShowCountryCommand()
         {
@@ -33,6 +35,11 @@ namespace FrozenSoftware
         private void OnShowPaymentTypeCommand()
         {
             InjectViewToRegionBy(typeof(PaymentTypeTab));
+        }
+
+        private void OnShowDocumentStatusCommand()
+        {
+            InjectViewToRegionBy(typeof(DocumentStatusTab));
         }
 
         private void InjectViewToRegionBy(Type viewType)
@@ -54,4 +61,3 @@ namespace FrozenSoftware
         }
     }
 }
-

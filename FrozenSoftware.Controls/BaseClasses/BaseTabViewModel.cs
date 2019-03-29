@@ -7,9 +7,9 @@ using Unity;
 
 namespace FrozenSoftware.Controls
 {
-    public abstract class TabBaseViewModel
+    public abstract class BaseTabViewModel
     {
-        public TabBaseViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
+        public BaseTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
         {
             RegionManger = regionManger;
             UnityContainer = unityContainer;

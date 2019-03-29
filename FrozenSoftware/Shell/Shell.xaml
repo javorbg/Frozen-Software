@@ -45,7 +45,7 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Button Grid.Row="0" Content="County" Margin="2" Command="{Binding ShowCountryCommand }"/>
-                    <Button Grid.Row="1" Content="Document status" Margin="2"/>
+                    <Button Grid.Row="1" Content="Document status" Margin="2" Command="{Binding ShowDocumentStatusCommand}" />
                     <Button Grid.Row="2" Content="Document payment type" Margin="2" Command="{Binding ShowPaymentTypeCommand}"/>
                 </Grid>
             </Expander>

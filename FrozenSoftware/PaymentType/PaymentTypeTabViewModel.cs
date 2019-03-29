@@ -7,7 +7,7 @@ using Unity;
 
 namespace FrozenSoftware
 {
-    public class PaymentTypeTabViewModel : TabBaseViewModel
+    public class PaymentTypeTabViewModel : BaseTabViewModel
     {
         public PaymentTypeTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer) : 
             base(regionManger, unityContainer)

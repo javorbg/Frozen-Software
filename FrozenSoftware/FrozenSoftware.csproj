@@ -96,10 +96,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Contact\ContactTabViewModel.cs" />
     <Compile Include="Country\CountryTab.xaml.cs">
       <DependentUpon>CountryTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="Country\CountryTabViewModel.cs" />
+    <Compile Include="DocumentStatus\DocumentStatusTab.xaml.cs">
+      <DependentUpon>DocumentStatusTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentStatus\DocumentStatusTabViewModel.cs" />
     <Compile Include="PaymentType\PaymentTypeTab.xaml.cs">
       <DependentUpon>PaymentTypeTab.xaml</DependentUpon>
     </Compile>
@@ -107,6 +112,9 @@
     <Compile Include="Shell\ShellViewModel.cs" />
     <Compile Include="Shell\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contact\ContactTab.xaml.cs">
+      <DependentUpon>ContactTab.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -141,11 +149,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="DocumentStatus\DocumentStatusTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PaymentType\PaymentTypeTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Shell\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contact\ContactTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -167,5 +183,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

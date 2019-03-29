@@ -6,7 +6,7 @@ using Unity;
 
 namespace FrozenSoftware
 {
-    public class CountryTabViewModel : TabBaseViewModel
+    public class CountryTabViewModel : BaseTabViewModel
     {
         public CountryTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer) :
             base(regionManger, unityContainer)
