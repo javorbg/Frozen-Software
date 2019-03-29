@@ -3,5 +3,6 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Icons.xaml"/>
         <ResourceDictionary Source="TabItemStyle.xaml"/>
+        <ResourceDictionary Source="ContextMenuDictionary.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

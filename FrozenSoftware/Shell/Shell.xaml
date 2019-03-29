@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FrozenSoftware"
+        xmlns:models="clr-namespace:FrozenSoftware.Models;assembly=FrozenSoftware.Models"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
@@ -56,7 +57,7 @@
                       VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="#FF707070"
                       ResizeBehavior="PreviousAndNext" Background="#FFDDDDDD"/>
         <Grid Grid.Column="2">
-            <TabControl prism:RegionManager.RegionName="WorkSpaceRegion"/>
+            <TabControl prism:RegionManager.RegionName="{x:Static models:RegionNames.TabItemRegion}"/>
 
 
         </Grid>

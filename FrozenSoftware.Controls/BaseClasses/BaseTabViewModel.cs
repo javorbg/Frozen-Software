@@ -24,7 +24,7 @@
         {
             string viewName = this.GetType().Name.Replace("ViewModel", string.Empty);
 
-            IRegion region = RegionManger.Regions[RegionNames.WorkSpaceRegion];
+            IRegion region = RegionManger.Regions[RegionNames.TabItemRegion];
 
             if (region == null)
                 return;

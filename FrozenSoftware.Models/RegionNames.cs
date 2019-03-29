@@ -2,6 +2,8 @@
 {
     public static class RegionNames
     {
-        public static string WorkSpaceRegion { get; set; } = "WorkSpaceRegion";
+        public static string TabItemRegion { get; } = "TabItemRegion";
+
+        public static string RibbonRegion { get; } = "RibbonRegion";
     }
 }

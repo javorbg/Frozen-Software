@@ -24,7 +24,10 @@ namespace FrozenSoftware.Controls
                         break;
                     case NotifyCollectionChangedAction.Remove:
                         foreach (FrameworkElement element in e.OldItems)
+                        {
+                            (element as TabItem).Template = null;
                             regionTarget.Items.Remove(element);
+                        }
                         break;
                 }
             };

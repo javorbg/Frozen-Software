@@ -28,7 +28,7 @@ namespace FrozenSoftware
 
         private void InjectViewToRegionBy(Type viewType)
         {
-            IRegion region = regionManger.Regions[RegionNames.WorkSpaceRegion];
+            IRegion region = regionManger.Regions[RegionNames.TabItemRegion];
             string viewName = viewType.Name;
             TabItem tab = region.GetView(viewName) as TabItem;
 
