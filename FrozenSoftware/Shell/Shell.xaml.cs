@@ -1,12 +1,11 @@
-﻿using System.Windows;
-using Unity.Attributes;
+﻿using Fluent;
 
 namespace FrozenSoftware
 {
     /// <summary>
     /// Interaction logic for Shell.xaml
     /// </summary>
-    public partial class Shell : Window
+    public partial class Shell : RibbonWindow
     {
         public Shell()
         {

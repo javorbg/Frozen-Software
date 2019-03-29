@@ -7,6 +7,7 @@
         <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/FrozenSoftware.Controls;component/Styles/FrozenSoftwareDictionary.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </prism:PrismApplication.Resources>
