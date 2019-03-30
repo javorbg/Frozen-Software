@@ -12,6 +12,7 @@ namespace FrozenSoftware
             : base(regionManger, unityContainer)
         {
             Contacts = DummyDataContext.Context.Contacts;
+            this.ParentViewName = nameof(HomeRibbonTabItem);
         }
 
         public ObservableCollection<Contact> Contacts { get; set; }

@@ -1,7 +1,9 @@
-﻿using FrozenSoftware.Controls;
+﻿using Fluent;
+using FrozenSoftware.Controls;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -25,6 +27,20 @@ namespace FrozenSoftware
         {
             base.ConfigureRegionAdapterMappings(regionAdapterMappings);
             regionAdapterMappings.RegisterMapping(typeof(TabControl), Container.Resolve<RegionAdapterTabControl>());
+            regionAdapterMappings.RegisterMapping(typeof(Ribbon), Container.Resolve<RegionAdapterFluentRibbon>());
+        }
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            base.ConfigureModuleCatalog(moduleCatalog);
+
+
+            Type moduleCType = typeof(FrozenSoftwareModule);
+            moduleCatalog.AddModule(new ModuleInfo()
+            {
+                ModuleName = moduleCType.Name,
+                ModuleType = moduleCType.AssemblyQualifiedName,
+                InitializationMode = InitializationMode.WhenAvailable
+            });
         }
     }
 }

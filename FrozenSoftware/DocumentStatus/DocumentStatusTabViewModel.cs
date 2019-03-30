@@ -12,6 +12,7 @@ namespace FrozenSoftware
             : base(regionManger, unityContainer)
         {
             DocumentStatuses = DummyDataContext.Context.DocuentStatuses;
+            this.ParentViewName = nameof(HomeRibbonTabItem);
         }
 
         public ObservableCollection<DocuentStatus> DocumentStatuses { get; set; }

@@ -3,8 +3,7 @@
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                     xmlns:local="clr-namespace:FrozenSoftware"
-                     xmlns:models="clr-namespace:FrozenSoftware.Models;assembly=FrozenSoftware.Models"
+                     xmlns:controls="clr-namespace:FrozenSoftware.Controls;assembly=FrozenSoftware.Controls"
                      xmlns:prism="http://prismlibrary.com/"
                      xmlns:fluent="urn:fluent-ribbon"
                      prism:ViewModelLocator.AutoWireViewModel="True"
@@ -15,41 +14,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <fluent:Ribbon Grid.Row="0" IsQuickAccessToolBarVisible="False" IsAutomaticCollapseEnabled="False">
-            <fluent:RibbonTabItem Header="Home">
-                <fluent:RibbonGroupBox Header="Comany">
-                    <fluent:Button Header="Company" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:CompanyTab}">
-                        <fluent:Button.LargeIcon>
-                            <Path Data="{DynamicResource Company}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-                    <fluent:Button Header="Conntact" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:ContactTab}">
-                        <fluent:Button.LargeIcon>
-                            <Path Data="{DynamicResource Contact}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-                </fluent:RibbonGroupBox>
-                <fluent:RibbonGroupBox Header="General Data">
-                    <fluent:Button Header="County" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:CountryTab}">
-                        <fluent:Button.LargeIcon>
-                            <Path Data="{DynamicResource Counry}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-                    <fluent:Button Header="Document status" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:DocumentStatusTab}">
-                        <fluent:Button.LargeIcon>
-                            <Path Data="{DynamicResource DocumentSettings}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-                    <fluent:Button Header="Document payment type" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:PaymentTypeTab}">
-                        <fluent:Button.LargeIcon>
-                            <Path Data="{DynamicResource DocumentSettings}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-                </fluent:RibbonGroupBox>
-            </fluent:RibbonTabItem>
-        </fluent:Ribbon>
+        <fluent:Ribbon Grid.Row="0" IsQuickAccessToolBarVisible="False" 
+                       IsAutomaticCollapseEnabled="False"
+                       prism:RegionManager.RegionName="{x:Static controls:RegionNames.RibbonRegion}"/>
         <Grid Grid.Row="1">
-            <TabControl prism:RegionManager.RegionName="{x:Static models:RegionNames.TabItemRegion}"/>
+            <TabControl SelectedItem="{Binding SelectedTab,Mode=TwoWay}" prism:RegionManager.RegionName="{x:Static controls:RegionNames.TabItemRegion}"/>
         </Grid>
     </Grid>
 </fluent:RibbonWindow>

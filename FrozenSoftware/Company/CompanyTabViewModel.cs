@@ -12,6 +12,7 @@ namespace FrozenSoftware
             : base(regionManger, unityContainer)
         {
             Companies = DummyDataContext.Context.Companies;
+            this.ParentViewName = nameof(HomeRibbonTabItem);
         }
 
         public ObservableCollection<Company> Companies { get; set; }

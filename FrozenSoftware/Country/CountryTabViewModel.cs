@@ -12,6 +12,7 @@ namespace FrozenSoftware
             base(regionManger, unityContainer)
         {
             this.Countries = DummyDataContext.Context.Countries;
+            this.ParentViewName = nameof(HomeRibbonTabItem);
         }
 
         public ObservableCollection<Country> Countries { get; set; }

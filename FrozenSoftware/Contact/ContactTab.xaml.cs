@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using FrozenSoftware.Controls;
+using System.Windows.Controls;
 
 namespace FrozenSoftware
 {
@@ -11,5 +12,7 @@ namespace FrozenSoftware
         {
             InitializeComponent();
         }
+
+        public string ParetViewName { get; set; } = nameof(HomeRibbonTabItem);
     }
 }

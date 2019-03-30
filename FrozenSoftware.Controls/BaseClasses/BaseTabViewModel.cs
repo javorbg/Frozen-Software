@@ -1,11 +1,13 @@
-﻿namespace FrozenSoftware.Controls
-{
-    using FrozenSoftware.Models;
-    using Prism.Commands;
-    using Prism.Regions;
-    using Unity;
+﻿using FrozenSoftware.Controls.BaseClasses;
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Regions;
+using Unity;
 
-    public abstract class BaseTabViewModel
+namespace FrozenSoftware.Controls
+{
+
+    public abstract class BaseTabViewModel : BindableBase, IParentViewName
     {
         public BaseTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
         {
@@ -15,6 +17,10 @@
         }
 
         public DelegateCommand CloseTabCommand { get; set; }
+
+        public int SelectedIndex { get; set; }
+
+        public string ParentViewName { get; set; } = "HomeRibbonTabItem";
 
         protected IRegionManager RegionManger { get; set; }
 

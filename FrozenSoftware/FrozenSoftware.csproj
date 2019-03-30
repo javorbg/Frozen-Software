@@ -124,10 +124,15 @@
       <DependentUpon>DocumentStatusTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="DocumentStatus\DocumentStatusTabViewModel.cs" />
+    <Compile Include="FrozenSoftwareModule.cs" />
     <Compile Include="PaymentType\PaymentTypeTab.xaml.cs">
       <DependentUpon>PaymentTypeTab.xaml</DependentUpon>
     </Compile>
     <Compile Include="PaymentType\PaymentTypeTabViewModel.cs" />
+    <Compile Include="RegionNames.cs" />
+    <Compile Include="Ribbon\HomeRibbonTabItem.xaml.cs">
+      <DependentUpon>HomeRibbonTabItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Shell\ShellViewModel.cs" />
     <Compile Include="Shell\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
@@ -184,6 +189,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Ribbon\HomeRibbonTabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Shell\Shell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -210,6 +219,8 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
