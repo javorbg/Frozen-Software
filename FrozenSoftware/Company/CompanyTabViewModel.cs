@@ -1,14 +1,16 @@
 ﻿using FrozenSoftware.Controls;
 using FrozenSoftware.Models;
 using Prism.Regions;
+using PropertyChanged;
 using System.Collections.ObjectModel;
 using Unity;
 
 namespace FrozenSoftware
 {
+    [ImplementPropertyChanged]
     public class CompanyTabViewModel : BaseTabViewModel
     {
-        public CompanyTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer) 
+        public CompanyTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
             : base(regionManger, unityContainer)
         {
             Companies = DummyDataContext.Context.Companies;
@@ -16,5 +18,20 @@ namespace FrozenSoftware
         }
 
         public ObservableCollection<Company> Companies { get; set; }
+
+        protected override void OnAddCommand()
+        {
+            WindowHandler.WindowHandlerInstance.ShowWindow(null, ActionType.Add, typeof(CompanyForm), UnityContainer);
+        }
+
+        protected override void OnEditCommand()
+        {
+            WindowHandler.WindowHandlerInstance.ShowWindow(null, ActionType.Add, typeof(CompanyForm), UnityContainer);
+        }
+
+        protected override void OnDeleteCommand()
+        {
+
+        }
     }
 }
