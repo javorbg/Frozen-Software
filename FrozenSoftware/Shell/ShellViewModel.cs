@@ -1,16 +1,20 @@
-﻿using System;
-using System.Windows.Controls;
-using FrozenSoftware.Models;
+﻿using FrozenSoftware.Controls;
 using Prism.Commands;
+using Prism.Mvvm;
 using Prism.Regions;
+using PropertyChanged;
+using System;
+using System.Windows.Controls;
 using Unity;
 
 namespace FrozenSoftware
 {
-    public class ShellViewModel
+    [ImplementPropertyChanged]
+    public class ShellViewModel : BindableBase
     {
         private IRegionManager regionManger;
         private IUnityContainer unityContainer;
+        private TabItem selectedTab;
 
         public ShellViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
         {
@@ -26,7 +30,20 @@ namespace FrozenSoftware
             InjectViewToRegionBy(viewType);
         }
 
-        public object SelectedTab { get; set; }
+        public TabItem SelectedTab
+        {
+            get
+            {
+                return selectedTab;
+            }
+            set
+            {
+                MenuHandler.RemoveEditButtons(selectedTab, regionManger, false);
+                this.SetProperty(ref selectedTab, value);
+                MenuHandler.AddEditButtons(selectedTab, regionManger, unityContainer);
+            }
+        }
+
 
         private void InjectViewToRegionBy(Type viewType)
         {

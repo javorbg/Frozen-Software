@@ -19,14 +19,16 @@ namespace FrozenSoftware.Controls
                 switch (e.Action)
                 {
                     case NotifyCollectionChangedAction.Add:
-                        foreach (FrameworkElement element in e.NewItems)
+                        foreach (TabItem element in e.NewItems)
                             regionTarget.Items.Add(element);
                         break;
                     case NotifyCollectionChangedAction.Remove:
-                        foreach (FrameworkElement element in e.OldItems)
+                        foreach (TabItem element in e.OldItems)
                         {
-                            (element as TabItem).Template = null;
+                            MenuHandler.RemoveEditButtons(element, region.RegionManager, true);
+                            element.Template = null;
                             regionTarget.Items.Remove(element);
+
                         }
                         break;
                 }
