@@ -1,11 +1,13 @@
 ﻿using FrozenSoftware.Controls;
 using FrozenSoftware.Models;
 using Prism.Regions;
+using PropertyChanged;
 using System.Collections.ObjectModel;
 using Unity;
 
 namespace FrozenSoftware
 {
+    [ImplementPropertyChanged]
     public class CountryTabViewModel : BaseTabViewModel
     {
         public CountryTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer) :
@@ -13,6 +15,7 @@ namespace FrozenSoftware
         {
             this.Countries = DummyDataContext.Context.Countries;
             this.ParentViewName = nameof(HomeRibbonTabItem);
+            this.HasEditButtons = false;
         }
 
         public ObservableCollection<Country> Countries { get; set; }
