@@ -1,12 +1,13 @@
-﻿using FrozenSoftware.Controls.BaseClasses;
+﻿using System;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
+using PropertyChanged;
 using Unity;
 
 namespace FrozenSoftware.Controls
 {
-
+    [ImplementPropertyChanged]
     public abstract class BaseTabViewModel : BindableBase, IParentViewName
     {
         public BaseTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
@@ -14,13 +15,25 @@ namespace FrozenSoftware.Controls
             RegionManger = regionManger;
             UnityContainer = unityContainer;
             CloseTabCommand = new DelegateCommand(OnCloseTabCommand);
+            AddCommand = new DelegateCommand(OnAddCommand);
+            EditCommand = new DelegateCommand(OnEditCommand);
+            DeleteCommand = new DelegateCommand(OnDeleteCommand);
+            HasEditButtons = true;
         }
 
         public DelegateCommand CloseTabCommand { get; set; }
 
+        public DelegateCommand AddCommand { get; set; }
+
+        public DelegateCommand EditCommand { get; set; }
+
+        public DelegateCommand DeleteCommand { get; set; }
+
         public int SelectedIndex { get; set; }
 
         public string ParentViewName { get; set; } = "HomeRibbonTabItem";
+
+        public bool HasEditButtons { get; set; }
 
         protected IRegionManager RegionManger { get; set; }
 
@@ -39,6 +52,18 @@ namespace FrozenSoftware.Controls
 
             if (view != null)
                 region.Remove(view);
+        }
+
+        protected virtual void OnDeleteCommand()
+        {
+        }
+
+        protected virtual void OnEditCommand()
+        {
+        }
+
+        protected virtual void OnAddCommand()
+        {
         }
     }
 }

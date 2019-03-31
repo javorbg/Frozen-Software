@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FrozenSoftware.Controls.BaseClasses
+﻿namespace FrozenSoftware.Controls
 {
     interface IParentViewName
     {
         string ParentViewName { get; set; }
+
+        bool  HasEditButtons { get; set; }
 
     }
 }
