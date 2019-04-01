@@ -3,6 +3,7 @@ using FrozenSoftware.Models;
 using Prism.Regions;
 using PropertyChanged;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Unity;
 
 namespace FrozenSoftware
@@ -10,7 +11,6 @@ namespace FrozenSoftware
     [ImplementPropertyChanged]
     public class CompanyTabViewModel : BaseTabViewModel
     {
-
         public CompanyTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
             : base(regionManger, unityContainer)
         {
@@ -27,7 +27,6 @@ namespace FrozenSoftware
 
         protected override void OnEditCommand()
         {
-
             Company company = Companies[SelectedIndex.Value];
 
             WindowHandler.WindowHandlerInstance.ShowWindow(company.Id, ActionType.Edit, typeof(CompanyForm), UnityContainer);
@@ -35,7 +34,18 @@ namespace FrozenSoftware
 
         protected override void OnDeleteCommand()
         {
+            Company company = Companies[SelectedIndex.Value];
+            bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {company.CompanyName}?", UnityContainer, "Company");
 
+            if (result == true)
+            {
+                Contact contact = DummyDataContext.Context.Contacts.FirstOrDefault(x => x.CompanyId == company.Id);
+
+                if (contact != null)
+                    DummyDataContext.Context.Contacts.Remove(contact);
+
+                DummyDataContext.Context.Companies.Remove(company);
+            }
         }
     }
 }

@@ -118,7 +118,9 @@
     <Compile Include="Company\CompanyTab.xaml.cs">
       <DependentUpon>CompanyTab.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Company\CompanyTabViewModel.cs" />
+    <Compile Include="Company\CompanyTabViewModel.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Contact\ContactTabViewModel.cs" />
     <Compile Include="Country\CountryTab.xaml.cs">
       <DependentUpon>CountryTab.xaml</DependentUpon>

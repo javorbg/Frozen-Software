@@ -87,13 +87,19 @@
     <Compile Include="BaseClasses\BaseFormViewModel.cs" />
     <Compile Include="BaseClasses\BaseTabViewModel.cs" />
     <Compile Include="BaseClasses\IParentViewName.cs" />
+    <Compile Include="Dialogs\BaseDialogWindowViewModel.cs" />
+    <Compile Include="Dialogs\ConfirWindow\ConfirWindow.xaml.cs">
+      <DependentUpon>ConfirWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ConfirWindow\ConfirWindowViewModel.cs" />
+    <Compile Include="Dialogs\MessageWindow\MessageWindowViewModel.cs" />
     <Compile Include="Enums\ActionType.cs" />
     <Compile Include="Convetres\InvertedBooleanConverter.cs" />
     <Compile Include="Menu\EditMenuRibbonGroupBox.xaml.cs">
       <DependentUpon>EditMenuRibbonGroupBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menu\MenuHandler.cs" />
-    <Compile Include="Dialogs\MessageWindow.xaml.cs">
+    <Compile Include="Dialogs\MessageWindow\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -122,11 +128,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Dialogs\ConfirWindow\ConfirWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Menu\EditMenuRibbonGroupBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Dialogs\MessageWindow.xaml">
+    <Page Include="Dialogs\MessageWindow\MessageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
