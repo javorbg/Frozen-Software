@@ -10,6 +10,7 @@ namespace FrozenSoftware
     [ImplementPropertyChanged]
     public class CompanyTabViewModel : BaseTabViewModel
     {
+
         public CompanyTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
             : base(regionManger, unityContainer)
         {
@@ -26,7 +27,10 @@ namespace FrozenSoftware
 
         protected override void OnEditCommand()
         {
-            WindowHandler.WindowHandlerInstance.ShowWindow(null, ActionType.Add, typeof(CompanyForm), UnityContainer);
+
+            Company company = Companies[SelectedIndex.Value];
+
+            WindowHandler.WindowHandlerInstance.ShowWindow(company.Id, ActionType.Edit, typeof(CompanyForm), UnityContainer);
         }
 
         protected override void OnDeleteCommand()

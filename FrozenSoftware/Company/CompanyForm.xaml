@@ -3,10 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="FSControls"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="CompanyForm" Height="450" Width="800">
+    <Window.Resources>
+        <controls:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
+    </Window.Resources>
+
     <Grid Name="MainArea" Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -29,19 +34,38 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Margin="2" Content="Code" />
-                <TextBox Grid.Column="1" Grid.Row="0" Margin="2"/>
+                <TextBox Grid.Column="1" Grid.Row="0" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding Entity.Code,Mode=TwoWay}"/>
+
                 <Label Grid.Column="2" Grid.Row="0" Margin="2"  Content="Company name"  />
-                <TextBox Grid.Column="3" Grid.Row="0" Margin="2" />
-                
+                <TextBox Grid.Column="3" Grid.Row="0" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding Entity.CompanyName,Mode=TwoWay}"/>
+
                 <Label Grid.Column="0" Grid.Row="1" Margin="2"  Content="Address" />
-                <TextBox Grid.Column="1" Grid.Row="1" Margin="2" />
-                <Label Grid.Column="2" Grid.Row="1" Margin="2"  Content="Country" />
-                <ComboBox Grid.Column="3" Grid.Row="1" Margin="2" />
-                
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding Entity.Address,Mode=TwoWay}"/>
+
+                <Label Grid.Column="2" Grid.Row="1" Margin="2"  Content="Country"/>
+                <ComboBox Grid.Column="3" Grid.Row="1" Margin="2" 
+                          ItemsSource="{Binding Countries}"
+                          IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                          SelectedValuePath="Id"
+                          DisplayMemberPath="Name"
+                          SelectedValue="{Binding Entity.CountryId,Mode=TwoWay}"
+                          SelectedItem="{Binding Entity.Country,Mode=TwoWay}"/>
+
                 <Label Grid.Column="0" Grid.Row="2" Margin="2"  Content="Zipcode" />
-                <TextBox Grid.Column="1" Grid.Row="2" Margin="2" />
+                <TextBox Grid.Column="1" Grid.Row="2" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding Entity.ZipCode,Mode=TwoWay}"/>
+
                 <Label Grid.Column="2" Grid.Row="2" Margin="2"  Content="Is main" />
-                <CheckBox Grid.Column="3" Grid.Row="2" Margin="2" VerticalAlignment="Center" />
+                <CheckBox Grid.Column="3" Grid.Row="2" Margin="2" VerticalAlignment="Center" 
+                          IsChecked="{Binding Entity.IsDatabaseOwner,Mode=TwoWay}"
+                          IsEnabled="{Binding IsReadOnly,Mode=TwoWay,Converter={StaticResource InvertedBooleanConverter}}"/>
             </Grid>
         </Expander>
         <Expander Grid.Row="1" Margin="0,2" Header="Contact" IsExpanded="True">
@@ -61,27 +85,48 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0" Margin="2" Content="First name" />
-                <TextBox Grid.Column="1" Grid.Row="0" Margin="2" />
+                <TextBox Grid.Column="1" Grid.Row="0" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding ContactEntity.Name,Mode=TwoWay}"/>
+
                 <Label Grid.Column="2" Grid.Row="0" Margin="2"  Content="Surename"  />
-                <TextBox Grid.Column="3" Grid.Row="0" Margin="2" />
+                <TextBox Grid.Column="3" Grid.Row="0" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding ContactEntity.Surname,Mode=TwoWay}"/>
 
                 <Label Grid.Column="0" Grid.Row="1" Margin="2"  Content="Family" />
-                <TextBox Grid.Column="1" Grid.Row="1" Margin="2" />
+                <TextBox Grid.Column="1" Grid.Row="1" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding ContactEntity.Family,Mode=TwoWay}"/>
+
                 <Label Grid.Column="2" Grid.Row="1" Margin="2"  Content="Phone" />
-                <TextBox Grid.Column="3" Grid.Row="1" Margin="2"/>
+                <TextBox Grid.Column="3" Grid.Row="1" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding ContactEntity.Phone,Mode=TwoWay}"/>
 
                 <Label Grid.Column="0" Grid.Row="2" Margin="2"  Content="Email" />
-                <TextBox Grid.Column="1" Grid.Row="2" Margin="2" />
-                <Label Grid.Column="2" Grid.Row="2" Margin="2"  Content="Company"  />
-                <ComboBox Grid.Column="3" Grid.Row="2" Margin="2" />
+                <TextBox Grid.Column="1" Grid.Row="2" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding ContactEntity.Email,Mode=TwoWay}"/>
 
                 <Label Grid.Column="0" Grid.Row="3" Margin="2"  Content="Address" />
-                <TextBox Grid.Column="1" Grid.Row="3" Margin="2" />
+                <TextBox Grid.Column="1" Grid.Row="3" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding ContactEntity.Address,Mode=TwoWay}"/>
+
                 <Label Grid.Column="2" Grid.Row="3" Margin="2"  Content="Zipcode" />
-                <TextBox Grid.Column="3" Grid.Row="3" Margin="2" />
-                
+                <TextBox Grid.Column="3" Grid.Row="3" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding ContactEntity.ZipCode,Mode=TwoWay}"/>
+
                 <Label Grid.Column="0" Grid.Row="4" Margin="2"  Content="Country" />
-                <ComboBox Grid.Column="1" Grid.Row="4" Margin="2" />
+                <ComboBox Grid.Column="1" Grid.Row="4" Margin="2"
+                          ItemsSource="{Binding Countries}"
+                          IsEnabled="{Binding IsReadOnly,Mode=TwoWay,Converter={StaticResource InvertedBooleanConverter}}"
+                          SelectedValuePath="Id"
+                          DisplayMemberPath="Name"
+                          SelectedValue="{Binding ContactEntity.CountryId,Mode=TwoWay}"
+                          SelectedItem="{Binding ContactEntity.Country,Mode=TwoWay}"/>
             </Grid>
         </Expander>
 

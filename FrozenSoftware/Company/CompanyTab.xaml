@@ -11,8 +11,7 @@
          d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DataGrid Margin="2" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  ItemsSource="{Binding Companies}" IsReadOnly="True" AutoGenerateColumns="False"
-                  ContextMenu="{DynamicResource PaneDataGridContextMenu}">
+                  ItemsSource="{Binding Companies}" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Code}" Header="Code"/>
                 <DataGridTextColumn Binding="{Binding CompanyName}" Header="Company name"/>

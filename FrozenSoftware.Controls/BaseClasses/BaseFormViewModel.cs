@@ -10,7 +10,7 @@ namespace FrozenSoftware.Controls
     public class BaseFormViewModel : BindableBase
     {
         private ActionType actionType;
-        private int? entityId;
+       
 
         public BaseFormViewModel()
         {
@@ -42,7 +42,7 @@ namespace FrozenSoftware.Controls
         public virtual void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
         {
             ActionType = ActionType;
-            this.entityId = entityId;
+            EntityId = entityId;
         }
 
         protected virtual void OnConfirmCommand()
@@ -61,5 +61,7 @@ namespace FrozenSoftware.Controls
         public bool DialogResult { get; set; }
 
         public Action Close { get; set; }
+
+        protected int? EntityId { get; set; }
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="BaseClasses\BaseTabViewModel.cs" />
     <Compile Include="BaseClasses\IParentViewName.cs" />
     <Compile Include="Enums\ActionType.cs" />
+    <Compile Include="Convetres\InvertedBooleanConverter.cs" />
     <Compile Include="Menu\EditMenuRibbonGroupBox.xaml.cs">
       <DependentUpon>EditMenuRibbonGroupBox.xaml</DependentUpon>
     </Compile>

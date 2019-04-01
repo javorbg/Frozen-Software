@@ -10,14 +10,16 @@ namespace FrozenSoftware.Controls
     [ImplementPropertyChanged]
     public abstract class BaseTabViewModel : BindableBase, IParentViewName
     {
+        private int? selectedIndex;
+
         public BaseTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
         {
             RegionManger = regionManger;
             UnityContainer = unityContainer;
             CloseTabCommand = new DelegateCommand(OnCloseTabCommand);
             AddCommand = new DelegateCommand(OnAddCommand);
-            EditCommand = new DelegateCommand(OnEditCommand);
-            DeleteCommand = new DelegateCommand(OnDeleteCommand);
+            EditCommand = new DelegateCommand(OnEditCommand, CanExecuteEditCommand);
+            DeleteCommand = new DelegateCommand(OnDeleteCommand, CanExecuteDeleteCommand);
             HasEditButtons = true;
         }
 
@@ -29,7 +31,19 @@ namespace FrozenSoftware.Controls
 
         public DelegateCommand DeleteCommand { get; set; }
 
-        public int SelectedIndex { get; set; }
+        public virtual int? SelectedIndex
+        {
+            get
+            {
+                return selectedIndex;
+            }
+            set
+            {
+                SetProperty(ref selectedIndex, value);
+                EditCommand.RaiseCanExecuteChanged();
+                DeleteCommand.RaiseCanExecuteChanged();
+            }
+        }
 
         public string ParentViewName { get; set; } = "HomeRibbonTabItem";
 
@@ -56,6 +70,22 @@ namespace FrozenSoftware.Controls
 
         protected virtual void OnDeleteCommand()
         {
+        }
+
+        protected virtual bool CanExecuteDeleteCommand()
+        {
+            if (!this.SelectedIndex.HasValue || this.SelectedIndex.Value < 0)
+                return false;
+
+            return true;
+        }
+
+        protected virtual bool CanExecuteEditCommand()
+        {
+            if (!this.SelectedIndex.HasValue || this.SelectedIndex.Value < 0)
+                return false;
+
+            return true;
         }
 
         protected virtual void OnEditCommand()
