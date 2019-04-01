@@ -39,7 +39,7 @@
   <Class Name="FrozenSoftware.Models.DummyDataContext">
     <Position X="12.5" Y="1" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>BAAIAkAAAAAAAAAAAAAQEQAAAAAgAAEAAAAAAAAgAAA=</HashCode>
+      <HashCode>BAAKAkAAAgAAAAAAAAAQEQAAAAAgAAEAAAAAAAAgAAA=</HashCode>
       <FileName>Models\DummyDataContext.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -53,7 +53,7 @@
   <Class Name="FrozenSoftware.Models.Contact">
     <Position X="10" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACIAAAAAAAAAAAQABAIQAAADAAAAIAAABAA=</HashCode>
+      <HashCode>AAAAAAAAACIAAAAAAAAAAAQABAIQAAADAAAAJAAABAA=</HashCode>
       <FileName>Models\Contact.cs</FileName>
     </TypeIdentifier>
   </Class>

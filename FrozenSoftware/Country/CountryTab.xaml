@@ -3,12 +3,14 @@
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-         xmlns:local="clr-namespace:FrozenSoftware.Country"
-         mc:Ignorable="d" 
-         Header="Country"
+         xmlns:prism="http://prismlibrary.com/"
+         prism:ViewModelLocator.AutoWireViewModel="True"
+         Header="Country" 
+         Style="{DynamicResource FSTabItemStyle}"
+         mc:Ignorable="d"
          d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid ItemsSource="{Binding Countries}" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid Margin="2" ItemsSource="{Binding Countries}" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Code}" Header="Code"/>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>

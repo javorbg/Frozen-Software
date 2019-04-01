@@ -1,0 +1,21 @@
+﻿<fluent:RibbonGroupBox x:Class="FrozenSoftware.Controls.EditMenuRibbonGroupBox"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:fluent="urn:fluent-ribbon">
+
+    <fluent:Button Header="Add" Command="{Binding AddCommand}">
+        <fluent:Button.LargeIcon>
+            <Path Data="{DynamicResource AddIcon}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+        </fluent:Button.LargeIcon>
+    </fluent:Button>
+    <fluent:Button Header="Edit" Command="{Binding EditCommand}" >
+        <fluent:Button.LargeIcon>
+            <Path Data="{DynamicResource EditIcon}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+        </fluent:Button.LargeIcon>
+    </fluent:Button>
+    <fluent:Button Header="Delete" Command="{Binding DeleteCommand}" >
+        <fluent:Button.LargeIcon>
+            <Path Data="{DynamicResource DeleteIcon}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+        </fluent:Button.LargeIcon>
+    </fluent:Button>
+</fluent:RibbonGroupBox>

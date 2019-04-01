@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FrozenSoftware.Models
 {
     public class DummyDataContext
     {
         private static DummyDataContext context;
+
+        private DummyDataContext()
+        {
+            InitializeCountries();
+            InitializeDocumentStatuses();
+            InitializePaymentTypes();
+            InitializeDatabaseOwnerCompany();
+            InitializeContacts();
+        }
 
         public static DummyDataContext Context
         {
@@ -21,7 +27,7 @@ namespace FrozenSoftware.Models
             }
         }
 
-        public ObservableCollection<DocumentStatus> DocumentStatuses { get; set; }
+        public ObservableCollection<DocuentStatus> DocuentStatuses { get; set; }
 
         public ObservableCollection<Country> Countries { get; set; }
 
@@ -31,19 +37,11 @@ namespace FrozenSoftware.Models
 
         public ObservableCollection<Company> Companies { get; set; }
 
-        private DummyDataContext()
-        {
-            InitializeCountries();
-            InitializeDocumentStatuses();
-            InitializePaymentTypes();
-            InitializeContacts();
-            InitializeDatabaseOwnerCompany();
-        }
-
         private void InitializeContacts()
         {
             Contacts = new ObservableCollection<Contact>();
             Country country = Countries.FirstOrDefault(x => x.Code == "BG");
+            Company company = Companies.FirstOrDefault(x => x.Id == 1);
             Contacts.Add(new Contact()
             {
                 Id = 1,
@@ -56,7 +54,8 @@ namespace FrozenSoftware.Models
                 Email = "rovaj@gmail.com",
                 Country = country,
                 CountryId = country.Id,
-                Phone = "+35988888888888888"
+                Phone = "+35988888888888888",
+                Company = company,
             });
         }
 
@@ -80,19 +79,19 @@ namespace FrozenSoftware.Models
         private void InitializePaymentTypes()
         {
             PaymentTypes = new ObservableCollection<PaymentType>();
-            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Cash", ResourceName = "Cash" });
-            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Bank", ResourceName = "Bank" });
-            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Vaucher", ResourceName = "Vaucher" });
-            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Cash and Vaucher", ResourceName = "CashAndVaucher" });
+            PaymentTypes.Add(new PaymentType() { Id = 1, Name = "Cash", ResourceName = "Cash" });
+            PaymentTypes.Add(new PaymentType() { Id = 1, Name = "Bank", ResourceName = "Bank" });
+            PaymentTypes.Add(new PaymentType() { Id = 1, Name = "Vaucher", ResourceName = "Vaucher" });
+            PaymentTypes.Add(new PaymentType() { Id = 1, Name = "Cash and Vaucher", ResourceName = "CashAndVaucher" });
         }
 
         private void InitializeDocumentStatuses()
         {
-            DocumentStatuses = new ObservableCollection<DocumentStatus>();
-            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Draft", ResourceName = "Draft" });
-            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Paid", ResourceName = "Paid" });
-            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Posted", ResourceName = "Posted" });
-            DocumentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Cancelled", ResourceName = "Cancelled" });
+            DocuentStatuses = new ObservableCollection<DocuentStatus>();
+            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Draft", ResourceName = "Draft" });
+            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Paid", ResourceName = "Paid" });
+            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Posted", ResourceName = "Posted" });
+            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Cancelled", ResourceName = "Cancelled" });
         }
 
         private void InitializeCountries()

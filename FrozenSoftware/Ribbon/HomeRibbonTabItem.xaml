@@ -1,0 +1,39 @@
+﻿<fluent:RibbonTabItem x:Class="FrozenSoftware.HomeRibbonTabItem"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:local="clr-namespace:FrozenSoftware"
+                      xmlns:fluent="urn:fluent-ribbon"
+                      mc:Ignorable="d" Header="Main Data"
+                      d:DesignHeight="450" d:DesignWidth="800">
+    <fluent:RibbonGroupBox Header="Comany">
+        <fluent:Button Header="Company" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:CompanyTab}">
+            <fluent:Button.LargeIcon>
+                <Path Data="{DynamicResource Company}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+            </fluent:Button.LargeIcon>
+        </fluent:Button>
+        <fluent:Button Header="Conntact" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:ContactTab}">
+            <fluent:Button.LargeIcon>
+                <Path Data="{DynamicResource Contact}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+            </fluent:Button.LargeIcon>
+        </fluent:Button>
+    </fluent:RibbonGroupBox>
+    <fluent:RibbonGroupBox Header="General Data">
+        <fluent:Button Header="County" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:CountryTab}">
+            <fluent:Button.LargeIcon>
+                <Path Data="{DynamicResource Counry}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+            </fluent:Button.LargeIcon>
+        </fluent:Button>
+        <fluent:Button Header="Document status" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:DocumentStatusTab}">
+            <fluent:Button.LargeIcon>
+                <Path Data="{DynamicResource DocumentSettings}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+            </fluent:Button.LargeIcon>
+        </fluent:Button>
+        <fluent:Button Header="Document payment type" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:PaymentTypeTab}">
+            <fluent:Button.LargeIcon>
+                <Path Data="{DynamicResource DocumentSettings}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+            </fluent:Button.LargeIcon>
+        </fluent:Button>
+    </fluent:RibbonGroupBox>
+</fluent:RibbonTabItem>

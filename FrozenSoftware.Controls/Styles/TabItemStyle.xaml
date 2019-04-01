@@ -1,0 +1,26 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="FSTabItemStyle" TargetType="{x:Type TabItem}">
+        <Setter Property="HeaderTemplate" >
+            <Setter.Value>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" x:Name="contentPresenter" Text="{Binding}" Focusable="False" 
+                                   Margin="{Binding Padding, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}"/>
+                        <Button x:Name="CloseButton" Width="10" Height="10" Margin="2,2,5,2" Grid.Column="1"
+                                MaxHeight="{Binding ElementName=contentPresenter,Path=ActualHeight}" 
+                                Command="{Binding ElementName=templateRoot,Path=DataContext.CloseTabCommand}"
+                                BorderBrush="{x:Null}" BorderThickness="0" Background="{x:Null}">
+                            <Path Fill="Black" Data="{DynamicResource CloseIcon}" Stretch="Uniform" />
+                        </Button>
+                    </Grid>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
