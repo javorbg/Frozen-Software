@@ -14,7 +14,8 @@ namespace FrozenSoftware
             : base(regionManger, unityContainer)
         {
             Contacts = DummyDataContext.Context.Contacts;
-            this.ParentViewName = nameof(HomeRibbonTabItem);
+            ParentViewName = nameof(HomeRibbonTabItem);
+            HasEditButtons = false;
         }
 
         public ObservableCollection<Contact> Contacts { get; set; }
