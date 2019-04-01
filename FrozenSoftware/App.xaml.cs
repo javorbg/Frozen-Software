@@ -3,6 +3,7 @@ using FrozenSoftware.Controls;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
+using Prism.Unity;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,7 +13,7 @@ namespace FrozenSoftware
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App
+    public partial class App : PrismApplication
     {
         protected override Window CreateShell()
         {
@@ -29,10 +30,10 @@ namespace FrozenSoftware
             regionAdapterMappings.RegisterMapping(typeof(TabControl), Container.Resolve<RegionAdapterTabControl>());
             regionAdapterMappings.RegisterMapping(typeof(Ribbon), Container.Resolve<RegionAdapterFluentRibbon>());
         }
+
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             base.ConfigureModuleCatalog(moduleCatalog);
-
 
             Type moduleCType = typeof(FrozenSoftwareModule);
             moduleCatalog.AddModule(new ModuleInfo()
@@ -41,6 +42,11 @@ namespace FrozenSoftware
                 ModuleType = moduleCType.AssemblyQualifiedName,
                 InitializationMode = InitializationMode.WhenAvailable
             });
+        }
+
+        protected override IModuleCatalog CreateModuleCatalog()
+        {
+            return new DirectoryModuleCatalog() { ModulePath = @".\Modules" };
         }
     }
 }

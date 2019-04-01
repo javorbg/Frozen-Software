@@ -3,7 +3,6 @@ using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 using Unity;
-using Unity.Injection;
 
 namespace FrozenSoftware
 {
@@ -11,7 +10,6 @@ namespace FrozenSoftware
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-
             var regionManager = containerProvider.Resolve<IRegionManager>();
             var view = containerProvider.Resolve<HomeRibbonTabItem>();
             regionManager.Regions[RegionNames.RibbonRegion].Add(view, nameof(HomeRibbonTabItem));

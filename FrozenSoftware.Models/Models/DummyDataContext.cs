@@ -27,7 +27,7 @@ namespace FrozenSoftware.Models
             }
         }
 
-        public ObservableCollection<DocuentStatus> DocuentStatuses { get; set; }
+        public ObservableCollection<DocumentStatus> DocuentStatuses { get; set; }
 
         public ObservableCollection<Country> Countries { get; set; }
 
@@ -87,11 +87,11 @@ namespace FrozenSoftware.Models
 
         private void InitializeDocumentStatuses()
         {
-            DocuentStatuses = new ObservableCollection<DocuentStatus>();
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Draft", ResourceName = "Draft" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Paid", ResourceName = "Paid" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Posted", ResourceName = "Posted" });
-            DocuentStatuses.Add(new DocuentStatus() { Id = 1, Name = "Cancelled", ResourceName = "Cancelled" });
+            DocuentStatuses = new ObservableCollection<DocumentStatus>();
+            DocuentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Draft", ResourceName = "Draft" });
+            DocuentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Paid", ResourceName = "Paid" });
+            DocuentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Posted", ResourceName = "Posted" });
+            DocuentStatuses.Add(new DocumentStatus() { Id = 1, Name = "Cancelled", ResourceName = "Cancelled" });
         }
 
         private void InitializeCountries()

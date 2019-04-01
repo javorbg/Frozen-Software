@@ -18,6 +18,6 @@ namespace FrozenSoftware
             this.HasEditButtons = false;
         }
 
-        public ObservableCollection<DocuentStatus> DocumentStatuses { get; set; }
+        public ObservableCollection<DocumentStatus> DocumentStatuses { get; set; }
     }
 }
