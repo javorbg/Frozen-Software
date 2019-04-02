@@ -17,7 +17,7 @@ namespace FrozenSoftware.Controls
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value is bool)
-                return ((bool)value);
+                return (bool)value;
 
             return false;
         }

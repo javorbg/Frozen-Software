@@ -12,6 +12,7 @@ using System.Threading;
 namespace FrozenSoftware.Controls
 {
     //Source http://brianlagunas.com/prism-dynamically-discover-and-load-modules-at-runtime/
+
     public class DynamicDirectoryModuleCatalog : ModuleCatalog
     {
         SynchronizationContext _context;

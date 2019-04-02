@@ -37,6 +37,7 @@ namespace FrozenSoftware.Controls
             {
                 return selectedIndex;
             }
+
             set
             {
                 SetProperty(ref selectedIndex, value);

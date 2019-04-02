@@ -28,8 +28,8 @@ namespace FrozenSoftware.Controls
                             MenuHandler.RemoveEditButtons(element, region.RegionManager, true);
                             element.Template = null;
                             regionTarget.Items.Remove(element);
-
                         }
+
                         break;
                 }
             };

@@ -25,17 +25,13 @@ namespace FrozenSoftware
 
         public DelegateCommand<Type> ShowTabCommand { get; set; }
 
-        private void OnShowTabCommand(Type viewType)
-        {
-            InjectViewToRegionBy(viewType);
-        }
-
         public TabItem SelectedTab
         {
             get
             {
                 return selectedTab;
             }
+
             set
             {
                 MenuHandler.RemoveEditButtons(selectedTab, regionManger, false);
@@ -44,6 +40,10 @@ namespace FrozenSoftware
             }
         }
 
+        private void OnShowTabCommand(Type viewType)
+        {
+            InjectViewToRegionBy(viewType);
+        }
 
         private void InjectViewToRegionBy(Type viewType)
         {

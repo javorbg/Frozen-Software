@@ -10,7 +10,6 @@ namespace FrozenSoftware.Controls
     public class BaseFormViewModel : BindableBase
     {
         private ActionType actionType;
-       
 
         public BaseFormViewModel()
         {
@@ -38,6 +37,12 @@ namespace FrozenSoftware.Controls
                 IsReadOnly = actionType == ActionType.ReadOnly;
             }
         }
+   
+        public bool DialogResult { get; set; }
+
+        public Action Close { get; set; }
+
+        protected int? EntityId { get; set; }
 
         public virtual void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
         {
@@ -57,11 +62,5 @@ namespace FrozenSoftware.Controls
             this.Close = null;
             DialogResult = false;
         }
-
-        public bool DialogResult { get; set; }
-
-        public Action Close { get; set; }
-
-        protected int? EntityId { get; set; }
     }
 }

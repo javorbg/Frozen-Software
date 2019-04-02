@@ -1,10 +1,9 @@
 ﻿namespace FrozenSoftware.Controls
 {
-    interface IParentViewName
+    public interface IParentViewName
     {
         string ParentViewName { get; set; }
 
-        bool  HasEditButtons { get; set; }
-
+        bool HasEditButtons { get; set; }
     }
 }

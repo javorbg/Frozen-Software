@@ -102,9 +102,12 @@
     <Compile Include="Dialogs\MessageWindow\MessageWindow.xaml.cs">
       <DependentUpon>MessageWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ModuleExtension\DynamicDirectoryModuleCatalog.cs" />
+    <Compile Include="ModuleExtension\DynamicDirectoryModuleCatalog.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

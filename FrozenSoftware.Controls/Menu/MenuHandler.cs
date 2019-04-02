@@ -12,33 +12,33 @@ namespace FrozenSoftware.Controls
             if (view == null)
                 return;
 
-            IParentViewName iNewSelection = view.DataContext as IParentViewName;
+            IParentViewName parentNewSelection = view.DataContext as IParentViewName;
 
-            if (iNewSelection == null || !iNewSelection.HasEditButtons)
+            if (parentNewSelection == null || !parentNewSelection.HasEditButtons)
                 return;
 
-            var editMenu = unityContainer.Resolve<EditMenuRibbonGroupBox>() ;
+            var editMenu = unityContainer.Resolve<EditMenuRibbonGroupBox>();
             editMenu.Header = $"Edit {view.Header}";
             IRegion ribbonRegion = regionManger.Regions[RegionNames.RibbonRegion];
 
-            RibbonTabItem buttonsView = ribbonRegion.GetView(iNewSelection.ParentViewName) as RibbonTabItem;
+            RibbonTabItem buttonsView = ribbonRegion.GetView(parentNewSelection.ParentViewName) as RibbonTabItem;
             editMenu.DataContext = view.DataContext;
             view.Tag = editMenu;
             buttonsView.Groups.Add(editMenu);
         }
 
-        public static void RemoveEditButtons(TabItem view, IRegionManager regionManger,bool isViewClosed)
+        public static void RemoveEditButtons(TabItem view, IRegionManager regionManger, bool isViewClosed)
         {
             if (view == null)
                 return;
 
-            IParentViewName iNewSelection = view.DataContext as IParentViewName;
+            IParentViewName parentNewSelection = view.DataContext as IParentViewName;
 
-            if (iNewSelection == null || !iNewSelection.HasEditButtons || view.Tag == null)
+            if (parentNewSelection == null || !parentNewSelection.HasEditButtons || view.Tag == null)
                 return;
 
             IRegion ribbonRegion = regionManger.Regions[RegionNames.RibbonRegion];
-            RibbonTabItem buttonsView = ribbonRegion.GetView(iNewSelection.ParentViewName) as RibbonTabItem;
+            RibbonTabItem buttonsView = ribbonRegion.GetView(parentNewSelection.ParentViewName) as RibbonTabItem;
             var editMenu = view.Tag as EditMenuRibbonGroupBox;
             if (isViewClosed)
             {

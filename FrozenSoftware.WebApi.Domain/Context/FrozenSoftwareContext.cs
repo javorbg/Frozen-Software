@@ -1,22 +1,18 @@
 ﻿using FrozenSoftware.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace FrozenSoftware.WebApi.Context
 {
     public class FrozenSoftwareContext : DbContext
     {
-        DbSet<Company> Companies { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
-        DbSet<Contact> Contacts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
 
-        DbSet<Country> Countries { get; set; }
+        public DbSet<Country> Countries { get; set; }
 
-        DbSet<PaymentType> PaymentTypes { get; set; }
+        public DbSet<PaymentType> PaymentTypes { get; set; }
 
-        DbSet<DocumentStatus> DocumentStatuses { get; set; }
+        public DbSet<DocumentStatus> DocumentStatuses { get; set; }
     }
 }

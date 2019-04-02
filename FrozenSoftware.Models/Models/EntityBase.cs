@@ -3,7 +3,7 @@ using System;
 
 namespace FrozenSoftware.Models
 {
-    public abstract class EntityBase : BindableBase , IEquatable<EntityBase>
+    public abstract class EntityBase : BindableBase, IEquatable<EntityBase>
     {
         public int Id { get; set; }
 
@@ -12,7 +12,7 @@ namespace FrozenSoftware.Models
             if (this.Id == 0 || other.Id == 0)
                 return object.ReferenceEquals(this, other);
 
-            return Id == other.Id;
+            return this.Id == other.Id;
         }
     }
 }

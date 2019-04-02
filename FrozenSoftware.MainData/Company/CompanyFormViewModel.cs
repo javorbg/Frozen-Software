@@ -55,10 +55,9 @@ namespace FrozenSoftware.MainData
             }
 
             DialogResult = true;
-           
+
             if (Close != null)
                 Close.Invoke();
         }
     }
 }
-
