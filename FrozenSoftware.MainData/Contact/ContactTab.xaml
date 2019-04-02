@@ -1,24 +1,28 @@
-﻿<TabItem x:Class="FrozenSoftware.CompanyTab"
+﻿<TabItem x:Class="FrozenSoftware.MainData.ContactTab"
          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+         xmlns:controls="FSControls"
          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+         xmlns:local="clr-namespace:FrozenSoftware"
          xmlns:prism="http://prismlibrary.com/"
          prism:ViewModelLocator.AutoWireViewModel="True"
-         Header="Company" 
+         Header="Contact" 
          Style="{DynamicResource FSTabItemStyle}"
          mc:Ignorable="d" 
          d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid Margin="2" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  ItemsSource="{Binding Companies}" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid Margin="2" ItemsSource="{Binding Contacts}" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Code}" Header="Code"/>
-                <DataGridTextColumn Binding="{Binding CompanyName}" Header="Company name"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
+                <DataGridTextColumn Binding="{Binding Surname}" Header="Surname"/>
+                <DataGridTextColumn Binding="{Binding Family}" Header="Family"/>
+                <DataGridTextColumn Binding="{Binding Email}" Header="Email"/>
+                <DataGridTextColumn Binding="{Binding Phone}" Header="Phone"/>
                 <DataGridTextColumn Binding="{Binding Address}" Header="Address"/>
                 <DataGridTextColumn Binding="{Binding ZipCode}" Header="ZipCode"/>
                 <DataGridTextColumn Binding="{Binding Country.Name}" Header="Country"/>
-                <DataGridCheckBoxColumn Binding="{Binding IsDatabaseOwner}" Header="Phone"/>
+                <DataGridTextColumn Binding="{Binding Company.CompanyName}" Header="Company"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

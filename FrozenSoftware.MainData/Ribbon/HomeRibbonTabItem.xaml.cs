@@ -1,6 +1,6 @@
 ﻿using Fluent;
 
-namespace FrozenSoftware
+namespace FrozenSoftware.MainData
 {
     /// <summary>
     /// Interaction logic for HomeRibbonTabItem.xaml

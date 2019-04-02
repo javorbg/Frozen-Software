@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace FrozenSoftware
+namespace FrozenSoftware.MainData
 {
     /// <summary>
     /// Interaction logic for CompanyForm.xaml

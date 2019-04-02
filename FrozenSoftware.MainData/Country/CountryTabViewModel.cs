@@ -5,7 +5,7 @@ using PropertyChanged;
 using System.Collections.ObjectModel;
 using Unity;
 
-namespace FrozenSoftware
+namespace FrozenSoftware.MainData
 {
     [ImplementPropertyChanged]
     public class CountryTabViewModel : BaseTabViewModel

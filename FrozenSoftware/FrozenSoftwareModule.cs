@@ -10,13 +10,13 @@ namespace FrozenSoftware
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            var regionManager = containerProvider.Resolve<IRegionManager>();
-            var view = containerProvider.Resolve<HomeRibbonTabItem>();
-            regionManager.Regions[RegionNames.RibbonRegion].Add(view, nameof(HomeRibbonTabItem));
+           
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            
+            
         }
     }
 }

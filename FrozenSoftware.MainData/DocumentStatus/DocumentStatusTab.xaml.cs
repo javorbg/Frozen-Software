@@ -1,13 +1,13 @@
 ﻿using System.Windows.Controls;
 
-namespace FrozenSoftware
+namespace FrozenSoftware.MainData
 {
     /// <summary>
-    /// Interaction logic for CompanyTab.xaml
+    /// Interaction logic for DocumentStatusTab.xaml
     /// </summary>
-    public partial class CompanyTab : TabItem
+    public partial class DocumentStatusTab : TabItem
     {
-        public CompanyTab()
+        public DocumentStatusTab()
         {
             InitializeComponent();
         }

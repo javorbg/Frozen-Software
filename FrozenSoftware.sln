@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.WebApi", "Fr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.WebApi.Tests", "FrozenSoftware.WebApi.Domain.Tests\FrozenSoftware.WebApi.Tests.csproj", "{8B0469BE-DB06-46D1-9675-8D82F38A9BD4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.MainData", "FrozenSoftware.MainData\FrozenSoftware.MainData.csproj", "{CE324CEA-13DB-4FDC-88EB-F37F37577477}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8B0469BE-DB06-46D1-9675-8D82F38A9BD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B0469BE-DB06-46D1-9675-8D82F38A9BD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B0469BE-DB06-46D1-9675-8D82F38A9BD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE324CEA-13DB-4FDC-88EB-F37F37577477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE324CEA-13DB-4FDC-88EB-F37F37577477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE324CEA-13DB-4FDC-88EB-F37F37577477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE324CEA-13DB-4FDC-88EB-F37F37577477}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

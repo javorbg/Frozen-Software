@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Unity;
 
-namespace FrozenSoftware
+namespace FrozenSoftware.MainData
 {
     [ImplementPropertyChanged]
     public class CompanyTabViewModel : BaseTabViewModel

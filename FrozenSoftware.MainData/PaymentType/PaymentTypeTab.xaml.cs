@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace FrozenSoftware
+namespace FrozenSoftware.MainData
 {
     /// <summary>
     /// Interaction logic for PaymentTypeTab.xaml
