@@ -46,7 +46,7 @@ namespace FrozenSoftware.Controls
             }
         }
 
-        public string ParentViewName { get; set; } = "HomeRibbonTabItem";
+        public string ParentViewName { get; set; }
 
         public bool HasEditButtons { get; set; }
 

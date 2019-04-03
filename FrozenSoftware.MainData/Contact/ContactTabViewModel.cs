@@ -14,7 +14,7 @@ namespace FrozenSoftware.MainData
             : base(regionManger, unityContainer)
         {
             Contacts = DummyDataContext.Context.Contacts;
-            ParentViewName = nameof(HomeRibbonTabItem);
+            ParentViewName = nameof(MainDataRibbonTabItem);
             HasEditButtons = false;
         }
 

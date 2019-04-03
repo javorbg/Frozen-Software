@@ -14,7 +14,7 @@ namespace FrozenSoftware.MainData
             base(regionManger, unityContainer)
         {
             PaymentTypes = DummyDataContext.Context.PaymentTypes;
-            this.ParentViewName = nameof(HomeRibbonTabItem);
+            this.ParentViewName = nameof(MainDataRibbonTabItem);
             this.HasEditButtons = false;
         }
 

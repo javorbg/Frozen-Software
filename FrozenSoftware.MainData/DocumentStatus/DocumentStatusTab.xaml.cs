@@ -12,6 +12,6 @@ namespace FrozenSoftware.MainData
             InitializeComponent();
         }
 
-        public string ParetViewName { get; set; } = nameof(HomeRibbonTabItem);
+        public string ParetViewName { get; set; } = nameof(MainDataRibbonTabItem);
     }
 }

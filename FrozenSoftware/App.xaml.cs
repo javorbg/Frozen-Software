@@ -5,7 +5,6 @@ using Prism.Modularity;
 using Prism.Regions;
 using Prism.Unity;
 using System;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -47,8 +46,7 @@ namespace FrozenSoftware
 
         protected override IModuleCatalog CreateModuleCatalog()
         {
-            DynamicDirectoryModuleCatalog catalog = new DynamicDirectoryModuleCatalog(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Modules"));
-            return catalog;
+            return new DirectoryModuleCatalog() { ModulePath = "Modules" };
         }
     }
 }

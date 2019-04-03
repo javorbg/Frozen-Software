@@ -14,7 +14,7 @@ namespace FrozenSoftware.MainData
             : base(regionManger, unityContainer)
         {
             DocumentStatuses = DummyDataContext.Context.DocuentStatuses;
-            this.ParentViewName = nameof(HomeRibbonTabItem);
+            this.ParentViewName = nameof(MainDataRibbonTabItem);
             this.HasEditButtons = false;
         }
 

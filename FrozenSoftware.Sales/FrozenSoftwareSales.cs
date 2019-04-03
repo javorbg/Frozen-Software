@@ -1,11 +1,10 @@
 ﻿using FrozenSoftware.Controls;
 using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Regions;
 
-namespace FrozenSoftware.MainData
+namespace FrozenSoftware.Sales
 {
-    public class FrozenSoftwareMainDataModule : IModule
+    public class FrozenSoftwareSales : IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
@@ -13,7 +12,7 @@ namespace FrozenSoftware.MainData
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.Register<IMainDataRibbon, MainDataRibbonTabItem>();
+            containerRegistry.Register<ISalesRibbon, SalesRibbonTabItem>();
         }
     }
 }

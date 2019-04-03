@@ -14,7 +14,7 @@ namespace FrozenSoftware.MainData
             base(regionManger, unityContainer)
         {
             this.Countries = DummyDataContext.Context.Countries;
-            this.ParentViewName = nameof(HomeRibbonTabItem);
+            this.ParentViewName = nameof(MainDataRibbonTabItem);
             this.HasEditButtons = false;
         }
 
