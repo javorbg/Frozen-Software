@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace FrozenSoftware.Models
@@ -14,6 +15,7 @@ namespace FrozenSoftware.Models
             InitializePaymentTypes();
             InitializeDatabaseOwnerCompany();
             InitializeContacts();
+            InitializeMeasureUnits();
         }
 
         public static DummyDataContext Context
@@ -36,6 +38,18 @@ namespace FrozenSoftware.Models
         public ObservableCollection<Contact> Contacts { get; set; }
 
         public ObservableCollection<Company> Companies { get; set; }
+
+        public ObservableCollection<MeasureUnit> MeasureUnits { get; set; }
+
+        private void InitializeMeasureUnits()
+        {
+            MeasureUnits = new ObservableCollection<MeasureUnit>();
+            MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Time, Name = "Minute", ShortName = "min" });
+            MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Time, Name = "Hour", ShortName = "h" });
+            MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Time, Name = "Day", ShortName = "d" });
+            MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Distance, Name = "Centimeter", ShortName = "cm" });
+            MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Distance, Name = "Meter", ShortName = "m" });
+        }
 
         private void InitializeContacts()
         {
