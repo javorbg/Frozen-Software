@@ -53,9 +53,8 @@ namespace FrozenSoftware
         {
             base.OnStartup(e);
             
-            //On Startup change Color of Icons
+            // On Startup change Color of Icons
             Application.Current.Resources["IconBrush"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
-
         }
     }
 }
