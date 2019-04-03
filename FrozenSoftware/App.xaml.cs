@@ -48,5 +48,14 @@ namespace FrozenSoftware
         {
             return new DirectoryModuleCatalog() { ModulePath = "Modules" };
         }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+            
+            //On Startup change Color of Icons
+            Application.Current.Resources["IconBrush"] = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.Red);
+
+        }
     }
 }
