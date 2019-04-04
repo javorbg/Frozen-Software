@@ -76,6 +76,7 @@
     <Compile Include="Models\DocumentStatus.cs" />
     <Compile Include="Models\DummyDataContext.cs" />
     <Compile Include="Models\EntityBase.cs" />
+    <Compile Include="Models\Good.cs" />
     <Compile Include="Models\MeasureUnit.cs" />
     <Compile Include="Models\MeasureUnitType.cs" />
     <Compile Include="Models\PaymentType.cs" />
