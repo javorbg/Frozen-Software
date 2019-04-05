@@ -14,5 +14,10 @@
                 <Path Data="{DynamicResource Contact}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
             </fluent:Button.LargeIcon>
         </fluent:Button>
+        <fluent:Button Header="Goods" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:GoodTab}">
+            <fluent:Button.LargeIcon>
+                <Path Data="{DynamicResource Contact}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+            </fluent:Button.LargeIcon>
+        </fluent:Button>
     </fluent:RibbonGroupBox>
 </fluent:RibbonTabItem>

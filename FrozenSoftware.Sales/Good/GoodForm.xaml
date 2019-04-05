@@ -1,0 +1,64 @@
+﻿<Window x:Class="FrozenSoftware.Sales.GoodForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="GoodForm" Height="450" Width="800">
+    <Grid Name="MainArea" Grid.IsSharedSizeScope="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.IsSharedSizeScope="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="LabelSharedSize"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" SharedSizeGroup="LabelSharedSize"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Margin="2" Content="Code" />
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding Entity.Code,Mode=TwoWay}"/>
+
+            <Label Grid.Column="2" Grid.Row="0" Margin="2"  Content="Name"  />
+            <TextBox Grid.Column="3" Grid.Row="0" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding Entity.Name,Mode=TwoWay}"/>
+
+            <Label Grid.Column="0" Grid.Row="1" Margin="2"  Content="Barcode" />
+            <TextBox Grid.Column="1" Grid.Row="1" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding Entity.BarCode,Mode=TwoWay}"/>
+
+            <Label Grid.Column="2" Grid.Row="1" Margin="2"  Content="Measure unit"/>
+            <ComboBox Grid.Column="3" Grid.Row="1" Margin="2" 
+                          ItemsSource="{Binding MeasureUnits}"
+                          IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                          SelectedValuePath="Id"
+                          DisplayMemberPath="Name"
+                          SelectedValue="{Binding Entity.MeasureUnitId,Mode=TwoWay}"
+                          SelectedItem="{Binding Entity.MeasureUnit,Mode=TwoWay}"/>
+        </Grid>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition SharedSizeGroup="ConfirmButtons"/>
+                <ColumnDefinition SharedSizeGroup="ConfirmButtons"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Ok" Width="80" Margin="5" Padding="2"
+                    Command="{Binding ConfirmCommand}"/>
+            <Button Grid.Column="1" Content="Cancel" Margin="5" Padding="2"
+                    Command="{Binding CancelCommand}"/>
+        </Grid>
+    </Grid>
+</Window>

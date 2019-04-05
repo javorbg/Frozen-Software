@@ -13,7 +13,7 @@ namespace FrozenSoftware.Sales
         {
             MeasureUnits = DummyDataContext.Context.MeasureUnits;
             ParentViewName = nameof(SalesRibbonTabItem);
-            HasEditButtons = true;
+            HasEditButtons = false;
         }
 
         public ObservableCollection<MeasureUnit> MeasureUnits { get; set; }

@@ -89,6 +89,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrozenSoftwareSales.cs" />
+    <Compile Include="Good\GoodForm.xaml.cs">
+      <DependentUpon>GoodForm.xaml</DependentUpon>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Good\GoodFormViewModel.cs" />
+    <Compile Include="Good\GoodTab.xaml.cs">
+      <DependentUpon>GoodTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Good\GoodTabViewModel.cs" />
     <Compile Include="MeasureUnit\MeasureUnitTabViewModel.cs" />
     <Compile Include="MeasureUnit\MeasureUnitTab.xaml.cs">
       <DependentUpon>MeasureUnitTab.xaml</DependentUpon>
@@ -127,6 +136,14 @@
     <Resource Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Good\GoodForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Good\GoodTab.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MeasureUnit\MeasureUnitTab.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

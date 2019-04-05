@@ -16,6 +16,7 @@ namespace FrozenSoftware.Models
             InitializeDatabaseOwnerCompany();
             InitializeContacts();
             InitializeMeasureUnits();
+            InitializeGoods();
         }
 
         public static DummyDataContext Context
@@ -41,14 +42,31 @@ namespace FrozenSoftware.Models
 
         public ObservableCollection<MeasureUnit> MeasureUnits { get; set; }
 
+        public ObservableCollection<Good> Goods { get; set; }
+
+        private void InitializeGoods()
+        {
+            Goods = new ObservableCollection<Good>();
+            MeasureUnit measureUnit = MeasureUnits.First(x => x.Id == 2);
+            Goods.Add(new Good()
+            {
+                Id = 1,
+                Code = "1",
+                Name = "Nokia N900 32GB internal storage",
+                BarCode = "4155474899",
+                MeasureUnitId = measureUnit.Id,
+                MeasureUnit = measureUnit
+            });
+        }
+
         private void InitializeMeasureUnits()
         {
             MeasureUnits = new ObservableCollection<MeasureUnit>();
             MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Time, Name = "Minute", ShortName = "min" });
-            MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Time, Name = "Hour", ShortName = "h" });
-            MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Time, Name = "Day", ShortName = "d" });
-            MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Distance, Name = "Centimeter", ShortName = "cm" });
-            MeasureUnits.Add(new MeasureUnit() { Id = 1, MeasureUnitType = MeasureUnitType.Distance, Name = "Meter", ShortName = "m" });
+            MeasureUnits.Add(new MeasureUnit() { Id = 2, MeasureUnitType = MeasureUnitType.Time, Name = "Hour", ShortName = "h" });
+            MeasureUnits.Add(new MeasureUnit() { Id = 3, MeasureUnitType = MeasureUnitType.Time, Name = "Day", ShortName = "d" });
+            MeasureUnits.Add(new MeasureUnit() { Id = 4, MeasureUnitType = MeasureUnitType.Distance, Name = "Centimeter", ShortName = "cm" });
+            MeasureUnits.Add(new MeasureUnit() { Id = 5, MeasureUnitType = MeasureUnitType.Distance, Name = "Meter", ShortName = "m" });
         }
 
         private void InitializeContacts()

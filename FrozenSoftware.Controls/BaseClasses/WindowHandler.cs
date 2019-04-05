@@ -9,6 +9,7 @@ namespace FrozenSoftware
     public class WindowHandler
     {
         private static WindowHandler windowHandler;
+        private List<Window> windowList = new List<Window>();
 
         private WindowHandler()
         {
@@ -27,14 +28,27 @@ namespace FrozenSoftware
 
         public bool ShowWindow(int? entityId, ActionType actionType, Type windowType, IUnityContainer unityContainer, List<object> additionalData = null)
         {
-            int count = Application.Current.Windows.Count;
-            Window paret = Application.Current.Windows[count - 1];
             Window window = unityContainer.Resolve(windowType) as Window;
-            window.Owner = paret;
+            Window paret;
+            if (windowList.Count == 0)
+            {
+                paret = Application.Current.Windows[0];
+                windowList.Add(window);
+                window.Owner = paret;
+            }
+            else
+            {
+                int lastIndnex = windowList.Count - 1;
+                paret = windowList[lastIndnex];
+                windowList.Add(window);
+                window.Owner = paret;
+            }
+
             BaseFormViewModel windowVewiModel = window.DataContext as BaseFormViewModel;
             windowVewiModel.Close = window.Close;
             windowVewiModel.Initialize(entityId, actionType, additionalData);
             window.ShowDialog();
+            windowList.Remove(window);
 
             return windowVewiModel.DialogResult;
         }
