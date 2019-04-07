@@ -1,0 +1,110 @@
+﻿<Window x:Class="FrozenSoftware.Sales.PriceListForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:control="clr-namespace:FrozenSoftware.Controls;assembly=FrozenSoftware.Controls"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        Title="_Price list" Height="450" Width="800">
+    <Window.Resources>
+        <control:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
+        <DataTemplate x:Key="GoodCellEditTempalte">
+            <ComboBox IsEditable="True" 
+                      SelectedValuePath="Id"
+                      DisplayMemberPath="Name"
+                      SelectedValue="{Binding GoodId, Mode=TwoWay}"
+                      SelectedItem="{Binding Good,Mode=TwoWay}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="NumberInput">
+        </DataTemplate>
+    </Window.Resources>
+    <Grid Name="MainArea" Grid.IsSharedSizeScope="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.IsSharedSizeScope="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="LabelSharedSize"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" SharedSizeGroup="LabelSharedSize"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Margin="2" Content="_Name" />
+            <TextBox Grid.Column="1" Grid.Row="0" Margin="2" 
+                         IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                         Text="{Binding Entity.Code,Mode=TwoWay}"/>
+
+            <Label Grid.Column="2" Grid.Row="0" Margin="2"  Content="_Start date"  />
+            <DatePicker Grid.Column="3" Grid.Row="0" Margin="2" 
+                         IsEnabled="{Binding IsReadOnly,Mode=TwoWay, Converter={StaticResource InvertedBooleanConverter}}"
+                         SelectedDate="{Binding Entity.StartDate, Mode=TwoWay}"/>
+
+            <Label Grid.Column="0" Grid.Row="1" Margin="2"  Content="_End date" />
+            <DatePicker Grid.Column="1" Grid.Row="1" Margin="2" 
+                         IsEnabled="{Binding IsReadOnly,Mode=TwoWay, Converter={StaticResource InvertedBooleanConverter}}"
+                         SelectedDate="{Binding Entity.EndDate, Mode=TwoWay}"/>
+
+            <Label Grid.Column="2" Grid.Row="1" Margin="2"  Content="_Is Active"/>
+            <CheckBox Grid.Column="3" Grid.Row="1" Margin="2" 
+                      VerticalAlignment="Center"
+                      IsChecked="{Binding Entity.IsActive, Mode=TwoWay}"
+                      IsEnabled="{Binding IsReadOnly,Mode=TwoWay,Converter={StaticResource InvertedBooleanConverter}}"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" HorizontalAlignment="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <control:PathButton Grid.Column="0" Icon="{DynamicResource AddIcon}" ToolTip="_Add"/>
+                <control:PathButton Grid.Column="1" Icon="{DynamicResource DeleteIcon}" ToolTip="_Delete"/>
+            </Grid>
+            <DataGrid Grid.Row="1">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="_Good" MinWidth="100" CellTemplate="{StaticResource GoodCellEditTempalte}" />
+                    <DataGridTemplateColumn Header="_Base Price" MinWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <control:NumerikTextBox/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="_Full Price" MinWidth="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <control:NumerikTextBox/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition SharedSizeGroup="ConfirmButtons"/>
+                <ColumnDefinition SharedSizeGroup="ConfirmButtons"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="_Ok" Width="80" Margin="5" Padding="2"
+                    Command="{Binding ConfirmCommand}"/>
+            <Button Grid.Column="1" Content="_Cancel" Margin="5" Padding="2"
+                    Command="{Binding CancelCommand}"/>
+        </Grid>
+    </Grid>
+</Window>

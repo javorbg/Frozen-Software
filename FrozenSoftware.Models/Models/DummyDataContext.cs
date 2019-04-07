@@ -17,6 +17,7 @@ namespace FrozenSoftware.Models
             InitializeContacts();
             InitializeMeasureUnits();
             InitializeGoods();
+            InitializePriceLists();
         }
 
         public static DummyDataContext Context
@@ -43,6 +44,16 @@ namespace FrozenSoftware.Models
         public ObservableCollection<MeasureUnit> MeasureUnits { get; set; }
 
         public ObservableCollection<Good> Goods { get; set; }
+
+        public ObservableCollection<PriceList> PriceLists { get; set; }
+
+        public ObservableCollection<PriceListItem> PriceListItems { get; set; }
+
+        private void InitializePriceLists()
+        {
+            PriceLists = new ObservableCollection<PriceList>();
+            PriceListItems = new ObservableCollection<PriceListItem>();
+        }
 
         private void InitializeGoods()
         {

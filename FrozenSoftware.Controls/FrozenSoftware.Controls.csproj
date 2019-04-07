@@ -93,6 +93,12 @@
     <Compile Include="BaseRibbon\IBaseRibbon.cs" />
     <Compile Include="BaseRibbon\IMainDataRibbon.cs" />
     <Compile Include="BaseRibbon\ISalesRibbon.cs" />
+    <Compile Include="Controls\NumerikTextBox.xaml.cs">
+      <DependentUpon>NumerikTextBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\PathButton.xaml.cs">
+      <DependentUpon>PathButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\BaseDialogWindowViewModel.cs" />
     <Compile Include="Dialogs\ConfirWindow\ConfirWindow.xaml.cs">
       <DependentUpon>ConfirWindow.xaml</DependentUpon>
@@ -135,6 +141,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\NumerikTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\PathButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\ConfirWindow\ConfirWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

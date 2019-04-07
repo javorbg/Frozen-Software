@@ -80,6 +80,10 @@
     <Compile Include="Models\MeasureUnit.cs" />
     <Compile Include="Models\MeasureUnitType.cs" />
     <Compile Include="Models\PaymentType.cs" />
+    <Compile Include="Models\PriceList.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Models\PriceListItem.cs" />
     <Compile Include="Models\ResourceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -1,0 +1,22 @@
+﻿<TabItem x:Class="FrozenSoftware.Sales.PriceListTab"
+         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+         xmlns:prism="http://prismlibrary.com/"
+         prism:ViewModelLocator.AutoWireViewModel="True"
+         Header="Price lists"
+         Style="{DynamicResource FSTabItemStyle}"
+         mc:Ignorable="d"  
+         d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <DataGrid Margin="2" ItemsSource="{Binding PriceLists}" IsReadOnly="True" AutoGenerateColumns="False"
+                  SelectedIndex="{Binding SelectedIndex,Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Name}" Header="Code"/>
+                <DataGridTextColumn Binding="{Binding StartDate}" Header="Name"/>
+                <DataGridCheckBoxColumn Binding="{Binding IsActive}" Header="BarCode"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</TabItem>
