@@ -26,14 +26,14 @@ namespace FrozenSoftware.Sales
 
         protected override void OnEditCommand()
         {
-            Good good = Goods[SelectedIndex.Value];
+            Good good = Goods[SelectedIndex];
 
             WindowHandler.WindowHandlerInstance.ShowWindow(good.Id, ActionType.Edit, typeof(GoodForm), UnityContainer);
         }
 
         protected override void OnDeleteCommand()
         {
-            Good good = Goods[SelectedIndex.Value];
+            Good good = Goods[SelectedIndex];
             bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {good.Name}?", UnityContainer, "Company");
 
             if (result == true)

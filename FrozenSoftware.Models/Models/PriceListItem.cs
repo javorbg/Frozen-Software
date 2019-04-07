@@ -10,16 +10,29 @@
 
         public decimal EndPrice { get; set; }
 
+        public int Discount { get; set; }
+
+        public int Vat { get; set; }
+
         public int PriceListId { get; set; }
 
         public virtual PriceList PriceList { get; set; }
 
-        public string MeasureUnitName
+        public override string this[string columnName]
         {
             get
             {
-                return Good?.MeasureUnit?.Name;
+                switch (columnName)
+                {
+                    case nameof(GoodId):
+                        if (GoodId < 1)
+                            return "_Good is requried.";
+                        break;
+                }
+
+                return null;
             }
         }
+
     }
 }

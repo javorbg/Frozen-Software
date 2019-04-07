@@ -27,14 +27,14 @@ namespace FrozenSoftware.Sales
 
         protected override void OnEditCommand()
         {
-            PriceList priceList = PriceLists[SelectedIndex.Value];
+            PriceList priceList = PriceLists[SelectedIndex];
 
             WindowHandler.WindowHandlerInstance.ShowWindow(priceList.Id, ActionType.Edit, typeof(PriceListForm), UnityContainer);
         }
 
         protected override void OnDeleteCommand()
         {
-            PriceList priceList = PriceLists[SelectedIndex.Value];
+            PriceList priceList = PriceLists[SelectedIndex];
             bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {priceList.Name}?", UnityContainer, "Company");
 
             if (result == true)

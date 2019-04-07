@@ -3,11 +3,12 @@ using Prism.Mvvm;
 using PropertyChanged;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace FrozenSoftware.Controls
 {
     [ImplementPropertyChanged]
-    public class BaseFormViewModel : BindableBase
+    public class BaseFormViewModel : BindableBase, IDataErrorInfo
     {
         private ActionType actionType;
 
@@ -16,6 +17,8 @@ namespace FrozenSoftware.Controls
             ConfirmCommand = new DelegateCommand(OnConfirmCommand);
             CancelCommand = new DelegateCommand(OnCancelCommand);
         }
+
+        public string Error { get; }
 
         public DelegateCommand ConfirmCommand { get; set; }
 
@@ -37,12 +40,20 @@ namespace FrozenSoftware.Controls
                 IsReadOnly = actionType == ActionType.ReadOnly;
             }
         }
-   
+
         public bool DialogResult { get; set; }
 
         public Action Close { get; set; }
 
         protected int? EntityId { get; set; }
+
+        public virtual string this[string columnName]
+        {
+            get
+            {
+                return null;
+            }
+        }
 
         public virtual void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
         {

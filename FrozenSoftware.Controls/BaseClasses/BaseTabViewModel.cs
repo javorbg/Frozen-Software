@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -8,10 +9,9 @@ using Unity;
 namespace FrozenSoftware.Controls
 {
     [ImplementPropertyChanged]
-    public abstract class BaseTabViewModel : BindableBase, IParentViewName
+    public abstract class BaseTabViewModel : BindableBase, IParentViewName, IDataErrorInfo
     {
-        private int? selectedIndex;
-
+        private object selectedItem;
         public BaseTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
         {
             RegionManger = regionManger;
@@ -31,16 +31,18 @@ namespace FrozenSoftware.Controls
 
         public DelegateCommand DeleteCommand { get; set; }
 
-        public virtual int? SelectedIndex
+        public virtual int SelectedIndex { get; set; }
+
+        public object SelectedItem
         {
             get
             {
-                return selectedIndex;
+                return selectedItem;
             }
 
             set
             {
-                SetProperty(ref selectedIndex, value);
+                SetProperty(ref selectedItem, value);
                 EditCommand.RaiseCanExecuteChanged();
                 DeleteCommand.RaiseCanExecuteChanged();
             }
@@ -50,9 +52,19 @@ namespace FrozenSoftware.Controls
 
         public bool HasEditButtons { get; set; }
 
+        public virtual string Error { get; }
+
         protected IRegionManager RegionManger { get; set; }
 
         protected IUnityContainer UnityContainer { get; set; }
+
+        public virtual string this[string columnName]
+        {
+            get
+            {
+                return null;
+            }
+        }
 
         protected virtual void OnCloseTabCommand()
         {
@@ -75,7 +87,7 @@ namespace FrozenSoftware.Controls
 
         protected virtual bool CanExecuteDeleteCommand()
         {
-            if (!this.SelectedIndex.HasValue || this.SelectedIndex.Value < 0)
+            if (SelectedItem == null)
                 return false;
 
             return true;
@@ -83,7 +95,7 @@ namespace FrozenSoftware.Controls
 
         protected virtual bool CanExecuteEditCommand()
         {
-            if (!this.SelectedIndex.HasValue || this.SelectedIndex.Value < 0)
+            if (SelectedItem == null)
                 return false;
 
             return true;

@@ -1,11 +1,22 @@
 ﻿using Prism.Mvvm;
 using System;
+using System.ComponentModel;
 
 namespace FrozenSoftware.Models
 {
-    public abstract class EntityBase : BindableBase, IEquatable<EntityBase>
+    public abstract class EntityBase : BindableBase, IEquatable<EntityBase> , IDataErrorInfo
     {
         public int Id { get; set; }
+
+        public string Error { get; }
+
+        public virtual string this[string columnName]
+        {
+            get
+            {
+                return null;
+            }
+        }
 
         public bool Equals(EntityBase other)
         {

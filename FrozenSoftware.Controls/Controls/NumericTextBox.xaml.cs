@@ -5,13 +5,13 @@ using System.Windows.Input;
 namespace FrozenSoftware.Controls
 {
     /// <summary>
-    /// Interaction logic for NumerikTextBox.xaml
+    /// Interaction logic for NumericTextBox.xaml
     /// </summary>
-    public partial class NumerikTextBox : TextBox
+    public partial class NumericTextBox : TextBox
     {
         private int decimalChar;
 
-        public NumerikTextBox()
+        public NumericTextBox()
         {
             InitializeComponent();
 
@@ -20,7 +20,7 @@ namespace FrozenSoftware.Controls
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e.Key < Key.D0 || e.Key > Key.D9 || e.Key != (Key)decimalChar)
+            if (e.Key < Key.D0 && e.Key > Key.D9 && e.Key != (Key)decimalChar)
                 e.Handled = true;
 
             base.OnKeyUp(e);

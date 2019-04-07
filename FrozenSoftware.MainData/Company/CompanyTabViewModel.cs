@@ -27,14 +27,14 @@ namespace FrozenSoftware.MainData
 
         protected override void OnEditCommand()
         {
-            Company company = Companies[SelectedIndex.Value];
+            Company company = Companies[SelectedIndex];
 
             WindowHandler.WindowHandlerInstance.ShowWindow(company.Id, ActionType.Edit, typeof(CompanyForm), UnityContainer);
         }
 
         protected override void OnDeleteCommand()
         {
-            Company company = Companies[SelectedIndex.Value];
+            Company company = Companies[SelectedIndex];
             bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {company.CompanyName}?", UnityContainer, "Company");
 
             if (result == true)
