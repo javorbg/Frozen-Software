@@ -1,38 +1,33 @@
 ﻿using FrozenSoftware.Controls;
 using FrozenSoftware.Models;
 using Prism.Commands;
-using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Unity;
 
 namespace FrozenSoftware.Sales
 {
     public class PriceListFormViewModel : BaseFormViewModel
     {
         private bool isActive;
-        private int selectedPriceListItemIndex;
+        private PriceListItem selectedPriceListItem;
 
         public PriceListFormViewModel()
         {
-            AddPriceListItemCommand = new DelegateCommand(OnAddPriceListItemCommand);
-            DeletePriceListItemCommand = new DelegateCommand(OnDeletePriceListItemCommand, CanExecuteDeletePriceListItemCommand);
+            AddPriceListItemCommand = new DelegateCommand(OnAddPriceListItemCommand, () => this.ActionType == ActionType.Edit);
         }
 
-        public int SelectedPriceListItemIndex
+        public PriceListItem SelectedPriceListItem
         {
             get
             {
-                return selectedPriceListItemIndex;
+                return selectedPriceListItem;
             }
 
             set
             {
-                SetProperty(ref selectedPriceListItemIndex, value);
-                DeletePriceListItemCommand.RaiseCanExecuteChanged();
+                SetProperty(ref selectedPriceListItem, value);
             }
         }
 
@@ -43,8 +38,6 @@ namespace FrozenSoftware.Sales
         public ObservableCollection<Good> Goods { get; set; }
 
         public DelegateCommand AddPriceListItemCommand { get; set; }
-
-        public DelegateCommand DeletePriceListItemCommand { get; set; }
 
         public bool IsActive
         {
@@ -60,7 +53,7 @@ namespace FrozenSoftware.Sales
                 {
                     case nameof(PriceListItems):
                         if (PriceListItems == null || PriceListItems.Count == 0)
-                            return "_The price list must contains goos.";
+                            return "_The price list must contains goods.";
                         break;
                 }
 
@@ -73,6 +66,7 @@ namespace FrozenSoftware.Sales
             base.Initialize(entityId, actionType, additionalData);
 
             PriceListItems = new ObservableCollection<PriceListItem>();
+            Goods = DummyDataContext.Context.Goods;
 
             switch (actionType)
             {
@@ -84,6 +78,8 @@ namespace FrozenSoftware.Sales
 
                     Entity = new PriceList() { Id = lastId, StartDate = DateTime.Today, EndDate = DateTime.Today.AddMonths(12) };
                     PriceListItems = new ObservableCollection<PriceListItem>();
+                    UpdatePriceListItems(Goods);
+
                     break;
                 case ActionType.ReadOnly:
                 case ActionType.Edit:
@@ -93,7 +89,33 @@ namespace FrozenSoftware.Sales
                     break;
             }
 
-            Goods = DummyDataContext.Context.Goods;
+            AddPriceListItemCommand.RaiseCanExecuteChanged();
+        }
+
+        private void UpdatePriceListItems(IEnumerable<Good> goods)
+        {
+            int lastPriceListItemId = 1;
+            int localLastId = 1;
+
+            foreach (Good good in goods)
+            {
+                if (DummyDataContext.Context.PriceLists.Count > 0)
+                    lastPriceListItemId = DummyDataContext.Context.PriceLists.Select(x => x.Id).Max() + 1;
+
+                if (PriceListItems.Count > 0)
+                    localLastId = PriceListItems.Select(x => x.Id).Max() + 1;
+
+                lastPriceListItemId = Math.Max(lastPriceListItemId, localLastId);
+
+                PriceListItems.Add(new PriceListItem()
+                {
+                    Id = lastPriceListItemId,
+                    Good = good,
+                    GoodId = good.Id,
+                    PriceList = Entity,
+                    PriceListId = Entity.Id,
+                });
+            }
         }
 
         protected override void OnConfirmCommand()
@@ -101,17 +123,8 @@ namespace FrozenSoftware.Sales
             if (PriceListItems == null || PriceListItems.Count == 0)
                 return;
 
-            bool isValid = Validator.TryValidateObject(this, new ValidationContext(this, null), null);
-
-            if (!isValid)
+            if (string.IsNullOrEmpty(Entity.Name))
                 return;
-
-            foreach (PriceListItem priceListItem in PriceListItems)
-            {
-                isValid = Validator.TryValidateObject(priceListItem, new ValidationContext(priceListItem, null), null);
-                if (!isValid)
-                    return;
-            }
 
             if (ActionType == ActionType.Add)
             {
@@ -125,39 +138,20 @@ namespace FrozenSoftware.Sales
                 Close.Invoke();
         }
 
-        private void OnDeletePriceListItemCommand()
-        {
-            if (PriceListItems == null || PriceListItems.Count == 0)
-                return;
-        }
-
         private void OnAddPriceListItemCommand()
         {
-            if (PriceListItems == null)
-                PriceListItems = new ObservableCollection<PriceListItem>();
+            var currentGoods = PriceListItems.Select(x => x.Good);
+            var goods = Goods.Except(currentGoods);
 
-            int lastId = 1;
-            int localLastId = 1;
+            if (goods == null || goods.Count() == 0)
+                return;
 
-            if (DummyDataContext.Context.PriceLists.Count > 0)
-                lastId = DummyDataContext.Context.PriceLists.Select(x => x.Id).Max() + 1;
-
-            if (PriceListItems.Count > 0)
-                localLastId = PriceListItems.Select(x => x.Id).Max() + 1;
-
-            lastId = Math.Max(lastId, localLastId);
-
-            PriceListItems.Add(new PriceListItem()
-            {
-                Id = lastId,
-                PriceList = Entity,
-                PriceListId = Entity.Id
-            });
+            UpdatePriceListItems(goods);
         }
 
         private bool CanExecuteDeletePriceListItemCommand()
         {
-            return SelectedPriceListItemIndex >= 0;
+            return SelectedPriceListItem != null;
         }
     }
 }

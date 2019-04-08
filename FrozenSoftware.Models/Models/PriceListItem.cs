@@ -24,8 +24,9 @@
             {
                 switch (columnName)
                 {
+                    case nameof(Good):
                     case nameof(GoodId):
-                        if (GoodId < 1)
+                        if (GoodId < 1 || Good == null)
                             return "_Good is requried.";
                         break;
                 }

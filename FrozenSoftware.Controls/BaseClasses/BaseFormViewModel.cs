@@ -57,7 +57,7 @@ namespace FrozenSoftware.Controls
 
         public virtual void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
         {
-            ActionType = ActionType;
+            ActionType = actionType;
             EntityId = entityId;
         }
 

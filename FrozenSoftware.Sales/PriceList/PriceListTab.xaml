@@ -18,7 +18,7 @@
                 <DataGridTextColumn Binding="{Binding Name}" Header="_Name"/>
                 <DataGridTextColumn Binding="{Binding StartDate}" Header="_Start date"/>
                 <DataGridTextColumn Binding="{Binding EndDate}" Header="_End date"/>
-                <DataGridCheckBoxColumn Binding="{Binding IsActive}" Header="_BarCode"/>
+                <DataGridCheckBoxColumn Binding="{Binding IsActive}" Header="_Is Active"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

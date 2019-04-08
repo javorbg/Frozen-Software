@@ -68,6 +68,26 @@ namespace FrozenSoftware.Models
                 MeasureUnitId = measureUnit.Id,
                 MeasureUnit = measureUnit
             });
+
+            Goods.Add(new Good()
+            {
+                Id = 2,
+                Code = "2",
+                Name = "Nokia N91 4gb",
+                BarCode = "2346767",
+                MeasureUnitId = measureUnit.Id,
+                MeasureUnit = measureUnit
+            });
+
+            Goods.Add(new Good()
+            {
+                Id = 3,
+                Code = "3",
+                Name = "Nokia N82",
+                BarCode = "98654",
+                MeasureUnitId = measureUnit.Id,
+                MeasureUnit = measureUnit
+            });
         }
 
         private void InitializeMeasureUnits()

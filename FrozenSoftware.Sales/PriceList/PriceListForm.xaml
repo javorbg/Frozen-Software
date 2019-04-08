@@ -5,6 +5,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:control="clr-namespace:FrozenSoftware.Controls;assembly=FrozenSoftware.Controls"
+        xmlns:controls="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="_Price list" Height="450" Width="800">
@@ -67,30 +68,24 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <control:PathButton Command="{Binding AddPriceListItemCommand}" Grid.Column="0" Icon="{DynamicResource AddIcon}" ToolTip="_Add"/>
-                <control:PathButton Command="{Binding DeletePriceListItemCommand}" Grid.Column="1" Icon="{DynamicResource DeleteIcon}" ToolTip="_Delete"/>
+                <control:PathButton Command="{Binding AddPriceListItemCommand}" Grid.Column="0" Icon="{DynamicResource AddIcon}" ToolTip="_Update price list"/>
             </Grid>
-            <DataGrid Grid.Row="1" SelectedIndex="{Binding SelectedPriceListItemIndex,Mode=TwoWay}" ItemsSource="{Binding PriceListItems,NotifyOnValidationError=True}"
-                      AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid x:Name="priceListItemsDataGrid" Grid.Row="1" SelectedItem="{Binding SelectedPriceListItem,Mode=TwoWay}" 
+                      ItemsSource="{Binding PriceListItems,NotifyOnValidationError=True}"
+                      IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"
+                      AutoGenerateColumns="False" CanUserAddRows="False" >
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="_Good" MinWidth="100">
+                    <DataGridTextColumn Header="_Good" MinWidth="100" Binding="{Binding Good.Name,Mode=TwoWay}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="_Measure Unit" MinWidth="100" Binding="{Binding Good.MeasureUnit.Name,Mode=TwoWay}" IsReadOnly="True"/>
+                    <!--<DataGridTemplateColumn Header="_Good" MinWidth="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Good.Name}" TextAlignment="Right"/>
+                                <TextBlock Text="{Binding Good.Name,Mode=TwoWay}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <ComboBox IsEditable="False" 
-                                          SelectedValuePath="Id"
-                                          DisplayMemberPath="Name"
-                                          ItemsSource="{Binding DataContext.Goods, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"
-                                          SelectedValue="{Binding GoodId, Mode=TwoWay, ValidatesOnDataErrors=True}"
-                                          SelectedItem="{Binding Good,Mode=TwoWay}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-                    
+                       
+                    </DataGridTemplateColumn>-->
+
                     <DataGridTemplateColumn Header="_Base Price" MinWidth="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -99,7 +94,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <control:NumericTextBox Text="{Binding BasePrice,Mode=TwoWay}"/>
+                                <controls:DecimalUpDown Value="{Binding BasePrice,Mode=TwoWay}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -112,7 +107,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <control:NumericTextBox Text="{Binding EndPrice,Mode=TwoWay}"/>
+                                <controls:DecimalUpDown Value="{Binding EndPrice,Mode=TwoWay}" Minimum="0" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -125,7 +120,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <control:NumericTextBox Text="{Binding Vat,Mode=TwoWay}"/>
+                                <controls:DecimalUpDown Value="{Binding Vat,Mode=TwoWay}"  Minimum="0"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -138,7 +133,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <control:NumericTextBox Text="{Binding Discount,Mode=TwoWay}"/>
+                                <controls:DecimalUpDown Value="{Binding Discount,Mode=TwoWay}" Minimum="0"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
