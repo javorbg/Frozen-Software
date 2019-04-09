@@ -1,14 +1,19 @@
 ﻿using Prism.Mvvm;
 using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace FrozenSoftware.Models
 {
-    public abstract class EntityBase : BindableBase, IEquatable<EntityBase> , IDataErrorInfo
+    public abstract class EntityBase : BindableBase, IEquatable<EntityBase>, IDataErrorInfo
     {
-        public int Id { get; set; }
+        [Key]
+        public int Id { get; set; }        
 
         public string Error { get; }
+
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
 
         public virtual string this[string columnName]
         {

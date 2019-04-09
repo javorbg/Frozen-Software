@@ -74,9 +74,13 @@
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Country.cs" />
+    <Compile Include="Models\DocumentNumber.cs" />
+    <Compile Include="Models\DocumentNumberDefinition.cs" />
     <Compile Include="Models\DocumentStatus.cs" />
     <Compile Include="Models\DummyDataContext.cs" />
-    <Compile Include="Models\EntityBase.cs" />
+    <Compile Include="Models\EntityBase.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Models\Good.cs" />
     <Compile Include="Models\MeasureUnit.cs" />
     <Compile Include="Models\MeasureUnitType.cs" />
