@@ -39,7 +39,7 @@ namespace FrozenSoftware.Sales
 
             if (result == true)
             {
-                IEnumerable<PriceListItem> deleteItems = DummyDataContext.Context.PriceListItems.Where(x => x.PriceListId == priceList.Id);
+                IEnumerable<PriceListItem> deleteItems = DummyDataContext.Context.PriceListItems.Where(x => x.PriceListId == priceList.Id).ToList();
                 DummyDataContext.Context.PriceLists.Remove(priceList);
                 foreach (var item in deleteItems)
                 {

@@ -34,6 +34,7 @@ namespace FrozenSoftware.Sales
         public PriceList Entity { get; set; }
 
         public ObservableCollection<PriceListItem> PriceListItems { get; set; }
+        public ObservableCollection<PriceListItem> NewPriceListItems { get; set; }
 
         public ObservableCollection<Good> Goods { get; set; }
 
@@ -96,6 +97,7 @@ namespace FrozenSoftware.Sales
         {
             int lastPriceListItemId = 1;
             int localLastId = 1;
+            NewPriceListItems = new ObservableCollection<PriceListItem>();
 
             foreach (Good good in goods)
             {
@@ -107,14 +109,18 @@ namespace FrozenSoftware.Sales
 
                 lastPriceListItemId = Math.Max(lastPriceListItemId, localLastId);
 
-                PriceListItems.Add(new PriceListItem()
+                PriceListItem newPriceListItem = new PriceListItem()
                 {
                     Id = lastPriceListItemId,
                     Good = good,
                     GoodId = good.Id,
                     PriceList = Entity,
                     PriceListId = Entity.Id,
-                });
+                };
+                PriceListItems.Add(newPriceListItem);
+                if (ActionType == ActionType.Edit)
+                    NewPriceListItems.Add(newPriceListItem);
+
             }
         }
 
@@ -131,6 +137,9 @@ namespace FrozenSoftware.Sales
                 DummyDataContext.Context.PriceLists.Add(Entity);
                 DummyDataContext.Context.PriceListItems.AddRange(PriceListItems);
             }
+
+            if (ActionType == ActionType.Edit && NewPriceListItems != null && NewPriceListItems.Count > 0)
+                DummyDataContext.Context.PriceListItems.AddRange(NewPriceListItems);
 
             DialogResult = true;
 

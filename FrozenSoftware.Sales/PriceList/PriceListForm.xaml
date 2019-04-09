@@ -89,12 +89,12 @@
                     <DataGridTemplateColumn Header="_Base Price" MinWidth="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding BasePrice}" TextAlignment="Right"/>
+                                <TextBlock Text="{Binding BasePrice,StringFormat=F2}" TextAlignment="Right"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <controls:DecimalUpDown Value="{Binding BasePrice,Mode=TwoWay}"/>
+                                <controls:DecimalUpDown FormatString="F2" Value="{Binding BasePrice,Mode=TwoWay}" Minimum="0" ShowButtonSpinner="False" Increment="1" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -102,30 +102,30 @@
                     <DataGridTemplateColumn Header="_End Price" MinWidth="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding EndPrice}" TextAlignment="Right"/>
+                                <TextBlock Text="{Binding EndPrice,StringFormat=F2}" TextAlignment="Right"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <controls:DecimalUpDown Value="{Binding EndPrice,Mode=TwoWay}" Minimum="0" />
+                                <controls:DecimalUpDown FormatString="F2" Value="{Binding EndPrice,Mode=TwoWay}" Minimum="0" ShowButtonSpinner="False" Increment="1" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="_Vat"  MinWidth="100">
+                    <DataGridTemplateColumn Header="_Vat %"  MinWidth="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Vat}" TextAlignment="Right"/>
+                                <TextBlock Text="{Binding Vat}" TextAlignment="Right" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <controls:DecimalUpDown Value="{Binding Vat,Mode=TwoWay}"  Minimum="0"/>
+                                <controls:IntegerUpDown Value="{Binding Vat,Mode=TwoWay}"  Minimum="0" ShowButtonSpinner="False" Increment="1" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="_Discount"  MinWidth="100">
+                    <DataGridTemplateColumn Header="_Discount %"  MinWidth="100">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Discount}" TextAlignment="Right"/>
@@ -133,7 +133,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <controls:DecimalUpDown Value="{Binding Discount,Mode=TwoWay}" Minimum="0"/>
+                                <controls:IntegerUpDown Value="{Binding Discount,Mode=TwoWay}" Minimum="0" ShowButtonSpinner="False" Increment="1" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
