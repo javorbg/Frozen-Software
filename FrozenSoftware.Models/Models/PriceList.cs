@@ -21,7 +21,7 @@ namespace FrozenSoftware.Models
                 switch (columnName)
                 {
                     case nameof(Name):
-                        if(string.IsNullOrEmpty(Name))
+                        if (string.IsNullOrEmpty(Name))
                             return "_Price list name is Required";
                         break;
                 }

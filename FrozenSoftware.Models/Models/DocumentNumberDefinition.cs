@@ -1,8 +1,10 @@
-﻿using System;
+﻿using PropertyChanged;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace FrozenSoftware.Models
 {
+    [ImplementPropertyChanged]
     public class DocumentNumberDefinition : EntityBase
     {
         public string Name { get; set; }

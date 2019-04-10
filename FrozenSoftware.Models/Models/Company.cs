@@ -1,5 +1,8 @@
-﻿namespace FrozenSoftware.Models
+﻿using PropertyChanged;
+
+namespace FrozenSoftware.Models
 {
+    [ImplementPropertyChanged]
     public class Company : EntityBase
     {
         public string Code { get; set; }

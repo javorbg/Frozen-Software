@@ -12,6 +12,7 @@ namespace FrozenSoftware.Controls
     public abstract class BaseTabViewModel : BindableBase, IParentViewName, IDataErrorInfo
     {
         private object selectedItem;
+
         public BaseTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
         {
             RegionManger = regionManger;

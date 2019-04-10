@@ -1,6 +1,7 @@
 ﻿using FrozenSoftware.Controls;
 using FrozenSoftware.Models;
 using Prism.Commands;
+using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Linq;
 
 namespace FrozenSoftware.Sales
 {
+    [ImplementPropertyChanged]
     public class PriceListFormViewModel : BaseFormViewModel
     {
         private bool isActive;
@@ -34,6 +36,7 @@ namespace FrozenSoftware.Sales
         public PriceList Entity { get; set; }
 
         public ObservableCollection<PriceListItem> PriceListItems { get; set; }
+
         public ObservableCollection<PriceListItem> NewPriceListItems { get; set; }
 
         public ObservableCollection<Good> Goods { get; set; }
@@ -93,6 +96,29 @@ namespace FrozenSoftware.Sales
             AddPriceListItemCommand.RaiseCanExecuteChanged();
         }
 
+        protected override void OnConfirmCommand()
+        {
+            if (PriceListItems == null || PriceListItems.Count == 0)
+                return;
+
+            if (string.IsNullOrEmpty(Entity.Name))
+                return;
+
+            if (ActionType == ActionType.Add)
+            {
+                DummyDataContext.Context.PriceLists.Add(Entity);
+                DummyDataContext.Context.PriceListItems.AddRange(PriceListItems);
+            }
+
+            if (ActionType == ActionType.Edit && NewPriceListItems != null && NewPriceListItems.Count > 0)
+                DummyDataContext.Context.PriceListItems.AddRange(NewPriceListItems);
+
+            DialogResult = true;
+
+            if (Close != null)
+                Close.Invoke();
+        }
+
         private void UpdatePriceListItems(IEnumerable<Good> goods)
         {
             int lastPriceListItemId = 1;
@@ -120,31 +146,7 @@ namespace FrozenSoftware.Sales
                 PriceListItems.Add(newPriceListItem);
                 if (ActionType == ActionType.Edit)
                     NewPriceListItems.Add(newPriceListItem);
-
             }
-        }
-
-        protected override void OnConfirmCommand()
-        {
-            if (PriceListItems == null || PriceListItems.Count == 0)
-                return;
-
-            if (string.IsNullOrEmpty(Entity.Name))
-                return;
-
-            if (ActionType == ActionType.Add)
-            {
-                DummyDataContext.Context.PriceLists.Add(Entity);
-                DummyDataContext.Context.PriceListItems.AddRange(PriceListItems);
-            }
-
-            if (ActionType == ActionType.Edit && NewPriceListItems != null && NewPriceListItems.Count > 0)
-                DummyDataContext.Context.PriceListItems.AddRange(NewPriceListItems);
-
-            DialogResult = true;
-
-            if (Close != null)
-                Close.Invoke();
         }
 
         private void OnAddPriceListItemCommand()

@@ -1,14 +1,15 @@
-﻿using Prism.Mvvm;
+﻿using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace FrozenSoftware.Models
 {
-    public abstract class EntityBase : BindableBase, IEquatable<EntityBase>, IDataErrorInfo
+    [ImplementPropertyChanged]
+    public abstract class EntityBase : IEquatable<EntityBase>, IDataErrorInfo
     {
         [Key]
-        public int Id { get; set; }        
+        public int Id { get; set; }
 
         public string Error { get; }
 
