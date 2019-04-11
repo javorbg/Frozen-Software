@@ -13,7 +13,7 @@ namespace FrozenSoftware.MainData
         public DocumentStatusTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer) 
             : base(regionManger, unityContainer)
         {
-            DocumentStatuses = DummyDataContext.Context.DocuentStatuses;
+            DocumentStatuses = DummyDataContext.Context.DocumentStatuses;
             this.ParentViewName = nameof(MainDataRibbonTabItem);
             this.HasEditButtons = false;
         }

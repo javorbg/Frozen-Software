@@ -2,12 +2,15 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FrozenSoftware.Models
 {
     [ImplementPropertyChanged]
     public abstract class EntityBase : IEquatable<EntityBase>, IDataErrorInfo
     {
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
 

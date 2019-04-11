@@ -1,7 +1,10 @@
-﻿namespace FrozenSoftware.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FrozenSoftware.Models
 {
     public class PriceListItem : EntityBase
     {
+        [ForeignKey("Good")]
         public int GoodId { get; set; }
 
         public virtual Good Good { get; set; }
@@ -14,6 +17,7 @@
 
         public int Vat { get; set; }
 
+        [ForeignKey("PriceList")]
         public int PriceListId { get; set; }
 
         public virtual PriceList PriceList { get; set; }

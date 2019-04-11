@@ -1,5 +1,6 @@
 ﻿using PropertyChanged;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace FrozenSoftware.Models
@@ -7,6 +8,7 @@ namespace FrozenSoftware.Models
     [ImplementPropertyChanged]
     public class DocumentNumber : EntityBase, IComparable<DocumentNumber>
     {
+        [ForeignKey("DocumentNumberDefinition")]
         public virtual int DocumentNumberDefinitionId { get; set; }
 
         public virtual DocumentNumberDefinition DocumentNumberDefinition { get; set; }
@@ -53,7 +55,7 @@ namespace FrozenSoftware.Models
 
             numberOrder[documentNumbDef.NumberPosition] = Number.ToString($"D{documentNumbDef.NumbersCount}");
 
-            if (documentNumbDef.DatePosition.HasValue)
+            if (documentNumbDef.DatePosition.HasValue && date != null)
                 numberOrder[documentNumbDef.DatePosition.Value] = date;
 
             if (documentNumbDef.TextConstantPosition.HasValue)

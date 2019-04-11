@@ -1,4 +1,6 @@
-﻿namespace FrozenSoftware.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FrozenSoftware.Models
 {
     public class Good : EntityBase
     {
@@ -8,6 +10,7 @@
 
         public string BarCode { get; set; }
 
+        [ForeignKey("MeasureUnit")]
         public int MeasureUnitId { get; set; }
 
         public virtual MeasureUnit MeasureUnit { get; set; }
