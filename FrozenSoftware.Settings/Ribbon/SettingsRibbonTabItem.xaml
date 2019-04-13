@@ -1,0 +1,22 @@
+﻿<fluent:RibbonTabItem x:Class="FrozenSoftware.Settings.SettingsRibbonTabItem"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                      xmlns:fluent="urn:fluent-ribbon"
+                      mc:Ignorable="d" Header="_Settings"
+                      d:DesignHeight="450" d:DesignWidth="800">
+
+    <fluent:RibbonGroupBox Header="_Document Settings">
+        <fluent:Button Header="Document Number Definition" Command="{Binding ShowTabCommand}" CommandParameter="{x:Null}"> 
+            <fluent:Button.LargeIcon>
+                <Path Data="{DynamicResource Contact}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+            </fluent:Button.LargeIcon>
+        </fluent:Button>
+        <fluent:Button Header="_Document Number" Command="{Binding ShowTabCommand}" CommandParameter="{x:Null}">
+            <fluent:Button.LargeIcon>
+                <Path Data="{DynamicResource Contact}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
+            </fluent:Button.LargeIcon>
+        </fluent:Button>
+    </fluent:RibbonGroupBox>
+</fluent:RibbonTabItem>

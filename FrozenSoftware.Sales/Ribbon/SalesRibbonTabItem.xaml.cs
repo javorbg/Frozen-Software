@@ -1,11 +1,10 @@
 ﻿using Fluent;
 using FrozenSoftware.Controls;
-using Prism.Regions;
 
 namespace FrozenSoftware.Sales
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for SalesRibbonTabItem.xaml
     /// </summary>
     public partial class SalesRibbonTabItem : RibbonTabItem, ISalesRibbon
     {

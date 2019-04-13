@@ -109,6 +109,7 @@
     <Compile Include="BaseRibbon\IBaseRibbon.cs" />
     <Compile Include="BaseRibbon\IMainDataRibbon.cs" />
     <Compile Include="BaseRibbon\ISalesRibbon.cs" />
+    <Compile Include="BaseRibbon\ISettingsRibbon.cs" />
     <Compile Include="Controls\PathButton.xaml.cs">
       <DependentUpon>PathButton.xaml</DependentUpon>
     </Compile>
@@ -152,6 +153,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Templates\TabViewAndViewModel.zip" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\PathButton.xaml">
@@ -194,7 +196,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="FodyWeavers.xml" />
+    <Resource Include="FodyWeavers.xml">
+      <SubType>Designer</SubType>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ModuleExtension\" />

@@ -1,4 +1,5 @@
 ﻿using PropertyChanged;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FrozenSoftware.Models
@@ -20,7 +21,7 @@ namespace FrozenSoftware.Models
 
         public string ZipCode { get; set; }
 
-        [ForeignKey("Country")]
+        [Required, ForeignKey("Country")]
         public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }

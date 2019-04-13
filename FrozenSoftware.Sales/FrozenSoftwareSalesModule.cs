@@ -4,7 +4,7 @@ using Prism.Modularity;
 
 namespace FrozenSoftware.Sales
 {
-    public class FrozenSoftwareSales : IModule
+    public class FrozenSoftwareSalesModule : IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {

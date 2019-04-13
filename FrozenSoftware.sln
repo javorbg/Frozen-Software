@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.MainData", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.Sales", "FrozenSoftware.Sales\FrozenSoftware.Sales.csproj", "{C99F217C-946C-4B1F-82CB-F5B96A3682C2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrozenSoftware.Settings", "FrozenSoftware.Settings\FrozenSoftware.Settings.csproj", "{D5DED74F-5623-47B8-872B-09045E8173A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{C99F217C-946C-4B1F-82CB-F5B96A3682C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C99F217C-946C-4B1F-82CB-F5B96A3682C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C99F217C-946C-4B1F-82CB-F5B96A3682C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5DED74F-5623-47B8-872B-09045E8173A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5DED74F-5623-47B8-872B-09045E8173A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5DED74F-5623-47B8-872B-09045E8173A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5DED74F-5623-47B8-872B-09045E8173A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
