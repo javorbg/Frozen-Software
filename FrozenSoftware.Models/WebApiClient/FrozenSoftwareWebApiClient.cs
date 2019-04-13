@@ -1,58 +1,58 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FrozenSoftware.Models.WebApiClient
 {
     public partial class FrozenSoftwareWebApiClient : IDisposable
     {
-        private string baseUrl = "https://localhost";
         private Lazy<JsonSerializerSettings> settings;
 
-        public FrozenSoftwareWebApiClient()
+        public FrozenSoftwareWebApiClient(string baseUrl = "http://localhost")
         {
             settings = new Lazy<JsonSerializerSettings>(() =>
             {
-                var settings = new Newtonsoft.Json.JsonSerializerSettings();
+                var settings = new JsonSerializerSettings();
                 UpdateJsonSerializerSettings(settings);
                 return settings;
             });
+
+            BaseUrl = baseUrl;
         }
 
-        public string BaseUrl
-        {
-            get { return baseUrl; }
-            set { baseUrl = value; }
-        }
+        public string BaseUrl { get; set; }
 
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSerializerSettings { get { return settings.Value; } }
-        partial void UpdateJsonSerializerSettings(Newtonsoft.Json.JsonSerializerSettings settings);
+        protected JsonSerializerSettings JsonSerializerSettings { get { return settings.Value; } }
+        partial void UpdateJsonSerializerSettings(JsonSerializerSettings settings);
         partial void PrepareRequest(HttpClient client, HttpRequestMessage request, string url);
         partial void PrepareRequest(HttpClient client, HttpRequestMessage request, StringBuilder urlBuilder);
         partial void ProcessResponse(HttpClient client, HttpResponseMessage response);
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public Task<System.Collections.Generic.ICollection<DocumentNumberDefinition>> ApiDocumentnumberdefinitionsAsync(int page)
+        public Task<ICollection<DocumentNumberDefinition>> ApiDocumentnumberdefinitionsAsync(int page)
         {
-            return ApiDocumentnumberdefinitionsAsync(page, System.Threading.CancellationToken.None);
+            return ApiDocumentnumberdefinitionsAsync(page, CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task<System.Collections.Generic.ICollection<DocumentNumberDefinition>> ApiDocumentnumberdefinitionsAsync(int page, System.Threading.CancellationToken cancellationToken)
+        public async Task<ICollection<DocumentNumberDefinition>> ApiDocumentnumberdefinitionsAsync(int page, CancellationToken cancellationToken)
         {
             if (page < 1)
-                throw new System.ArgumentNullException("page");
+                throw new ArgumentNullException("page");
 
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/{page}");
-            urlBuilder_.Replace("{page}", System.Uri.EscapeDataString(ConvertToString(page, System.Globalization.CultureInfo.InvariantCulture)));
+            var urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/{page}");
+            urlBuilder.Replace("{page}", Uri.EscapeDataString(ConvertToString(page, CultureInfo.InvariantCulture)));
 
             var client_ = new HttpClient();
             try
@@ -62,15 +62,15 @@ namespace FrozenSoftware.Models.WebApiClient
                     request_.Method = new HttpMethod("GET");
                     request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client_, request_, urlBuilder);
+                    var url_ = urlBuilder.ToString();
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -83,13 +83,13 @@ namespace FrozenSoftware.Models.WebApiClient
                         if (status_ == "200")
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(System.Collections.Generic.ICollection<DocumentNumberDefinition>);
+                            var result_ = default(ICollection<DocumentNumberDefinition>);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.ICollection<DocumentNumberDefinition>>(responseData_, settings.Value);
+                                result_ = JsonConvert.DeserializeObject<ICollection<DocumentNumberDefinition>>(responseData_, settings.Value);
                                 return result_;
                             }
-                            catch (System.Exception exception_)
+                            catch (Exception exception_)
                             {
                                 throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
                             }
@@ -101,7 +101,7 @@ namespace FrozenSoftware.Models.WebApiClient
                             throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
                         }
 
-                        return default(System.Collections.Generic.ICollection<DocumentNumberDefinition>);
+                        return default(ICollection<DocumentNumberDefinition>);
                     }
                     finally
                     {
@@ -118,14 +118,14 @@ namespace FrozenSoftware.Models.WebApiClient
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public Task<System.Collections.Generic.ICollection<DocumentNumberDefinition>> ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionsAsync()
+        public Task<ICollection<DocumentNumberDefinition>> ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionsAsync()
         {
-            return ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionsAsync(System.Threading.CancellationToken.None);
+            return ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionsAsync(CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task<System.Collections.Generic.ICollection<DocumentNumberDefinition>> ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionsAsync(System.Threading.CancellationToken cancellationToken)
+        public async Task<ICollection<DocumentNumberDefinition>> ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionsAsync(CancellationToken cancellationToken)
         {
             var urlBuilder_ = new StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/GetDocumentNumberDefinitions");
@@ -140,13 +140,13 @@ namespace FrozenSoftware.Models.WebApiClient
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -159,13 +159,13 @@ namespace FrozenSoftware.Models.WebApiClient
                         if (status_ == "200")
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(System.Collections.Generic.ICollection<DocumentNumberDefinition>);
+                            var result_ = default(ICollection<DocumentNumberDefinition>);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.ICollection<DocumentNumberDefinition>>(responseData_, settings.Value);
+                                result_ = JsonConvert.DeserializeObject<ICollection<DocumentNumberDefinition>>(responseData_, settings.Value);
                                 return result_;
                             }
-                            catch (System.Exception exception_)
+                            catch (Exception exception_)
                             {
                                 throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
                             }
@@ -177,7 +177,7 @@ namespace FrozenSoftware.Models.WebApiClient
                             throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
                         }
 
-                        return default(System.Collections.Generic.ICollection<DocumentNumberDefinition>);
+                        return default(ICollection<DocumentNumberDefinition>);
                     }
                     finally
                     {
@@ -196,19 +196,19 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         public Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionAsync(int id)
         {
-            return ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionAsync(id, System.Threading.CancellationToken.None);
+            return ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionAsync(id, CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public async Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionAsync(int id, CancellationToken cancellationToken)
         {
             if (id < 1)
-                throw new System.ArgumentNullException("id");
+                throw new ArgumentNullException("id");
 
             var urlBuilder_ = new StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/GetDocumentNumberDefinition/{id}");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
             var client_ = new HttpClient();
             try
@@ -220,13 +220,13 @@ namespace FrozenSoftware.Models.WebApiClient
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -242,10 +242,10 @@ namespace FrozenSoftware.Models.WebApiClient
                             var result_ = default(DocumentNumberDefinition);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData_, settings.Value);
+                                result_ = JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData_, settings.Value);
                                 return result_;
                             }
-                            catch (System.Exception exception_)
+                            catch (Exception exception_)
                             {
                                 throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
                             }
@@ -276,39 +276,39 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         public Task ApiDocumentnumberdefinitionsPutdocumentnumberdefinitionAsync(int id, DocumentNumberDefinition documentNumberDefinition)
         {
-            return ApiDocumentnumberdefinitionsPutdocumentnumberdefinitionAsync(id, documentNumberDefinition, System.Threading.CancellationToken.None);
+            return ApiDocumentnumberdefinitionsPutdocumentnumberdefinitionAsync(id, documentNumberDefinition, CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task ApiDocumentnumberdefinitionsPutdocumentnumberdefinitionAsync(int id, DocumentNumberDefinition documentNumberDefinition, System.Threading.CancellationToken cancellationToken)
+        public async Task ApiDocumentnumberdefinitionsPutdocumentnumberdefinitionAsync(int id, DocumentNumberDefinition documentNumberDefinition, CancellationToken cancellationToken)
         {
             if (id < 1)
-                throw new System.ArgumentNullException("id");
+                throw new ArgumentNullException("id");
 
             var urlBuilder_ = new StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/PutDocumentNumberDefinition/{id}");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
             var client_ = new HttpClient();
             try
             {
                 using (var request_ = new HttpRequestMessage())
                 {
-                    var content_ = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(documentNumberDefinition, settings.Value));
+                    var content_ = new StringContent(JsonConvert.SerializeObject(documentNumberDefinition, settings.Value));
                     content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new HttpMethod("PUT");
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -346,12 +346,12 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         public Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsPostdocumentnumberdefinitionAsync(DocumentNumberDefinition documentNumberDefinition)
         {
-            return ApiDocumentnumberdefinitionsPostdocumentnumberdefinitionAsync(documentNumberDefinition, System.Threading.CancellationToken.None);
+            return ApiDocumentnumberdefinitionsPostdocumentnumberdefinitionAsync(documentNumberDefinition, CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsPostdocumentnumberdefinitionAsync(DocumentNumberDefinition documentNumberDefinition, System.Threading.CancellationToken cancellationToken)
+        public async Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsPostdocumentnumberdefinitionAsync(DocumentNumberDefinition documentNumberDefinition, CancellationToken cancellationToken)
         {
             var urlBuilder_ = new StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/PostDocumentNumberDefinition");
@@ -361,7 +361,7 @@ namespace FrozenSoftware.Models.WebApiClient
             {
                 using (var request_ = new HttpRequestMessage())
                 {
-                    var content_ = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(documentNumberDefinition, settings.Value));
+                    var content_ = new StringContent(JsonConvert.SerializeObject(documentNumberDefinition, settings.Value));
                     content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new HttpMethod("POST");
@@ -369,13 +369,13 @@ namespace FrozenSoftware.Models.WebApiClient
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -391,10 +391,10 @@ namespace FrozenSoftware.Models.WebApiClient
                             var result_ = default(DocumentNumberDefinition);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData_, settings.Value);
+                                result_ = JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData_, settings.Value);
                                 return result_;
                             }
-                            catch (System.Exception exception_)
+                            catch (Exception exception_)
                             {
                                 throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
                             }
@@ -425,19 +425,19 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         public Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsDeletedocumentnumberdefinitionAsync(int id)
         {
-            return ApiDocumentnumberdefinitionsDeletedocumentnumberdefinitionAsync(id, System.Threading.CancellationToken.None);
+            return ApiDocumentnumberdefinitionsDeletedocumentnumberdefinitionAsync(id, CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsDeletedocumentnumberdefinitionAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public async Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsDeletedocumentnumberdefinitionAsync(int id, CancellationToken cancellationToken)
         {
             if (id < 1)
-                throw new System.ArgumentNullException("id");
+                throw new ArgumentNullException("id");
 
             var urlBuilder_ = new StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/DeleteDocumentNumberDefinition/{id}");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
             var client_ = new HttpClient();
             try
@@ -449,13 +449,13 @@ namespace FrozenSoftware.Models.WebApiClient
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -471,10 +471,10 @@ namespace FrozenSoftware.Models.WebApiClient
                             var result_ = default(DocumentNumberDefinition);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData_, settings.Value);
+                                result_ = JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData_, settings.Value);
                                 return result_;
                             }
-                            catch (System.Exception exception_)
+                            catch (Exception exception_)
                             {
                                 throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
                             }
@@ -503,14 +503,14 @@ namespace FrozenSoftware.Models.WebApiClient
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
-        public Task<System.Collections.Generic.ICollection<DocumentNumber>> ApiDocumentnumbersGetdocumentnumbersAsync()
+        public Task<ICollection<DocumentNumber>> ApiDocumentnumbersGetdocumentnumbersAsync()
         {
-            return ApiDocumentnumbersGetdocumentnumbersAsync(System.Threading.CancellationToken.None);
+            return ApiDocumentnumbersGetdocumentnumbersAsync(CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task<System.Collections.Generic.ICollection<DocumentNumber>> ApiDocumentnumbersGetdocumentnumbersAsync(System.Threading.CancellationToken cancellationToken)
+        public async Task<ICollection<DocumentNumber>> ApiDocumentnumbersGetdocumentnumbersAsync(CancellationToken cancellationToken)
         {
             var urlBuilder_ = new StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/GetDocumentNumbers");
@@ -525,13 +525,13 @@ namespace FrozenSoftware.Models.WebApiClient
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -544,13 +544,13 @@ namespace FrozenSoftware.Models.WebApiClient
                         if (status_ == "200")
                         {
                             var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(System.Collections.Generic.ICollection<DocumentNumber>);
+                            var result_ = default(ICollection<DocumentNumber>);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<System.Collections.Generic.ICollection<DocumentNumber>>(responseData_, settings.Value);
+                                result_ = JsonConvert.DeserializeObject<ICollection<DocumentNumber>>(responseData_, settings.Value);
                                 return result_;
                             }
-                            catch (System.Exception exception_)
+                            catch (Exception exception_)
                             {
                                 throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
                             }
@@ -562,7 +562,7 @@ namespace FrozenSoftware.Models.WebApiClient
                             throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
                         }
 
-                        return default(System.Collections.Generic.ICollection<DocumentNumber>);
+                        return default(ICollection<DocumentNumber>);
                     }
                     finally
                     {
@@ -581,19 +581,19 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         public Task<DocumentNumber> ApiDocumentnumbersGetdocumentnumberAsync(int id)
         {
-            return ApiDocumentnumbersGetdocumentnumberAsync(id, System.Threading.CancellationToken.None);
+            return ApiDocumentnumbersGetdocumentnumberAsync(id, CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task<DocumentNumber> ApiDocumentnumbersGetdocumentnumberAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public async Task<DocumentNumber> ApiDocumentnumbersGetdocumentnumberAsync(int id, CancellationToken cancellationToken)
         {
             if (id < 1)
-                throw new System.ArgumentNullException("id");
+                throw new ArgumentNullException("id");
 
             var urlBuilder_ = new StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/GetDocumentNumber/{id}");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
             var client_ = new HttpClient();
             try
@@ -605,13 +605,13 @@ namespace FrozenSoftware.Models.WebApiClient
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -627,10 +627,10 @@ namespace FrozenSoftware.Models.WebApiClient
                             var result_ = default(DocumentNumber);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<DocumentNumber>(responseData_, settings.Value);
+                                result_ = JsonConvert.DeserializeObject<DocumentNumber>(responseData_, settings.Value);
                                 return result_;
                             }
-                            catch (System.Exception exception_)
+                            catch (Exception exception_)
                             {
                                 throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
                             }
@@ -661,39 +661,39 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         public Task ApiDocumentnumbersPutdocumentnumberAsync(int id, DocumentNumber documentNumber)
         {
-            return ApiDocumentnumbersPutdocumentnumberAsync(id, documentNumber, System.Threading.CancellationToken.None);
+            return ApiDocumentnumbersPutdocumentnumberAsync(id, documentNumber, CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task ApiDocumentnumbersPutdocumentnumberAsync(int id, DocumentNumber documentNumber, System.Threading.CancellationToken cancellationToken)
+        public async Task ApiDocumentnumbersPutdocumentnumberAsync(int id, DocumentNumber documentNumber, CancellationToken cancellationToken)
         {
             if (id < 1)
-                throw new System.ArgumentNullException("id");
+                throw new ArgumentNullException("id");
 
             var urlBuilder_ = new StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/PutDocumentNumber/{id}");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
             var client_ = new HttpClient();
             try
             {
                 using (var request_ = new HttpRequestMessage())
                 {
-                    var content_ = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(documentNumber, settings.Value));
+                    var content_ = new StringContent(JsonConvert.SerializeObject(documentNumber, settings.Value));
                     content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new HttpMethod("PUT");
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -731,12 +731,12 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         public Task<DocumentNumber> ApiDocumentnumbersPostdocumentnumberAsync(DocumentNumber documentNumber)
         {
-            return ApiDocumentnumbersPostdocumentnumberAsync(documentNumber, System.Threading.CancellationToken.None);
+            return ApiDocumentnumbersPostdocumentnumberAsync(documentNumber, CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task<DocumentNumber> ApiDocumentnumbersPostdocumentnumberAsync(DocumentNumber documentNumber, System.Threading.CancellationToken cancellationToken)
+        public async Task<DocumentNumber> ApiDocumentnumbersPostdocumentnumberAsync(DocumentNumber documentNumber, CancellationToken cancellationToken)
         {
             var urlBuilder_ = new StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/PostDocumentNumber");
@@ -746,7 +746,7 @@ namespace FrozenSoftware.Models.WebApiClient
             {
                 using (var request_ = new HttpRequestMessage())
                 {
-                    var content_ = new StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(documentNumber, settings.Value));
+                    var content_ = new StringContent(JsonConvert.SerializeObject(documentNumber, settings.Value));
                     content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new HttpMethod("POST");
@@ -754,13 +754,13 @@ namespace FrozenSoftware.Models.WebApiClient
 
                     PrepareRequest(client_, request_, urlBuilder_);
                     var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
                     PrepareRequest(client_, request_, url_);
 
                     var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
                         if (response_.Content != null && response_.Content.Headers != null)
                         {
                             foreach (var item_ in response_.Content.Headers)
@@ -776,10 +776,10 @@ namespace FrozenSoftware.Models.WebApiClient
                             var result_ = default(DocumentNumber);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<DocumentNumber>(responseData_, settings.Value);
+                                result_ = JsonConvert.DeserializeObject<DocumentNumber>(responseData_, settings.Value);
                                 return result_;
                             }
-                            catch (System.Exception exception_)
+                            catch (Exception exception_)
                             {
                                 throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
                             }
@@ -810,94 +810,94 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         public Task<DocumentNumber> ApiDocumentnumbersDeletedocumentnumberAsync(int id)
         {
-            return ApiDocumentnumbersDeletedocumentnumberAsync(id, System.Threading.CancellationToken.None);
+            return ApiDocumentnumbersDeletedocumentnumberAsync(id, CancellationToken.None);
         }
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        public async Task<DocumentNumber> ApiDocumentnumbersDeletedocumentnumberAsync(int id, System.Threading.CancellationToken cancellationToken)
+        public async Task<DocumentNumber> ApiDocumentnumbersDeletedocumentnumberAsync(int id, CancellationToken cancellationToken)
         {
             if (id < 1)
-                throw new System.ArgumentNullException("id");
+                throw new ArgumentNullException("id");
 
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/DeleteDocumentNumber/{id}");
-            urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/DeleteDocumentNumber/{id}");
+            urlBuilder.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
-            var client_ = new HttpClient();
+            var client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    request_.Method = new HttpMethod("DELETE");
-                    request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request.Method = new HttpMethod("DELETE");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    string url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h_ => h_.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200" || status == "201")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(DocumentNumber);
+                            var responseData_ = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(DocumentNumber);
                             try
                             {
-                                result_ = Newtonsoft.Json.JsonConvert.DeserializeObject<DocumentNumber>(responseData_, settings.Value);
-                                return result_;
+                                result = JsonConvert.DeserializeObject<DocumentNumber>(responseData_, settings.Value);
+                                return result;
                             }
-                            catch (System.Exception exception_)
+                            catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData_, headers, exception);
                             }
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData_ = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData_, headers, null);
                         }
 
                         return default(DocumentNumber);
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
-        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
+        private string ConvertToString(object value, CultureInfo cultureInfo)
         {
-            if (value is System.Enum)
+            if (value is Enum)
             {
-                string name = System.Enum.GetName(value.GetType(), value);
+                string name = Enum.GetName(value.GetType(), value);
                 if (name != null)
                 {
-                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
+                    var field = IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
                     if (field != null)
                     {
-                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(EnumMemberAttribute))
+                        var attribute = CustomAttributeExtensions.GetCustomAttribute(field, typeof(EnumMemberAttribute))
                             as EnumMemberAttribute;
                         if (attribute != null)
                         {
@@ -908,19 +908,19 @@ namespace FrozenSoftware.Models.WebApiClient
             }
             else if (value is bool)
             {
-                return System.Convert.ToString(value, cultureInfo).ToLowerInvariant();
+                return Convert.ToString(value, cultureInfo).ToLowerInvariant();
             }
             else if (value is byte[])
             {
-                return System.Convert.ToBase64String((byte[])value);
+                return Convert.ToBase64String((byte[])value);
             }
             else if (value != null && value.GetType().IsArray)
             {
-                var array = System.Linq.Enumerable.OfType<object>((System.Array)value);
-                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
+                var array = Enumerable.OfType<object>((Array)value);
+                return string.Join(",", Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
             }
 
-            return System.Convert.ToString(value, cultureInfo);
+            return Convert.ToString(value, cultureInfo);
         }
 
         public void Dispose()
