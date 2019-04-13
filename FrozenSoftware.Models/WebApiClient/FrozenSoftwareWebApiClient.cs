@@ -50,70 +50,70 @@ namespace FrozenSoftware.Models.WebApiClient
             if (page < 1)
                 throw new ArgumentNullException("page");
 
-            var urlBuilder = new StringBuilder();
+            StringBuilder urlBuilder = new StringBuilder();
             urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/{page}");
             urlBuilder.Replace("{page}", Uri.EscapeDataString(ConvertToString(page, CultureInfo.InvariantCulture)));
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    request_.Method = new HttpMethod("GET");
-                    request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request.Method = new HttpMethod("GET");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder);
-                    var url_ = urlBuilder.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(ICollection<DocumentNumberDefinition>);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(ICollection<DocumentNumberDefinition>);
                             try
                             {
-                                result_ = JsonConvert.DeserializeObject<ICollection<DocumentNumberDefinition>>(responseData_, settings.Value);
-                                return result_;
+                                result = JsonConvert.DeserializeObject<ICollection<DocumentNumberDefinition>>(responseData, settings.Value);
+                                return result;
                             }
-                            catch (Exception exception_)
+                            catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
                             }
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
 
                         return default(ICollection<DocumentNumberDefinition>);
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -127,69 +127,69 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         public async Task<ICollection<DocumentNumberDefinition>> ApiDocumentnumberdefinitionsGetdocumentnumberdefinitionsAsync(CancellationToken cancellationToken)
         {
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/GetDocumentNumberDefinitions");
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/GetDocumentNumberDefinitions");
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    request_.Method = new HttpMethod("GET");
-                    request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request.Method = new HttpMethod("GET");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(ICollection<DocumentNumberDefinition>);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(ICollection<DocumentNumberDefinition>);
                             try
                             {
-                                result_ = JsonConvert.DeserializeObject<ICollection<DocumentNumberDefinition>>(responseData_, settings.Value);
-                                return result_;
+                                result = JsonConvert.DeserializeObject<ICollection<DocumentNumberDefinition>>(responseData, settings.Value);
+                                return result;
                             }
-                            catch (Exception exception_)
+                            catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
                             }
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
 
                         return default(ICollection<DocumentNumberDefinition>);
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -206,70 +206,70 @@ namespace FrozenSoftware.Models.WebApiClient
             if (id < 1)
                 throw new ArgumentNullException("id");
 
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/GetDocumentNumberDefinition/{id}");
-            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/GetDocumentNumberDefinition/{id}");
+            urlBuilder.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    request_.Method = new HttpMethod("GET");
-                    request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request.Method = new HttpMethod("GET");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(DocumentNumberDefinition);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(DocumentNumberDefinition);
                             try
                             {
-                                result_ = JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData_, settings.Value);
-                                return result_;
+                                result = JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData, settings.Value);
+                                return result;
                             }
-                            catch (Exception exception_)
+                            catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
                             }
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
 
                         return default(DocumentNumberDefinition);
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -286,60 +286,60 @@ namespace FrozenSoftware.Models.WebApiClient
             if (id < 1)
                 throw new ArgumentNullException("id");
 
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/PutDocumentNumberDefinition/{id}");
-            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/PutDocumentNumberDefinition/{id}");
+            urlBuilder.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    var content_ = new StringContent(JsonConvert.SerializeObject(documentNumberDefinition, settings.Value));
-                    content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new HttpMethod("PUT");
+                    var content = new StringContent(JsonConvert.SerializeObject(documentNumberDefinition, settings.Value));
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                    request.Content = content;
+                    request.Method = new HttpMethod("PUT");
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "204")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "204")
                         {
                             return;
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -353,72 +353,72 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         public async Task<DocumentNumberDefinition> ApiDocumentnumberdefinitionsPostdocumentnumberdefinitionAsync(DocumentNumberDefinition documentNumberDefinition, CancellationToken cancellationToken)
         {
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/PostDocumentNumberDefinition");
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/PostDocumentNumberDefinition");
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    var content_ = new StringContent(JsonConvert.SerializeObject(documentNumberDefinition, settings.Value));
-                    content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new HttpMethod("POST");
-                    request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    var content = new StringContent(JsonConvert.SerializeObject(documentNumberDefinition, settings.Value));
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                    request.Content = content;
+                    request.Method = new HttpMethod("POST");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(DocumentNumberDefinition);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(DocumentNumberDefinition);
                             try
                             {
-                                result_ = JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData_, settings.Value);
-                                return result_;
+                                result = JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData, settings.Value);
+                                return result;
                             }
-                            catch (Exception exception_)
+                            catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
                             }
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
 
                         return default(DocumentNumberDefinition);
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -435,70 +435,70 @@ namespace FrozenSoftware.Models.WebApiClient
             if (id < 1)
                 throw new ArgumentNullException("id");
 
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/DeleteDocumentNumberDefinition/{id}");
-            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumberDefinitions/DeleteDocumentNumberDefinition/{id}");
+            urlBuilder.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    request_.Method = new HttpMethod("DELETE");
-                    request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request.Method = new HttpMethod("DELETE");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(DocumentNumberDefinition);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(DocumentNumberDefinition);
                             try
                             {
-                                result_ = JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData_, settings.Value);
-                                return result_;
+                                result = JsonConvert.DeserializeObject<DocumentNumberDefinition>(responseData, settings.Value);
+                                return result;
                             }
-                            catch (Exception exception_)
+                            catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
                             }
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
 
                         return default(DocumentNumberDefinition);
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -512,69 +512,69 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         public async Task<ICollection<DocumentNumber>> ApiDocumentnumbersGetdocumentnumbersAsync(CancellationToken cancellationToken)
         {
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/GetDocumentNumbers");
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/GetDocumentNumbers");
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    request_.Method = new HttpMethod("GET");
-                    request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request.Method = new HttpMethod("GET");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(ICollection<DocumentNumber>);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(ICollection<DocumentNumber>);
                             try
                             {
-                                result_ = JsonConvert.DeserializeObject<ICollection<DocumentNumber>>(responseData_, settings.Value);
-                                return result_;
+                                result = JsonConvert.DeserializeObject<ICollection<DocumentNumber>>(responseData, settings.Value);
+                                return result;
                             }
-                            catch (Exception exception_)
+                            catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
                             }
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
 
                         return default(ICollection<DocumentNumber>);
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -591,70 +591,70 @@ namespace FrozenSoftware.Models.WebApiClient
             if (id < 1)
                 throw new ArgumentNullException("id");
 
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/GetDocumentNumber/{id}");
-            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/GetDocumentNumber/{id}");
+            urlBuilder.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    request_.Method = new HttpMethod("GET");
-                    request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    request.Method = new HttpMethod("GET");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(DocumentNumber);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(DocumentNumber);
                             try
                             {
-                                result_ = JsonConvert.DeserializeObject<DocumentNumber>(responseData_, settings.Value);
-                                return result_;
+                                result = JsonConvert.DeserializeObject<DocumentNumber>(responseData, settings.Value);
+                                return result;
                             }
-                            catch (Exception exception_)
+                            catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
                             }
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
 
                         return default(DocumentNumber);
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -671,60 +671,60 @@ namespace FrozenSoftware.Models.WebApiClient
             if (id < 1)
                 throw new ArgumentNullException("id");
 
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/PutDocumentNumber/{id}");
-            urlBuilder_.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/PutDocumentNumber/{id}");
+            urlBuilder.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    var content_ = new StringContent(JsonConvert.SerializeObject(documentNumber, settings.Value));
-                    content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new HttpMethod("PUT");
+                    var content = new StringContent(JsonConvert.SerializeObject(documentNumber, settings.Value));
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                    request.Content = content;
+                    request.Method = new HttpMethod("PUT");
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "204")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "204")
                         {
                             return;
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -738,72 +738,72 @@ namespace FrozenSoftware.Models.WebApiClient
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         public async Task<DocumentNumber> ApiDocumentnumbersPostdocumentnumberAsync(DocumentNumber documentNumber, CancellationToken cancellationToken)
         {
-            var urlBuilder_ = new StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/PostDocumentNumber");
+            StringBuilder urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/PostDocumentNumber");
 
-            var client_ = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
-                using (var request_ = new HttpRequestMessage())
+                using (var request = new HttpRequestMessage())
                 {
-                    var content_ = new StringContent(JsonConvert.SerializeObject(documentNumber, settings.Value));
-                    content_.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new HttpMethod("POST");
-                    request_.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+                    var content = new StringContent(JsonConvert.SerializeObject(documentNumber, settings.Value));
+                    content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
+                    request.Content = content;
+                    request.Method = new HttpMethod("POST");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
 
-                    PrepareRequest(client_, request_, urlBuilder_);
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new Uri(url_, UriKind.RelativeOrAbsolute);
-                    PrepareRequest(client_, request_, url_);
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
 
-                    var response_ = await client_.SendAsync(request_, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers_ = Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
-                        if (response_.Content != null && response_.Content.Headers != null)
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
                         {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
                         }
 
-                        ProcessResponse(client_, response_);
+                        ProcessResponse(client, response);
 
-                        var status_ = ((int)response_.StatusCode).ToString();
-                        if (status_ == "200")
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            var result_ = default(DocumentNumber);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(DocumentNumber);
                             try
                             {
-                                result_ = JsonConvert.DeserializeObject<DocumentNumber>(responseData_, settings.Value);
-                                return result_;
+                                result = JsonConvert.DeserializeObject<DocumentNumber>(responseData, settings.Value);
+                                return result;
                             }
-                            catch (Exception exception_)
+                            catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response_.StatusCode, responseData_, headers_, exception_);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
                             }
                         }
                         else
-                        if (status_ != "200" && status_ != "204")
+                        if (status != "200" && status != "204")
                         {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response_.StatusCode + ").", (int)response_.StatusCode, responseData_, headers_, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
 
                         return default(DocumentNumber);
                     }
                     finally
                     {
-                        if (response_ != null)
-                            response_.Dispose();
+                        if (response != null)
+                            response.Dispose();
                     }
                 }
             }
             finally
             {
-                if (client_ != null)
-                    client_.Dispose();
+                if (client != null)
+                    client.Dispose();
             }
         }
 
@@ -824,7 +824,7 @@ namespace FrozenSoftware.Models.WebApiClient
             urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/DocumentNumbers/DeleteDocumentNumber/{id}");
             urlBuilder.Replace("{id}", Uri.EscapeDataString(ConvertToString(id, CultureInfo.InvariantCulture)));
 
-            var client = new HttpClient();
+            HttpClient client = new HttpClient();
             try
             {
                 using (var request = new HttpRequestMessage())
@@ -840,7 +840,7 @@ namespace FrozenSoftware.Models.WebApiClient
                     var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
                     try
                     {
-                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h_ => h_.Value);
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
                         if (response.Content != null && response.Content.Headers != null)
                         {
                             foreach (var item in response.Content.Headers)
@@ -852,23 +852,23 @@ namespace FrozenSoftware.Models.WebApiClient
                         var status = ((int)response.StatusCode).ToString();
                         if (status == "200" || status == "201")
                         {
-                            var responseData_ = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
                             var result = default(DocumentNumber);
                             try
                             {
-                                result = JsonConvert.DeserializeObject<DocumentNumber>(responseData_, settings.Value);
+                                result = JsonConvert.DeserializeObject<DocumentNumber>(responseData, settings.Value);
                                 return result;
                             }
                             catch (Exception exception)
                             {
-                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData_, headers, exception);
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
                             }
                         }
                         else
                         if (status != "200" && status != "204")
                         {
-                            var responseData_ = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData_, headers, null);
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
                         }
 
                         return default(DocumentNumber);
