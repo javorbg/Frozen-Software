@@ -22,20 +22,20 @@ namespace FrozenSoftware.MainData
 
         protected override void OnAddCommand()
         {
-            WindowHandler.WindowHandlerInstance.ShowWindow(null, ActionType.Add, typeof(CompanyForm), UnityContainer);
+            WindowHandler.WindowHandlerInstance.ShowWindow(null, ActionType.Add, typeof(CompanyForm), UnityContainer, this.GetType().Name);
         }
 
         protected override void OnEditCommand()
         {
             Company company = Companies[SelectedIndex];
 
-            WindowHandler.WindowHandlerInstance.ShowWindow(company.Id, ActionType.Edit, typeof(CompanyForm), UnityContainer);
+            WindowHandler.WindowHandlerInstance.ShowWindow(company.Id, ActionType.Edit, typeof(CompanyForm), UnityContainer, this.GetType().Name);
         }
 
         protected override void OnDeleteCommand()
         {
             Company company = Companies[SelectedIndex];
-            bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {company.CompanyName}?", UnityContainer, "Company");
+            bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {company.CompanyName}?", this.GetType().Name, UnityContainer, "Company");
 
             if (result == true)
             {

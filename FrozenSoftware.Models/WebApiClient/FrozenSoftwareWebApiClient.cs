@@ -16,7 +16,7 @@ namespace FrozenSoftware.Models
     public partial class FrozenSoftwareWebApiClient
     {
         #region Constructor, Properties and Fields
-       
+
         private Lazy<JsonSerializerSettings> settings;
 
         public FrozenSoftwareWebApiClient(string baseUrl)
@@ -31,13 +31,18 @@ namespace FrozenSoftware.Models
             });
         }
 
-        public string BaseUrl { get; set; } = "http://localhost";
+        public static string BaseApiUrl { get; set; } = "https://localhost";
+
+        public string BaseUrl { get; set; }
 
         protected JsonSerializerSettings JsonSerializerSettings { get { return settings.Value; } }
 
         partial void UpdateJsonSerializerSettings(JsonSerializerSettings settings);
+
         partial void PrepareRequest(HttpClient client, HttpRequestMessage request, string url);
+
         partial void PrepareRequest(HttpClient client, HttpRequestMessage request, StringBuilder urlBuilder);
+
         partial void ProcessResponse(HttpClient client, HttpResponseMessage response);
 
         #endregion
@@ -433,7 +438,7 @@ namespace FrozenSoftware.Models
 
         #region Contact
 
-   
+
 
         /// <exception cref="SwaggerException">A server side error occurred.</exception>
         public Task<ICollection<Contact>> ApiContactsGetAsync()
@@ -4708,7 +4713,7 @@ namespace FrozenSoftware.Models
                 if (client != null)
                     client.Dispose();
             }
-        } 
+        }
 
         #endregion
 

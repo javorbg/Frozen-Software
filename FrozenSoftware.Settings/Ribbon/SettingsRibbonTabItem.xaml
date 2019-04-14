@@ -3,12 +3,13 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                      xmlns:local="clr-namespace:FrozenSoftware.Settings"
                       xmlns:fluent="urn:fluent-ribbon"
                       mc:Ignorable="d" Header="_Settings"
                       d:DesignHeight="450" d:DesignWidth="800">
 
     <fluent:RibbonGroupBox Header="_Document Settings">
-        <fluent:Button Header="Document Number Definition" Command="{Binding ShowTabCommand}" CommandParameter="{x:Null}"> 
+        <fluent:Button Header="Document Number Definition" Command="{Binding ShowTabCommand}" CommandParameter="{x:Type local:DocumentNumberDefinitionTab}"> 
             <fluent:Button.LargeIcon>
                 <Path Data="{DynamicResource Contact}" Fill="{DynamicResource IconBrush}" Stretch="Uniform" Margin="2"/>
             </fluent:Button.LargeIcon>

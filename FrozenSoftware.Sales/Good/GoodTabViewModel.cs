@@ -21,20 +21,20 @@ namespace FrozenSoftware.Sales
 
         protected override void OnAddCommand()
         {
-            WindowHandler.WindowHandlerInstance.ShowWindow(null, ActionType.Add, typeof(GoodForm), UnityContainer);
+            WindowHandler.WindowHandlerInstance.ShowWindow(null, ActionType.Add, typeof(GoodForm), UnityContainer, this.GetType().Name);
         }
 
         protected override void OnEditCommand()
         {
             Good good = Goods[SelectedIndex];
 
-            WindowHandler.WindowHandlerInstance.ShowWindow(good.Id, ActionType.Edit, typeof(GoodForm), UnityContainer);
+            WindowHandler.WindowHandlerInstance.ShowWindow(good.Id, ActionType.Edit, typeof(GoodForm), UnityContainer, this.GetType().Name);
         }
 
         protected override void OnDeleteCommand()
         {
             Good good = Goods[SelectedIndex];
-            bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {good.Name}?", UnityContainer, "Company");
+            bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {good.Name}?", this.GetType().Name, UnityContainer, "Company");
 
             if (result == true)
             {

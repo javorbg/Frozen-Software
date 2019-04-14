@@ -5,6 +5,7 @@ using PropertyChanged;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity;
 
 namespace FrozenSoftware.Controls
 {
@@ -24,6 +25,8 @@ namespace FrozenSoftware.Controls
         public DelegateCommand ConfirmCommand { get; set; }
 
         public DelegateCommand CancelCommand { get; set; }
+
+        public IUnityContainer UnityContainer { get; set; }
 
         public bool IsReadOnly { get; set; }
 
