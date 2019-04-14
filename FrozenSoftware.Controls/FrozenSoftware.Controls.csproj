@@ -153,6 +153,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Templates\FormAndViewMoedel.zip" />
     <None Include="Templates\TabViewAndViewModel.zip" />
   </ItemGroup>
   <ItemGroup>

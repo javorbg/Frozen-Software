@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using FrozenSoftware.Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using PropertyChanged;
 using System;
@@ -44,6 +45,8 @@ namespace FrozenSoftware.Controls
         public bool DialogResult { get; set; }
 
         public Action Close { get; set; }
+
+        public FrozenSoftwareWebApiClient ApiClient { get; set; }
 
         protected int? EntityId { get; set; }
 

@@ -1,10 +1,11 @@
-﻿using System;
-using System.ComponentModel;
+﻿using FrozenSoftware.Models;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using PropertyChanged;
+using System.ComponentModel;
 using Unity;
+using Unity.Resolution;
 
 namespace FrozenSoftware.Controls
 {
@@ -22,6 +23,8 @@ namespace FrozenSoftware.Controls
             EditCommand = new DelegateCommand(OnEditCommand, CanExecuteEditCommand);
             DeleteCommand = new DelegateCommand(OnDeleteCommand, CanExecuteDeleteCommand);
             HasEditButtons = true;
+            ParameterOverride contructorParameter = new ParameterOverride("baseUrl", FrozenSoftwareWebApiClient.BaseApiUrl);
+            ApiClient = unityContainer.Resolve<FrozenSoftwareWebApiClient>(contructorParameter);
         }
 
         public DelegateCommand CloseTabCommand { get; set; }
@@ -59,12 +62,18 @@ namespace FrozenSoftware.Controls
 
         protected IUnityContainer UnityContainer { get; set; }
 
+        protected FrozenSoftwareWebApiClient ApiClient { get; set; }
+
         public virtual string this[string columnName]
         {
             get
             {
                 return null;
             }
+        }
+
+        public virtual void InitializeData()
+        {
         }
 
         protected virtual void OnCloseTabCommand()
