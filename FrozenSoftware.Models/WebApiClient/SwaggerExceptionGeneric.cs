@@ -2,7 +2,7 @@
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 
-namespace FrozenSoftware.Models.WebApiClient
+namespace FrozenSoftware.Models
 {
     [GeneratedCode("NSwag", "12.1.0.0 (NJsonSchema v9.13.28.0 (Newtonsoft.Json v11.0.0.0))")]
     public partial class SwaggerException<TResult> : SwaggerException

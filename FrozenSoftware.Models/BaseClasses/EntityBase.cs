@@ -9,16 +9,18 @@ namespace FrozenSoftware.Models
     [ImplementPropertyChanged]
     public abstract class EntityBase : IEquatable<EntityBase>, IDataErrorInfo
     {
-
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
 
         public string Error { get; }
 
+        public Guid? LockId { get; set; }
+
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
+        [NotMapped]
         public virtual string this[string columnName]
         {
             get

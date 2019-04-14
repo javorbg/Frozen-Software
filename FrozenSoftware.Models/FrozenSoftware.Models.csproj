@@ -83,19 +83,19 @@
     <Compile Include="Models\DocumentNumber.cs" />
     <Compile Include="Models\DocumentNumberDefinition.cs" />
     <Compile Include="Models\DocumentStatus.cs" />
-    <Compile Include="Models\DummyDataContext.cs" />
-    <Compile Include="Models\EntityBase.cs">
+    <Compile Include="BaseClasses\DummyDataContext.cs" />
+    <Compile Include="BaseClasses\EntityBase.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Models\Good.cs" />
     <Compile Include="Models\MeasureUnit.cs" />
-    <Compile Include="Models\MeasureUnitType.cs" />
+    <Compile Include="Enums\MeasureUnitType.cs" />
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\PriceList.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Models\PriceListItem.cs" />
-    <Compile Include="Models\ResourceBase.cs" />
+    <Compile Include="BaseClasses\ResourceBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
