@@ -1,4 +1,5 @@
 ﻿using FrozenSoftware.Controls;
+using FrozenSoftware.Models;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -17,6 +18,7 @@ namespace FrozenSoftware
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<EditMenuRibbonGroupBox>();
+            containerRegistry.RegisterSingleton<FrozenSoftwareWebApiClient>();
         }
 
         private void LoadRibbon(Prism.Unity.Ioc.UnityContainerExtension containerProvider)
