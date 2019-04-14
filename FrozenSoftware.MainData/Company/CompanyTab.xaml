@@ -18,7 +18,7 @@
                 <DataGridTextColumn Binding="{Binding Address}" Header="Address"/>
                 <DataGridTextColumn Binding="{Binding ZipCode}" Header="ZipCode"/>
                 <DataGridTextColumn Binding="{Binding Country.Name}" Header="Country"/>
-                <DataGridCheckBoxColumn Binding="{Binding IsDatabaseOwner}" Header="Phone"/>
+                <DataGridCheckBoxColumn Binding="{Binding IsDatabaseOwner}" Header="Is Main"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
