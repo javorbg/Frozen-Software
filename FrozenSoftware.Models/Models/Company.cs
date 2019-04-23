@@ -15,7 +15,7 @@ namespace FrozenSoftware.Models
 
         public string ZipCode { get; set; }
 
-        [Required, ForeignKey("Country")]
+        [Required]
         public int CountryId { get; set; }
 
         public virtual Country Country { get; set; }
