@@ -101,7 +101,8 @@ namespace FrozenSoftware.Api.Controllers
 
         [HttpPut]
         [ResponseType(typeof(bool))]
-        public IHttpActionResult LockLockEntity(int id, Guid lockId)
+        [Route("api/PriceLists/Lock/{id}/{lockId}")]
+        public IHttpActionResult LockEntity(int id, Guid lockId)
         {
             if (!ModelState.IsValid)
             {
@@ -124,6 +125,52 @@ namespace FrozenSoftware.Api.Controllers
                 return Ok(false);
 
             lockEntity.LockId = lockId;
+
+            try
+            {
+                db.SaveChanges();
+
+                return Ok(true);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EntityLockIdExists(lockId))
+                {
+                    return Ok(true);
+                }
+                else
+                {
+                    return Ok(false);
+                }
+            }
+        }
+
+        [HttpPut]
+        [ResponseType(typeof(bool))]
+        [Route("api/PriceLists/Unlock/{id}/{lockId}")]
+        public IHttpActionResult UnlockEntity(int id, Guid lockId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id < 1)
+            {
+                return BadRequest();
+            }
+
+            EntityBase lockEntity = db.PriceLists.Find(id);
+
+            if (lockEntity == null)
+            {
+                return NotFound();
+            }
+
+            if (lockEntity.LockId != null && lockEntity.LockId == lockId)
+            {
+                lockEntity.LockId = null;
+            }
 
             try
             {

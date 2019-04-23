@@ -83,51 +83,6 @@ namespace FrozenSoftware.Api.Controllers
             return CreatedAtRoute("DefaultApi", new { id = measureUnit.Id }, measureUnit);
         }
 
-        [HttpPut]
-        [ResponseType(typeof(bool))]
-        public IHttpActionResult LockLockEntity(int id, Guid lockId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id < 1)
-            {
-                return BadRequest();
-            }
-
-            EntityBase lockEntity = db.MeasureUnits.Find(id);
-
-            if (lockEntity == null)
-            {
-                return NotFound();
-            }
-
-            if (lockEntity.LockId != null)
-                return Ok(false);
-
-            lockEntity.LockId = lockId;
-
-            try
-            {
-                db.SaveChanges();
-
-                return Ok(true);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EntityLockIdExists(lockId))
-                {
-                    return Ok(true);
-                }
-                else
-                {
-                    return Ok(false);
-                }
-            }
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

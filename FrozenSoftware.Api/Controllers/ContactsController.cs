@@ -1,5 +1,6 @@
 ﻿using FrozenSoftware.Api.Models;
 using FrozenSoftware.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace FrozenSoftware.Api.Controllers
         private FrozenSoftwareApiContext db = new FrozenSoftwareApiContext();
 
         // GET: api/Contacts
-        public IQueryable<Contact> GetContacts()
+        public List<Contact> GetContacts()
         {
-            return db.Contacts;
+            return db.Contacts.ToList();
         }
 
         // GET: api/Contacts/5
@@ -32,6 +33,18 @@ namespace FrozenSoftware.Api.Controllers
             return Ok(contact);
         }
 
+        [ResponseType(typeof(Contact))]
+        public IHttpActionResult GetContactByCompanyId(int companyId)
+        {
+            Contact contact = db.Contacts.FirstOrDefault(x => x.CompanyId == companyId);
+            if (contact == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(contact);
+        }
+        
         // PUT: api/Contacts/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutContact(int id, Contact contact)
@@ -67,8 +80,6 @@ namespace FrozenSoftware.Api.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-
-
         // POST: api/Contacts
         [ResponseType(typeof(Contact))]
         public IHttpActionResult PostContact(Contact contact)
@@ -99,7 +110,7 @@ namespace FrozenSoftware.Api.Controllers
 
             return Ok(contact);
         }
- 
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -99,51 +99,6 @@ namespace FrozenSoftware.Api.Controllers
             return Ok(documentNumber);
         }
 
-        [HttpPut]
-        [ResponseType(typeof(bool))]
-        public IHttpActionResult LockLockEntity(int id, Guid lockId)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id < 1)
-            {
-                return BadRequest();
-            }
-
-            EntityBase lockEntity = db.DocumentNumbers.Find(id);
-
-            if (lockEntity == null)
-            {
-                return NotFound();
-            }
-
-            if (lockEntity.LockId != null)
-                return Ok(false);
-
-            lockEntity.LockId = lockId;
-
-            try
-            {
-                db.SaveChanges();
-
-                return Ok(true);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!EntityLockIdExists(lockId))
-                {
-                    return Ok(true);
-                }
-                else
-                {
-                    return Ok(false);
-                }
-            }
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
