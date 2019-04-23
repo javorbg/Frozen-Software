@@ -13,11 +13,16 @@ namespace FrozenSoftware.MainData
         public DocumentStatusTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer) 
             : base(regionManger, unityContainer)
         {
-            DocumentStatuses = DummyDataContext.Context.DocumentStatuses;
-            this.ParentViewName = nameof(MainDataRibbonTabItem);
-            this.HasEditButtons = false;
+            ParentViewName = nameof(MainDataRibbonTabItem);
+            HasEditButtons = false;
         }
 
         public ObservableCollection<DocumentStatus> DocumentStatuses { get; set; }
+
+        public async override void InitializeData()
+        {
+            var buffer = await this.ApiClient.GetAllDocumentStatusesAsync();
+            DocumentStatuses = new ObservableCollection<DocumentStatus>(buffer);
+        }
     }
 }

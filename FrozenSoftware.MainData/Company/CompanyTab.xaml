@@ -10,8 +10,9 @@
          mc:Ignorable="d" 
          d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid Margin="2" SelectedIndex="{Binding SelectedIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  ItemsSource="{Binding Companies}" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid Margin="2" SelectedItem="{Binding SelectedEntity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Companies, IsAsync=True}" IsReadOnly="True" AutoGenerateColumns="False"
+                  SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Code}" Header="Code"/>
                 <DataGridTextColumn Binding="{Binding CompanyName}" Header="Company name"/>

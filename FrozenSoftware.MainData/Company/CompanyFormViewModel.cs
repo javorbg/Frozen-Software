@@ -1,6 +1,7 @@
 ﻿using FrozenSoftware.Controls;
 using FrozenSoftware.Models;
 using PropertyChanged;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -24,40 +25,72 @@ namespace FrozenSoftware.MainData
         {
             base.Initialize(entityId, actionType, additionalData);
 
-            Countries = DummyDataContext.Context.Countries;
+            Countries = new ObservableCollection<Country>(ApiClient.GetAllCountriesAsync().Result);
 
             switch (actionType)
             {
                 case ActionType.Add:
-                    int lastId = 1;
-                    if (DummyDataContext.Context.Companies.Count > 0)
-                        lastId = DummyDataContext.Context.Companies.Select(x => x.Id).Max() + 1;
 
-                    Entity = new Company() { Id = lastId };
-                    ContactEntity = new Contact() { Company = Entity, CompanyId = Entity.Id };
+                    Entity = new Company();
+                    ContactEntity = new Contact() { CompanyId = Entity.Id };
                     break;
                 case ActionType.Edit:
-                    Entity = DummyDataContext.Context.Companies.First(x => x.Id == entityId.Value);
-                    ContactEntity = DummyDataContext.Context.Contacts.First(x => x.CompanyId == entityId.Value);
+                    LockId = Guid.NewGuid();
+
+                    Entity = ApiClient.GetCompanyAsync(entityId.Value).Result;
+                    bool reslut = ApiClient.LockEntityAsync(Entity.Id, LockId, true, "Companies").Result;
+                    ContactEntity = ApiClient.GetContactByCompanyIdAsync(entityId.Value).Result;
+
+                    IsReadOnly = !reslut;
+                    RaisePropertyChanged(nameof(IsReadOnly));
 
                     if (ContactEntity == null)
-                        ContactEntity = new Contact() { Company = Entity, CompanyId = Entity.Id };
+                        ContactEntity = new Contact() { CompanyId = Entity.Id };
                     break;
             }
         }
 
-        protected override void OnConfirmCommand()
+        protected async override void OnConfirmCommand()
         {
-            if (ActionType == ActionType.Add)
+
+            try
             {
-                DummyDataContext.Context.Companies.Add(Entity);
-                DummyDataContext.Context.Contacts.Add(ContactEntity);
+                switch (ActionType)
+                {
+                    case ActionType.Add:
+                        Entity = await ApiClient.AddCompanyAsync(Entity);
+                        ContactEntity.Company = null;
+                        ContactEntity.CompanyId = Entity.Id;
+                        await ApiClient.AddContactAsync(ContactEntity);
+                        break;
+                    case ActionType.Edit:
+                        await ApiClient.UpdateComapnyAsync(Entity.Id, Entity);
+                        await ApiClient.UpdateContactAsync(Entity.Id, ContactEntity);
+                        await ApiClient.LockEntityAsync(Entity.Id, LockId, false, "Companies");
+                        break;
+                }
+
+                DialogResult = true;
+
+                if (Close != null)
+                    Close.Invoke();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        protected async override void OnCancelCommand()
+        {
+            try
+            {
+                await ApiClient.LockEntityAsync(Entity.Id, LockId, false, "Companies");
+            }
+            catch (Exception)
+            {
             }
 
-            DialogResult = true;
-
-            if (Close != null)
-                Close.Invoke();
+            base.OnCancelCommand();
         }
     }
 }

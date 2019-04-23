@@ -13,11 +13,17 @@ namespace FrozenSoftware.MainData
         public CountryTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer) :
             base(regionManger, unityContainer)
         {
-            this.Countries = DummyDataContext.Context.Countries;
-            this.ParentViewName = nameof(MainDataRibbonTabItem);
-            this.HasEditButtons = false;
+
+            ParentViewName = nameof(MainDataRibbonTabItem);
+            HasEditButtons = false;
         }
 
         public ObservableCollection<Country> Countries { get; set; }
+
+        public async override void InitializeData()
+        {
+            var buffer = await this.ApiClient.GetAllCountriesAsync();
+            Countries = new ObservableCollection<Country>(buffer);
+        }
     }
 }

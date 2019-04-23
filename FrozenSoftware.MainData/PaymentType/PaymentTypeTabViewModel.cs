@@ -13,11 +13,16 @@ namespace FrozenSoftware.MainData
         public PaymentTypeTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer) : 
             base(regionManger, unityContainer)
         {
-            PaymentTypes = DummyDataContext.Context.PaymentTypes;
             this.ParentViewName = nameof(MainDataRibbonTabItem);
             this.HasEditButtons = false;
         }
 
         public ObservableCollection<PaymentType> PaymentTypes { get; set; }
+
+        public async override void InitializeData()
+        {
+            var buffer = await this.ApiClient.GetAllPaymentTypesAsync();
+            PaymentTypes = new ObservableCollection<PaymentType>(buffer);
+        }
     }
 }

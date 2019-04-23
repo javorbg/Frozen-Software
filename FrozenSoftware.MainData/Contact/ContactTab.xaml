@@ -10,7 +10,7 @@
          mc:Ignorable="d" 
          d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid Margin="2" ItemsSource="{Binding Contacts}" IsReadOnly="True" AutoGenerateColumns="False">
+        <DataGrid Margin="2" ItemsSource="{Binding Contacts, IsAsync=True}" IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Name"/>
                 <DataGridTextColumn Binding="{Binding Surname}" Header="Surname"/>
