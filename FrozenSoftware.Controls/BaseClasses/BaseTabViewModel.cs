@@ -12,7 +12,9 @@ namespace FrozenSoftware.Controls
     [ImplementPropertyChanged]
     public abstract class BaseTabViewModel : BindableBase, IParentViewName, IDataErrorInfo
     {
-        private object selectedItem;
+        private object selectedEntity;
+
+        private int selectedIndex;
 
         public BaseTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
         {
@@ -37,16 +39,16 @@ namespace FrozenSoftware.Controls
 
         public virtual int SelectedIndex { get; set; }
 
-        public object SelectedItem
+        public object SelectedEntity
         {
             get
             {
-                return selectedItem;
+                return selectedEntity;
             }
 
             set
             {
-                SetProperty(ref selectedItem, value);
+                SetProperty(ref selectedEntity, value);
                 EditCommand.RaiseCanExecuteChanged();
                 DeleteCommand.RaiseCanExecuteChanged();
             }
@@ -97,7 +99,7 @@ namespace FrozenSoftware.Controls
 
         protected virtual bool CanExecuteDeleteCommand()
         {
-            if (SelectedItem == null)
+            if (SelectedEntity == null)
                 return false;
 
             return true;
@@ -105,7 +107,7 @@ namespace FrozenSoftware.Controls
 
         protected virtual bool CanExecuteEditCommand()
         {
-            if (SelectedItem == null)
+            if (SelectedEntity == null)
                 return false;
 
             return true;

@@ -51,6 +51,8 @@ namespace FrozenSoftware.Controls
 
         public FrozenSoftwareWebApiClient ApiClient { get; set; }
 
+        protected Guid LockId { get; set; }
+
         protected int? EntityId { get; set; }
 
         public virtual string this[string columnName]

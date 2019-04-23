@@ -58,6 +58,7 @@ namespace FrozenSoftware
             {
                 tab = unityContainer.Resolve(viewType) as TabItem;
                 tab.IsSelected = true;
+                (tab.DataContext as BaseTabViewModel).InitializeData();
                 region.Add(tab, viewName);
             }
             else

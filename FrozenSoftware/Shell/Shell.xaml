@@ -8,7 +8,7 @@
                      xmlns:fluent="urn:fluent-ribbon"
                      prism:ViewModelLocator.AutoWireViewModel="True"
                      mc:Ignorable="d"
-                     Title="Shell" Height="450" Width="800" WindowState="Maximized">
+                     Title="FrozenSoftware" Height="450" Width="800" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

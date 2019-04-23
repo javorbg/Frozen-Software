@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Windows;
 using Unity;
 using Unity.Resolution;
-using System.Linq;
 
 namespace FrozenSoftware
 {
@@ -82,7 +81,6 @@ namespace FrozenSoftware
 
         private Window GetParentWindowBy(string parentName, Window paret)
         {
-
             foreach (Window item in Application.Current.Windows)
             {
                 string windowTypeName = item.GetType().Name;
