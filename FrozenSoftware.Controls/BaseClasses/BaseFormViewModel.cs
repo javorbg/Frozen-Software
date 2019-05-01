@@ -30,6 +30,12 @@ namespace FrozenSoftware.Controls
 
         public bool IsReadOnly { get; set; }
 
+        [DependsOn("IsReadOnly")]
+        public bool IsEnabled
+        {
+            get { return !IsReadOnly; }
+        }
+
         public virtual ActionType ActionType
         {
             get

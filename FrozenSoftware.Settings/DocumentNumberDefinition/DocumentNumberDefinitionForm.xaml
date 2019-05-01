@@ -4,10 +4,61 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:prism="http://prismlibrary.com/"
+        xmlns:controls="FSControls"
+        xmlns:toolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="Document number definition form" Height="450" Width="800">
     <Grid Name="MainArea" Grid.IsSharedSizeScope="True">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="T1"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto" SharedSizeGroup="T1"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="_Name" Margin="2"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="" Margin="2" IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"/>
+      
         
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="_Start date" Margin="2"/>
+        <DatePicker Grid.Row="1" Grid.Column="1" Margin="2" IsEnabled="{Binding IsEnabled,Mode=TwoWay}"/>
+        <TextBlock Grid.Row="1" Grid.Column="2" Text="_End date" Margin="2"/>
+        <DatePicker Grid.Row="1" Grid.Column="3" Margin="2" IsEnabled="{Binding IsEnabled,Mode=TwoWay}"/>
+        
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="_Has date" Margin="2"/>
+        <CheckBox Grid.Row="2" Grid.Column="1" Margin="2" VerticalAlignment="Center" IsEnabled="{Binding IsEnabled,Mode=TwoWay}"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="_Date format" Margin="2" />
+        <ComboBox  Grid.Row="2" Grid.Column="3" Margin="2" IsEnabled="{Binding IsEnabled,Mode=TwoWay}"/>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="_Numbers count" Margin="2"/>
+        <toolkit:IntegerUpDown Minimum="1" Maximum="8" Grid.Row="3" Grid.Column="1" Margin="2" IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="_Text constant" Margin="2"/>
+        <TextBox  Grid.Row="3" Grid.Column="3" Margin="2" IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"/>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="_Numbers position" Margin="2"/>
+        <toolkit:IntegerUpDown Grid.Row="4" Grid.Column="1" Margin="2"  Minimum="1" Maximum="3" IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"/>
+        <TextBlock Grid.Row="4" Grid.Column="2" Text="_Text constant position" Margin="2"/>
+        <toolkit:IntegerUpDown Grid.Row="4" Grid.Column="3" Margin="2"  Minimum="1" Maximum="3" IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"/>
+        
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="_Date position" Margin="2"/>
+        <toolkit:IntegerUpDown Grid.Row="5" Grid.Column="1" Margin="2"  Minimum="1" Maximum="3" IsReadOnly="{Binding IsReadOnly,Mode=TwoWay}"/>
+        <TextBlock Grid.Row="5" Grid.Column="2" Text="_Preview"  Margin="2"/>
+        <TextBox Grid.Row="5" Grid.Column="3" Margin="2" Text="{Binding NumberPreview}"   IsReadOnly="True"/>
+
+
+
+
+        <controls:ConfirmControl Grid.Row="33" Grid.ColumnSpan="4" HorizontalAlignment="Right" VerticalAlignment="Center"/>
     </Grid>
 </Window>

@@ -1,19 +1,41 @@
 ﻿using FrozenSoftware.Controls;
 using FrozenSoftware.Models;
-using Prism.Regions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Unity;
 
 namespace FrozenSoftware.Settings
 {
     public class DocumentNumberDefinitionFormViewModel : BaseFormViewModel
     {
+        public DocumentNumberDefinitionFormViewModel()
+        {
+        }
+
         public DocumentNumberDefinition Entity { get; set; }
 
-        public override void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
+        public string Name { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+
+        public bool HasDate { get; set; }
+
+        public string DateFormat { get; set; }
+
+        public string TextConstant { get; set; }
+
+        public int NumbersCount { get; set; }
+
+        public int NumbersPosition { get; set; }
+
+        public int? TextConstantPostion { get; set; }
+
+        public int? DatePosition { get; set; }
+
+        public string NumberPreview { get; set; }
+
+        protected override void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
         {
             base.Initialize(entityId, actionType, additionalData);
 
@@ -23,9 +45,9 @@ namespace FrozenSoftware.Settings
                     Entity = new DocumentNumberDefinition();
                     break;
                 case ActionType.Edit:
-                    var t = ApiClient.ApiDocumentnumberdefinitionsGetAsync(entityId.Value);
-                    t.Wait();
-                    Entity = t.Result;
+                    var task = ApiClient.GetDocumentNumberDefinitionAsync(entityId.Value);
+                    task.Wait();
+                    Entity = task.Result;
                     break;
             }
         }
@@ -37,10 +59,10 @@ namespace FrozenSoftware.Settings
                 switch (ActionType)
                 {
                     case ActionType.Add:
-                        ApiClient.ApiDocumentnumberdefinitionsPostAsync(Entity);
+                        ApiClient.AddDocumentNumberDefinitionAsync(Entity).Wait();
                         break;
                     case ActionType.Edit:
-                        ApiClient.ApiDocumentnumberdefinitionsPutAsync(Entity.Id, Entity);
+                        ApiClient.UpdateDocumentNumberDefinitionsAsync(Entity.Id, Entity).Wait();
                         break;
                 }
 
@@ -48,13 +70,26 @@ namespace FrozenSoftware.Settings
 
                 if (Close != null)
                     Close.Invoke();
-
             }
-
             catch (Exception e)
             {
                 WindowHandler.WindowHandlerInstance.ShowMessage(e.Message, this.GetType().Name, UnityContainer);
             }
         }
+
+        private void SetData()
+        {
+            Name = Entity.Name;
+            StartDate = Entity.StartDate;
+            EndDate = Entity.EndDate;
+            HasDate = Entity.HasDate;
+            DateFormat = Entity.DateFormat;
+            NumbersCount = Entity.NumbersCount;
+            TextConstant = Entity.TextConstant;
+            NumbersPosition = Entity.NumberPosition;
+            TextConstantPostion = Entity.TextConstantPosition;
+            DatePosition = Entity.DatePosition;
+        }
     }
 }
+

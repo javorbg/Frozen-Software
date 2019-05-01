@@ -22,7 +22,7 @@ namespace FrozenSoftware.Settings
         {
             try
             {
-                var docNumbDefinitions = await ApiClient.ApiDocumentnumberdefinitionsGetAsync();
+                var docNumbDefinitions = await ApiClient.GetAllDocumentNumberDefinitionsAsync();
                 DocumentNumberDefinitions = new ObservableCollection<DocumentNumberDefinition>(docNumbDefinitions);
             }
             catch (Exception e)
@@ -48,7 +48,7 @@ namespace FrozenSoftware.Settings
             bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {documentNumberDefinition.Name}?", this.GetType().Name, UnityContainer, "Document number definition");
 
             if (result == true)
-                ApiClient.ApiDocumentnumberdefinitionsDeleteAsync(documentNumberDefinition.Id);
+                ApiClient.DeleteDocumentNumberDefinitionsAsync(documentNumberDefinition.Id).Wait();
 
             InitializeData();
         }
