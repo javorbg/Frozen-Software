@@ -1,8 +1,8 @@
 ﻿using FrozenSoftware.Controls;
 using FrozenSoftware.Models;
 using Prism.Regions;
+using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Unity;
 
 namespace FrozenSoftware.Sales
@@ -12,12 +12,25 @@ namespace FrozenSoftware.Sales
         public GoodTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
             : base(regionManger, unityContainer)
         {
-            Goods = DummyDataContext.Context.Goods;
+
+
             ParentViewName = nameof(SalesRibbonTabItem);
             HasEditButtons = true;
         }
 
         public ObservableCollection<Good> Goods { get; set; }
+
+        public async override void InitializeData()
+        {
+            try
+            {
+                var buffer = await this.ApiClient.GetAllGoodsAsync();
+                Goods = new ObservableCollection<Good>(buffer);
+            }
+            catch (Exception)
+            {
+            }
+        }
 
         protected override void OnAddCommand()
         {
@@ -26,19 +39,18 @@ namespace FrozenSoftware.Sales
 
         protected override void OnEditCommand()
         {
-            Good good = Goods[SelectedIndex];
-
-            WindowHandler.WindowHandlerInstance.ShowWindow(good.Id, ActionType.Edit, typeof(GoodForm), UnityContainer, this.GetType().Name);
+            WindowHandler.WindowHandlerInstance.ShowWindow(SelectedEntity.Id, ActionType.Edit, typeof(GoodForm), UnityContainer, this.GetType().Name);
+            InitializeData();
         }
 
         protected override void OnDeleteCommand()
         {
-            Good good = Goods[SelectedIndex];
-            bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {good.Name}?", this.GetType().Name, UnityContainer, "Company");
+            bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {(SelectedEntity as Good).Name}?", this.GetType().Name, UnityContainer, "Company");
 
             if (result == true)
             {
-                DummyDataContext.Context.Goods.Remove(good);
+                this.ApiClient.DeleteGoodAsync(SelectedEntity.Id).Wait();
+                InitializeData();
             }
         }
     }

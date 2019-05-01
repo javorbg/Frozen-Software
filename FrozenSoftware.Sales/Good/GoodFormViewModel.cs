@@ -1,10 +1,8 @@
 ﻿using FrozenSoftware.Controls;
 using FrozenSoftware.Models;
-using Prism.Regions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using Unity;
 
 namespace FrozenSoftware.Sales
 {
@@ -14,39 +12,63 @@ namespace FrozenSoftware.Sales
 
         public ObservableCollection<MeasureUnit> MeasureUnits { get; set; }
 
-        public override void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
+        protected override void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
         {
             base.Initialize(entityId, actionType, additionalData);
 
-            MeasureUnits = DummyDataContext.Context.MeasureUnits;
+            MeasureUnits = new ObservableCollection<MeasureUnit>(ApiClient.GetAllMeasureUnitsAsync().Result);
 
             switch (actionType)
             {
                 case ActionType.Add:
-                    int lastId = 1;
-
-                    if (DummyDataContext.Context.Goods.Count > 0)
-                        lastId = DummyDataContext.Context.Goods.Select(x => x.Id).Max() + 1;
-
-                    Entity = new Good() { Id = lastId };
+                    Entity = new Good();
                     break;
                 case ActionType.Edit:
-                    Entity = DummyDataContext.Context.Goods.First(x => x.Id == entityId.Value);
+                    Entity = ApiClient.GetGoodAsync(entityId.Value).Result;
+                    bool reslut = ApiClient.LockEntityAsync(Entity.Id, LockId, true, "Goods").Result;
+                    IsReadOnly = !reslut;
+                    RaisePropertyChanged(nameof(IsReadOnly));
+
                     break;
             }
         }
 
-        protected override void OnConfirmCommand()
+        protected async override void OnConfirmCommand()
         {
-            if (ActionType == ActionType.Add)
+            try
             {
-                DummyDataContext.Context.Goods.Add(Entity);
+                switch (ActionType)
+                {
+                    case ActionType.Add:
+                        Entity = await ApiClient.AddGoodtAsync(Entity);
+                        break;
+                    case ActionType.Edit:
+                        await ApiClient.UpdateGoodAsync(Entity.Id, Entity);
+                        await ApiClient.LockEntityAsync(Entity.Id, LockId, false, "Goods");
+                        break;
+                }
+               
+                DialogResult = true;
+
+                if (Close != null)
+                    Close.Invoke();
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        protected async override void OnCancelCommand()
+        {
+            try
+            {
+                await ApiClient.LockEntityAsync(Entity.Id, LockId, false, "Goods");
+            }
+            catch (Exception)
+            {
             }
 
-            DialogResult = true;
-
-            if (Close != null)
-                Close.Invoke();
+            base.OnCancelCommand();
         }
     }
 }

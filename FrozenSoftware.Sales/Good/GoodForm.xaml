@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:controls="FSControls"
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
@@ -50,15 +52,6 @@
                           SelectedItem="{Binding Entity.MeasureUnit,Mode=TwoWay}"/>
         </Grid>
 
-        <Grid Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition SharedSizeGroup="ConfirmButtons"/>
-                <ColumnDefinition SharedSizeGroup="ConfirmButtons"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Ok" Width="80" Margin="5" Padding="2"
-                    Command="{Binding ConfirmCommand}"/>
-            <Button Grid.Column="1" Content="Cancel" Margin="5" Padding="2"
-                    Command="{Binding CancelCommand}"/>
-        </Grid>
+        <controls:ConfirmControl Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
     </Grid>
 </Window>

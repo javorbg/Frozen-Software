@@ -13,11 +13,11 @@ namespace FrozenSoftware.Sales
     public class PriceListFormViewModel : BaseFormViewModel
     {
         private bool isActive;
+
         private PriceListItem selectedPriceListItem;
 
         public PriceListFormViewModel()
         {
-            AddPriceListItemCommand = new DelegateCommand(OnAddPriceListItemCommand, () => this.ActionType == ActionType.Edit);
         }
 
         public PriceListItem SelectedPriceListItem
@@ -65,53 +65,53 @@ namespace FrozenSoftware.Sales
             }
         }
 
-        public override void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
+        protected override void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
         {
-            base.Initialize(entityId, actionType, additionalData);
-
-            PriceListItems = new ObservableCollection<PriceListItem>();
-            Goods = DummyDataContext.Context.Goods;
-
-            switch (actionType)
+            try
             {
-                case ActionType.Add:
-                    int lastId = 1;
 
-                    if (DummyDataContext.Context.PriceLists.Count > 0)
-                        lastId = DummyDataContext.Context.PriceLists.Select(x => x.Id).Max() + 1;
+                base.Initialize(entityId, actionType, additionalData);
+                Goods = new ObservableCollection<Good>(ApiClient.GetAllGoodsAsync().Result);
 
-                    Entity = new PriceList() { Id = lastId, StartDate = DateTime.Today, EndDate = DateTime.Today.AddMonths(12) };
-                    PriceListItems = new ObservableCollection<PriceListItem>();
-                    UpdatePriceListItems(Goods);
+                switch (ActionType)
+                {
+                    case ActionType.Add:
+                        PriceListItems = new ObservableCollection<PriceListItem>();
+                        Entity = new PriceList() { StartDate = DateTime.Today, EndDate = DateTime.Today.AddMonths(12) };
+                        UpdatePriceListItems(Goods);
+                        break;
+                    case ActionType.Edit:
+                        Entity = ApiClient.GetPriceListAsync(entityId.Value).Result;
 
-                    break;
-                case ActionType.ReadOnly:
-                case ActionType.Edit:
-                    Entity = DummyDataContext.Context.PriceLists.First(x => x.Id == entityId.Value);
-                    var priceListItems = DummyDataContext.Context.PriceListItems.Where(x => x.PriceListId == entityId.Value);
-                    PriceListItems = new ObservableCollection<PriceListItem>(priceListItems);
-                    break;
+                        var priceListItems = ApiClient.GetAllPriceListItemsByAsync(entityId.Value).Result;
+
+                        if (priceListItems != null)
+                            PriceListItems = new ObservableCollection<PriceListItem>(priceListItems);
+
+                        break;
+                }
             }
-
-            AddPriceListItemCommand.RaiseCanExecuteChanged();
+            catch (Exception)
+            {
+            }
         }
 
-        protected override void OnConfirmCommand()
+        protected async override void OnConfirmCommand()
         {
             if (PriceListItems == null || PriceListItems.Count == 0)
                 return;
 
             if (string.IsNullOrEmpty(Entity.Name))
                 return;
-
-            if (ActionType == ActionType.Add)
+            switch (ActionType)
             {
-                DummyDataContext.Context.PriceLists.Add(Entity);
-                DummyDataContext.Context.PriceListItems.AddRange(PriceListItems);
+                case ActionType.Add:
+                    await ApiClient.AddPriceListAsync(Entity, PriceListItems);
+                    break;
+                case ActionType.Edit:
+                    await ApiClient.UpdatePriceListAsync(Entity.Id, Entity, PriceListItems);
+                    break;
             }
-
-            if (ActionType == ActionType.Edit && NewPriceListItems != null && NewPriceListItems.Count > 0)
-                DummyDataContext.Context.PriceListItems.AddRange(NewPriceListItems);
 
             DialogResult = true;
 
@@ -121,29 +121,19 @@ namespace FrozenSoftware.Sales
 
         private void UpdatePriceListItems(IEnumerable<Good> goods)
         {
-            int lastPriceListItemId = 1;
-            int localLastId = 1;
             NewPriceListItems = new ObservableCollection<PriceListItem>();
 
             foreach (Good good in goods)
             {
-                if (DummyDataContext.Context.PriceLists.Count > 0)
-                    lastPriceListItemId = DummyDataContext.Context.PriceLists.Select(x => x.Id).Max() + 1;
-
-                if (PriceListItems.Count > 0)
-                    localLastId = PriceListItems.Select(x => x.Id).Max() + 1;
-
-                lastPriceListItemId = Math.Max(lastPriceListItemId, localLastId);
-
                 PriceListItem newPriceListItem = new PriceListItem()
                 {
-                    Id = lastPriceListItemId,
                     Good = good,
                     GoodId = good.Id,
-                    PriceList = Entity,
                     PriceListId = Entity.Id,
                 };
+
                 PriceListItems.Add(newPriceListItem);
+
                 if (ActionType == ActionType.Edit)
                     NewPriceListItems.Add(newPriceListItem);
             }
@@ -152,6 +142,7 @@ namespace FrozenSoftware.Sales
         private void OnAddPriceListItemCommand()
         {
             var currentGoods = PriceListItems.Select(x => x.Good);
+
             var goods = Goods.Except(currentGoods);
 
             if (goods == null || goods.Count() == 0)

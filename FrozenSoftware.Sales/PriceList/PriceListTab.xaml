@@ -10,10 +10,10 @@
          mc:Ignorable="d"  
          d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid Margin="2" ItemsSource="{Binding PriceLists}" 
-                  SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
-                  IsReadOnly="True" AutoGenerateColumns="False"
-                  SelectedIndex="{Binding SelectedIndex,Mode=TwoWay}">
+        <DataGrid Margin="2" ItemsSource="{Binding PriceLists,IsAsync=True}" 
+                  SelectedItem="{Binding SelectedEntity,Mode=TwoWay}"
+                  SelectionMode="Single"
+                  IsReadOnly="True" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="_Name"/>
                 <DataGridTextColumn Binding="{Binding StartDate}" Header="_Start date"/>

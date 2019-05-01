@@ -4,19 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:control="clr-namespace:FrozenSoftware.Controls;assembly=FrozenSoftware.Controls"
-        xmlns:controls="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:toolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        xmlns:controls="FSControls"
         prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
         Title="_Price list" Height="450" Width="800">
     <Window.Resources>
-        <control:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
-        <DataTemplate x:Key="GoodCellEditTempalte">
-           
-        </DataTemplate>
-
-        <DataTemplate x:Key="NumberInput">
-        </DataTemplate>
+        <controls:InvertedBooleanConverter x:Key="InvertedBooleanConverter"/>
     </Window.Resources>
     <Grid Name="MainArea" Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
@@ -68,7 +62,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <control:PathButton Command="{Binding AddPriceListItemCommand}" Grid.Column="0" Icon="{DynamicResource AddIcon}" ToolTip="_Update price list"/>
+                <controls:PathButton Command="{Binding AddPriceListItemCommand}" Grid.Column="0" Icon="{DynamicResource AddIcon}" ToolTip="_Update price list"/>
             </Grid>
             <DataGrid x:Name="priceListItemsDataGrid" Grid.Row="1" SelectedItem="{Binding SelectedPriceListItem,Mode=TwoWay}" 
                       ItemsSource="{Binding PriceListItems,NotifyOnValidationError=True}"
@@ -94,7 +88,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <controls:DecimalUpDown FormatString="F2" Value="{Binding BasePrice,Mode=TwoWay}" Minimum="0" ShowButtonSpinner="False" Increment="1" />
+                                <toolkit:DecimalUpDown FormatString="F2" Value="{Binding BasePrice,Mode=TwoWay}" Minimum="0" ShowButtonSpinner="False" Increment="1" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -107,7 +101,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <controls:DecimalUpDown FormatString="F2" Value="{Binding EndPrice,Mode=TwoWay}" Minimum="0" ShowButtonSpinner="False" Increment="1" />
+                                <toolkit:DecimalUpDown FormatString="F2" Value="{Binding EndPrice,Mode=TwoWay}" Minimum="0" ShowButtonSpinner="False" Increment="1" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -120,7 +114,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <controls:IntegerUpDown Value="{Binding Vat,Mode=TwoWay}"  Minimum="0" ShowButtonSpinner="False" Increment="1" />
+                                <toolkit:IntegerUpDown Value="{Binding Vat,Mode=TwoWay}"  Minimum="0" ShowButtonSpinner="False" Increment="1" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -133,7 +127,7 @@
                         </DataGridTemplateColumn.CellTemplate>
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
-                                <controls:IntegerUpDown Value="{Binding Discount,Mode=TwoWay}" Minimum="0" ShowButtonSpinner="False" Increment="1" />
+                                <toolkit:IntegerUpDown Value="{Binding Discount,Mode=TwoWay}" Minimum="0" ShowButtonSpinner="False" Increment="1" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -141,15 +135,6 @@
             </DataGrid>
         </Grid>
 
-        <Grid Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition SharedSizeGroup="ConfirmButtons"/>
-                <ColumnDefinition SharedSizeGroup="ConfirmButtons"/>
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="_Ok" Width="80" Margin="5" Padding="2"
-                    Command="{Binding ConfirmCommand}"/>
-            <Button Grid.Column="1" Content="_Cancel" Margin="5" Padding="2"
-                    Command="{Binding CancelCommand}"/>
-        </Grid>
+        <controls:ConfirmControl Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center"/>
     </Grid>
 </Window>
