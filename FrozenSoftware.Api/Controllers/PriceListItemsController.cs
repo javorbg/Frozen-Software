@@ -1,5 +1,6 @@
 ﻿using FrozenSoftware.Api.Models;
 using FrozenSoftware.Models;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace FrozenSoftware.Api.Controllers
         private FrozenSoftwareApiContext db = new FrozenSoftwareApiContext();
 
         // GET: api/PriceListItems
-        public IQueryable<PriceListItem> GetPriceListItems()
+        public IEnumerable<PriceListItem> GetPriceListItems()
         {
-            return db.PriceListItems;
+            return db.PriceListItems.Include(x => x.Good).Include(x => x.Good.MeasureUnit).ToList();
         }
 
         // GET: api/PriceListItems/5
@@ -24,6 +25,7 @@ namespace FrozenSoftware.Api.Controllers
         public IHttpActionResult GetPriceListItem(int id)
         {
             PriceListItem priceListItem = db.PriceListItems.Find(id);
+
             if (priceListItem == null)
             {
                 return NotFound();
@@ -98,6 +100,18 @@ namespace FrozenSoftware.Api.Controllers
             return Ok(priceListItem);
         }
 
+        // GET: api/PriceListItems
+        public IEnumerable<PriceListItem> GetPriceListItems(int priceListId)
+        {
+            if (priceListId == 0)
+            {
+                return null;
+            }
+
+            return db.PriceListItems.Where(x => x.PriceListId == priceListId)
+                .Include(x => x.Good)
+                .Include(x => x.Good.MeasureUnit).ToList();
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

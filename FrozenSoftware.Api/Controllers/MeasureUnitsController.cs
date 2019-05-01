@@ -1,6 +1,7 @@
 ﻿using FrozenSoftware.Api.Models;
 using FrozenSoftware.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace FrozenSoftware.Api.Controllers
         private FrozenSoftwareApiContext db = new FrozenSoftwareApiContext();
 
         // GET: api/MeasureUnits
-        public IQueryable<MeasureUnit> GetMeasureUnits()
+        public IEnumerable<MeasureUnit> GetMeasureUnits()
         {
-            return db.MeasureUnits;
+            return db.MeasureUnits.ToList();
         }
 
         // GET: api/MeasureUnits/5

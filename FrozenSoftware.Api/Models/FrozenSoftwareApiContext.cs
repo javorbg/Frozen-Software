@@ -13,6 +13,7 @@ namespace FrozenSoftware.Api.Models
     
         public FrozenSoftwareApiContext() : base("name=FrozenSoftwareApiContext")
         {
+            Configuration.ProxyCreationEnabled = false;
         }
 
         public System.Data.Entity.DbSet<FrozenSoftware.Models.Company> Companies { get; set; }

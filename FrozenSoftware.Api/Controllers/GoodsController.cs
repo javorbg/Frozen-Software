@@ -1,6 +1,7 @@
 ﻿using FrozenSoftware.Api.Models;
 using FrozenSoftware.Models;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -15,9 +16,9 @@ namespace FrozenSoftware.Api.Controllers
         private FrozenSoftwareApiContext db = new FrozenSoftwareApiContext();
 
         // GET: api/Goods
-        public IQueryable<Good> GetGoods()
+        public IEnumerable<Good> GetGoods()
         {
-            return db.Goods;
+            return db.Goods.Include(x => x.MeasureUnit).ToList();
         }
 
         // GET: api/Goods/5
@@ -31,6 +32,15 @@ namespace FrozenSoftware.Api.Controllers
             }
 
             return Ok(good);
+        }
+
+        [HttpGet]
+        [Route("api/Goods/Count")]
+        public int GetGoodCount()
+        {
+            string countName = $"select COUNT(*) from {nameof(db.Goods)}";
+
+            return db.Database.SqlQuery<int>(countName).FirstOrDefault();
         }
 
         // PUT: api/Goods/5

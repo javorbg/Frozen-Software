@@ -32,22 +32,34 @@ namespace FrozenSoftware.Api.Controllers
 
             return Ok(priceList);
         }
-
-        // PUT: api/PriceLists/5
+    
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPriceList(int id, PriceList priceList)
+        public IHttpActionResult PutPriceList(int id, [FromBody] PriceListJson priceListJson)
         {
+            if (priceListJson == null || priceListJson.PriceList == null || priceListJson.PriceList.Id < 1)
+            {
+                return BadRequest();
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != priceList.Id)
+            if (id != priceListJson.PriceList.Id)
             {
                 return BadRequest();
             }
 
-            db.Entry(priceList).State = EntityState.Modified;
+            db.Entry(priceListJson.PriceList).State = EntityState.Modified;
+
+            if (priceListJson.PriceListItems != null && priceListJson.PriceListItems.Count > 0)
+            {
+                foreach (PriceListItem priceListItem in priceListJson.PriceListItems)
+                {
+                    db.Entry(priceListItem).State = EntityState.Modified;
+                }
+            }
 
             try
             {
@@ -70,17 +82,32 @@ namespace FrozenSoftware.Api.Controllers
 
         // POST: api/PriceLists
         [ResponseType(typeof(PriceList))]
-        public IHttpActionResult PostPriceList(PriceList priceList)
+        public IHttpActionResult PostPriceList([FromBody]PriceListJson priceListJson)
         {
+            if (priceListJson == null || priceListJson.PriceList == null)
+            {
+                return BadRequest();
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.PriceLists.Add(priceList);
+            db.PriceLists.Add(priceListJson.PriceList);
+
+            if (priceListJson.PriceListItems != null && priceListJson.PriceListItems.Count > 0)
+            {
+                foreach (var item in priceListJson.PriceListItems)
+                {
+                    item.PriceList = priceListJson.PriceList;
+                    db.PriceListItems.Add(item);
+                }
+            }
+
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = priceList.Id }, priceList);
+            return CreatedAtRoute("DefaultApi", new { id = priceListJson.PriceList.Id }, priceListJson.PriceList);
         }
 
         // DELETE: api/PriceLists/5
