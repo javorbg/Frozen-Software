@@ -112,6 +112,7 @@ namespace FrozenSoftware.Api.Controllers
                 .Include(x => x.Good)
                 .Include(x => x.Good.MeasureUnit).ToList();
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

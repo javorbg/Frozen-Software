@@ -40,7 +40,7 @@ namespace FrozenSoftware
             windowVewiModel.Close = window.Close;
             ParameterOverride contructorParameter = new ParameterOverride("baseUrl", FrozenSoftwareWebApiClient.BaseApiUrl);
             windowVewiModel.ApiClient = unityContainer.Resolve<FrozenSoftwareWebApiClient>(contructorParameter);
-            windowVewiModel.Initialize(entityId, actionType, additionalData);
+            windowVewiModel.TryInitialize(entityId, actionType, additionalData);
             windowVewiModel.UnityContainer = unityContainer;
             window.ShowDialog();
 

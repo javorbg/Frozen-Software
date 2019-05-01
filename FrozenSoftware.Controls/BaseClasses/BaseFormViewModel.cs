@@ -63,7 +63,18 @@ namespace FrozenSoftware.Controls
             }
         }
 
-        public virtual void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
+        public virtual void TryInitialize(int? entityId, ActionType actionType, List<object> additionalData = null)
+        {
+            try
+            {
+                Initialize(entityId, actionType, additionalData);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        protected virtual void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
         {
             ActionType = actionType;
             EntityId = entityId;

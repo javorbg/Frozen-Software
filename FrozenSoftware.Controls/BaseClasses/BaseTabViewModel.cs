@@ -12,9 +12,7 @@ namespace FrozenSoftware.Controls
     [ImplementPropertyChanged]
     public abstract class BaseTabViewModel : BindableBase, IParentViewName, IDataErrorInfo
     {
-        private object selectedEntity;
-
-        private int selectedIndex;
+        private EntityBase selectedEntity;
 
         public BaseTabViewModel(IRegionManager regionManger, IUnityContainer unityContainer)
         {
@@ -39,7 +37,7 @@ namespace FrozenSoftware.Controls
 
         public virtual int SelectedIndex { get; set; }
 
-        public object SelectedEntity
+        public EntityBase SelectedEntity
         {
             get
             {
