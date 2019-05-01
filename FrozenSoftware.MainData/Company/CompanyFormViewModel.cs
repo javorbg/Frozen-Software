@@ -21,7 +21,7 @@ namespace FrozenSoftware.MainData
 
         public ObservableCollection<Country> Countries { get; set; }
 
-        public override void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
+        protected override void Initialize(int? entityId, ActionType actionType, List<object> additionalData = null)
         {
             base.Initialize(entityId, actionType, additionalData);
 

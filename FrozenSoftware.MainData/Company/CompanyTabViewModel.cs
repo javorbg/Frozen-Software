@@ -2,6 +2,7 @@
 using FrozenSoftware.Models;
 using Prism.Regions;
 using PropertyChanged;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Unity;
@@ -21,8 +22,14 @@ namespace FrozenSoftware.MainData
 
         public async override void InitializeData()
         {
-            var buffer = await this.ApiClient.GetAllCompaniesAsync();
-            Companies = new ObservableCollection<Company>(buffer);
+            try
+            {
+                var buffer = await this.ApiClient.GetAllCompaniesAsync();
+                Companies = new ObservableCollection<Company>(buffer);
+            }
+            catch (Exception)
+            {
+            }
         }
 
         protected override void OnAddCommand()
@@ -33,20 +40,17 @@ namespace FrozenSoftware.MainData
 
         protected override void OnEditCommand()
         {
-            Company company = Companies[SelectedIndex];
-
-            WindowHandler.WindowHandlerInstance.ShowWindow(company.Id, ActionType.Edit, typeof(CompanyForm), UnityContainer, this.GetType().Name);
+            WindowHandler.WindowHandlerInstance.ShowWindow(SelectedEntity.Id, ActionType.Edit, typeof(CompanyForm), UnityContainer, this.GetType().Name);
             InitializeData();
         }
 
-        protected async override void OnDeleteCommand()
+        protected override void OnDeleteCommand()
         {
-            Company company = Companies[SelectedIndex];
-            bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {company.CompanyName}?", this.GetType().Name, UnityContainer, "Company");
+            bool? result = WindowHandler.WindowHandlerInstance.ShowConfirm($"Do you want to delete {(SelectedEntity as Company).CompanyName}?", this.GetType().Name, UnityContainer, "Company");
 
             if (result == true)
             {
-                await this.ApiClient.DeleteCompanyAsync(company.Id);
+                this.ApiClient.DeleteCompanyAsync(SelectedEntity.Id).Wait();
                 InitializeData();
             }
         }

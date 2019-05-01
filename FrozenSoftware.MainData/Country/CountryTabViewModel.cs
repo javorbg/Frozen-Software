@@ -2,6 +2,7 @@
 using FrozenSoftware.Models;
 using Prism.Regions;
 using PropertyChanged;
+using System;
 using System.Collections.ObjectModel;
 using Unity;
 
@@ -22,8 +23,14 @@ namespace FrozenSoftware.MainData
 
         public async override void InitializeData()
         {
-            var buffer = await this.ApiClient.GetAllCountriesAsync();
-            Countries = new ObservableCollection<Country>(buffer);
+            try
+            {
+                var buffer = await this.ApiClient.GetAllCountriesAsync();
+                Countries = new ObservableCollection<Country>(buffer);
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }
