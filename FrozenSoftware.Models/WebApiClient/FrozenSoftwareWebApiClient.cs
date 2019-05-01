@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -22,7 +23,7 @@ namespace FrozenSoftware.Models
             this.baseUrl = baseUrl;
         }
 
-        public static string BaseApiUrl { get; set; } = "https://localhost";
+        public static string BaseApiUrl { get; set; } = "http://localhost";
 
         public string BaseUrl
         {
@@ -1858,7 +1859,7 @@ namespace FrozenSoftware.Models
             }
         }
 
-        public async Task<Good> AddGoodstAsync(Good good)
+        public async Task<Good> AddGoodtAsync(Good good)
         {
             var urlBuilder = new StringBuilder();
             urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : string.Empty).Append("/api/Goods");
@@ -2001,7 +2002,7 @@ namespace FrozenSoftware.Models
             }
         }
 
-        public async Task UpadateGoodAsync(int id, Good good)
+        public async Task UpdateGoodAsync(int id, Good good)
         {
             if (id < 1)
                 throw new ArgumentNullException("id");
@@ -2700,6 +2701,75 @@ namespace FrozenSoftware.Models
             }
         }
 
+        public async Task<ICollection<PriceListItem>> GetAllPriceListItemsByAsync(int priceListId)
+        {
+            var urlBuilder = new StringBuilder();
+            urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : string.Empty).Append("/api/PriceListItems?priceListId={priceListId}");
+            urlBuilder.Replace("{priceListId}", priceListId.ToString());
+
+            var client = new HttpClient();
+            try
+            {
+                using (var request = new HttpRequestMessage())
+                {
+                    request.Method = new HttpMethod("GET");
+                    request.Headers.Accept.Add(MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    PrepareRequest(client, request, urlBuilder);
+                    var url = urlBuilder.ToString();
+                    request.RequestUri = new Uri(url, UriKind.RelativeOrAbsolute);
+                    PrepareRequest(client, request, url);
+
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+                    try
+                    {
+                        var headers = Enumerable.ToDictionary(response.Headers, h => h.Key, h => h.Value);
+                        if (response.Content != null && response.Content.Headers != null)
+                        {
+                            foreach (var item in response.Content.Headers)
+                                headers[item.Key] = item.Value;
+                        }
+
+                        ProcessResponse(client, response);
+
+                        var status = ((int)response.StatusCode).ToString();
+                        if (status == "200")
+                        {
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            var result = default(ICollection<PriceListItem>);
+                            try
+                            {
+                                result = JsonConvert.DeserializeObject<ICollection<PriceListItem>>(responseData);
+                                return result;
+                            }
+                            catch (Exception exception)
+                            {
+                                throw new SwaggerException("Could not deserialize the response body.", (int)response.StatusCode, responseData, headers, exception);
+                            }
+                        }
+                        else
+                        if (status != "200" && status != "204")
+                        {
+                            var responseData = response.Content == null ? null : await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new SwaggerException("The HTTP status code of the response was not expected (" + (int)response.StatusCode + ").", (int)response.StatusCode, responseData, headers, null);
+                        }
+
+                        return default(ICollection<PriceListItem>);
+                    }
+                    finally
+                    {
+                        if (response != null)
+                            response.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (client != null)
+                    client.Dispose();
+            }
+        }
+
         public async Task<PriceListItem> AddPriceListItemAsync(PriceListItem priceListItem)
         {
             var urlBuilder = new StringBuilder();
@@ -3049,7 +3119,7 @@ namespace FrozenSoftware.Models
             }
         }
 
-        public async Task<PriceList> AddPriceListAsync(PriceList priceList)
+        public async Task<PriceList> AddPriceListAsync(PriceList priceList, ObservableCollection<PriceListItem> priceListItems)
         {
             var urlBuilder = new StringBuilder();
             urlBuilder.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : string.Empty).Append("/api/PriceLists");
@@ -3057,9 +3127,24 @@ namespace FrozenSoftware.Models
             var client = new HttpClient();
             try
             {
+                foreach (var item in priceListItems)
+                {
+                    item.Good = null;
+                }
+
                 using (var request = new HttpRequestMessage())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(priceList));
+                    
+
+                    PriceListJson json = new PriceListJson()
+                    {
+                        PriceList = priceList,
+                        PriceListItems = priceListItems,
+                    };
+
+                    string stringContent = JsonConvert.SerializeObject(json);
+
+                    var content = new StringContent(stringContent);
                     content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                     request.Content = content;
                     request.Method = new HttpMethod("POST");
@@ -3192,7 +3277,7 @@ namespace FrozenSoftware.Models
             }
         }
 
-        public async Task UpdatePriceListAsync(int id, PriceList priceList)
+        public async Task UpdatePriceListAsync(int id, PriceList priceList, ObservableCollection<PriceListItem> priceListItems)
         {
             if (id < 1)
                 throw new ArgumentNullException("id");
@@ -3204,9 +3289,21 @@ namespace FrozenSoftware.Models
             var client = new HttpClient();
             try
             {
+                foreach (var item in priceListItems)
+                {
+                    item.Good = null;
+                }
+
                 using (var request = new HttpRequestMessage())
                 {
-                    var content = new StringContent(JsonConvert.SerializeObject(priceList));
+                    PriceListJson json = new PriceListJson()
+                    {
+                        PriceList = priceList,
+                        PriceListItems = priceListItems,
+                    };
+
+                    string contentSting = JsonConvert.SerializeObject(json);
+                    var content = new StringContent(contentSting);
                     content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
                     request.Content = content;
                     request.Method = new HttpMethod("PUT");

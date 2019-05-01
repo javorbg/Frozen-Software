@@ -111,6 +111,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="WebApiClient\FrozenSoftwareWebApiClient.cs" />
+    <Compile Include="WebApiClient\PriceListJson.cs" />
     <Compile Include="WebApiClient\SwaggerException.cs" />
     <Compile Include="WebApiClient\SwaggerExceptionGeneric.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

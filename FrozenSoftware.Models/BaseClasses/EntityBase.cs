@@ -1,4 +1,5 @@
-﻿using PropertyChanged;
+﻿using Newtonsoft.Json;
+using PropertyChanged;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -13,6 +14,8 @@ namespace FrozenSoftware.Models
         [Key]
         public int Id { get; set; }
 
+        [JsonIgnore]
+        [NotMapped]
         public string Error { get; }
 
         public Guid? LockId { get; set; }
@@ -21,6 +24,7 @@ namespace FrozenSoftware.Models
         public byte[] RowVersion { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual string this[string columnName]
         {
             get
